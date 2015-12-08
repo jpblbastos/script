@@ -1,0 +1,146 @@
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<class>Form2</class>
+<widget class="Dialog">
+    <property name="name">
+        <cstring>Form2</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>1</x>
+            <y>4</y>
+            <width>800</width>
+            <height>500</height>
+        </rect>
+    </property>
+    <property name="minimumSize">
+        <size>
+            <width>800</width>
+            <height>500</height>
+        </size>
+    </property>
+    <property name="maximumSize">
+        <size>
+            <width>800</width>
+            <height>500</height>
+        </size>
+    </property>
+    <property name="caption">
+        <string>Form2</string>
+    </property>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>30</x>
+                <y>0</y>
+                <width>521</width>
+                <height>31</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Teste Geração Folha de Rosto</string>
+        </property>
+    </widget>
+    <widget class="CloseButton">
+        <property name="name">
+            <cstring>CloseButton1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>480</x>
+                <y>460</y>
+                <width>67</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>&amp;Cancel</string>
+        </property>
+    </widget>
+    <widget class="ExecButton">
+        <property name="name">
+            <cstring>ExecButton3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>560</x>
+                <y>460</y>
+                <width>71</width>
+                <height>31</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>&amp;ok</string>
+        </property>
+        <property name="associations" stdset="0">
+            <stringlist>
+                <string>@RadioButton1 @LineEdit3 @LineEdit4</string>
+            </stringlist>
+        </property>
+    </widget>
+    <widget class="TextEdit">
+        <property name="name">
+            <cstring>TextEdit1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>30</y>
+                <width>760</width>
+                <height>390</height>
+            </rect>
+        </property>
+        <property name="associations" stdset="0">
+            <stringlist>
+                <string>@widgetText</string>
+            </stringlist>
+        </property>
+    </widget>
+    <widget class="LineEdit">
+        <property name="name">
+            <cstring>LineEdit3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>89</x>
+                <y>446</y>
+                <width>140</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="associations" stdset="0">
+            <stringlist>
+                <string>@widgetText</string>
+            </stringlist>
+        </property>
+    </widget>
+    <widget class="ExecButton">
+        <property name="name">
+            <cstring>ExecButton2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>640</x>
+                <y>460</y>
+                <width>71</width>
+                <height>31</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>o&amp;k</string>
+        </property>
+        <property name="associations" stdset="0">
+            <stringlist>
+                <string>echo '@TextEdit1' &gt; /home/jota/tmp/999999
+echo &gt;&gt; /home/jota/tmp/999999
+echo CD = '@LineEdit3' &gt;&gt; /home/jota/tmp/999999
+
+zenity --info --title="getPlatao    - itsCode" --text="Eba"</string>
+            </stringlist>
+        </property>
+    </widget>
+</widget>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

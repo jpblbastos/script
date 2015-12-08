@@ -1,0 +1,790 @@
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<class>frm_envio</class>
+<widget class="Dialog">
+    <property name="name">
+        <cstring>frm_envio</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>591</width>
+            <height>559</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>.....::::: Zeus Envio de Sms :::::.....                     versão 1.0 beta</string>
+    </property>
+    <widget class="GroupBox">
+        <property name="name">
+            <cstring>GroupBox3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>590</width>
+                <height>61</height>
+            </rect>
+        </property>
+        <property name="paletteBackgroundPixmap">
+            <pixmap>image0</pixmap>
+        </property>
+        <property name="title">
+            <string></string>
+        </property>
+        <widget class="PixmapLabel">
+            <property name="name">
+                <cstring>PixmapLabel1</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>500</x>
+                    <y>0</y>
+                    <width>61</width>
+                    <height>55</height>
+                </rect>
+            </property>
+            <property name="backgroundOrigin">
+                <enum>ParentOrigin</enum>
+            </property>
+            <property name="pixmap">
+                <pixmap>image1</pixmap>
+            </property>
+            <property name="scaledContents">
+                <bool>true</bool>
+            </property>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>TextLabel3_2_2</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>110</x>
+                    <y>20</y>
+                    <width>290</width>
+                    <height>30</height>
+                </rect>
+            </property>
+            <property name="paletteForegroundColor">
+                <color>
+                    <red>101</red>
+                    <green>108</green>
+                    <blue>125</blue>
+                </color>
+            </property>
+            <property name="backgroundOrigin">
+                <enum>ParentOrigin</enum>
+            </property>
+            <property name="font">
+                <font>
+                    <pointsize>14</pointsize>
+                    <bold>1</bold>
+                </font>
+            </property>
+            <property name="text">
+                <string>ENVIO DE  SMS ZEUS</string>
+            </property>
+            <property name="alignment">
+                <set>WordBreak|AlignCenter</set>
+            </property>
+        </widget>
+    </widget>
+    <widget class="TabWidget">
+        <property name="name">
+            <cstring>TabWidget2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>100</y>
+                <width>570</width>
+                <height>450</height>
+            </rect>
+        </property>
+        <widget class="QWidget">
+            <property name="name">
+                <cstring>tab</cstring>
+            </property>
+            <attribute name="title">
+                <string>&amp;Criar &amp;SMS</string>
+            </attribute>
+            <widget class="Label">
+                <property name="name">
+                    <cstring>Label1</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>30</x>
+                        <y>30</y>
+                        <width>216</width>
+                        <height>22</height>
+                    </rect>
+                </property>
+                <property name="font">
+                    <font>
+                        <family>Comic Sans MS</family>
+                        <pointsize>11</pointsize>
+                    </font>
+                </property>
+                <property name="mouseTracking">
+                    <bool>false</bool>
+                </property>
+                <property name="text">
+                    <string>Escolha o IP  do Destinatario:  </string>
+                </property>
+            </widget>
+            <widget class="Label">
+                <property name="name">
+                    <cstring>Label2</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>30</x>
+                        <y>80</y>
+                        <width>90</width>
+                        <height>22</height>
+                    </rect>
+                </property>
+                <property name="font">
+                    <font>
+                        <family>Comic Sans MS</family>
+                        <pointsize>11</pointsize>
+                    </font>
+                </property>
+                <property name="text">
+                    <string>Seu Nome:</string>
+                </property>
+            </widget>
+            <widget class="Label">
+                <property name="name">
+                    <cstring>Label3</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>30</x>
+                        <y>120</y>
+                        <width>180</width>
+                        <height>22</height>
+                    </rect>
+                </property>
+                <property name="font">
+                    <font>
+                        <family>Comic Sans MS</family>
+                        <pointsize>11</pointsize>
+                    </font>
+                </property>
+                <property name="text">
+                    <string>Agora Sua Menssagens:</string>
+                </property>
+            </widget>
+            <widget class="CloseButton">
+                <property name="name">
+                    <cstring>CloseButton2</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>390</x>
+                        <y>380</y>
+                        <width>70</width>
+                        <height>30</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>S&amp;air</string>
+                </property>
+                <property name="iconSet">
+                    <iconset>image2</iconset>
+                </property>
+            </widget>
+            <widget class="ComboBox">
+                <item>
+                    <property name="text">
+                        <string>128.1.0.2</string>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>image3</pixmap>
+                    </property>
+                </item>
+                <item>
+                    <property name="text">
+                        <string>128.1.0.3</string>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>image3</pixmap>
+                    </property>
+                </item>
+                <item>
+                    <property name="text">
+                        <string>128.1.0.4</string>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>image3</pixmap>
+                    </property>
+                </item>
+                <item>
+                    <property name="text">
+                        <string>128.1.0.5</string>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>image3</pixmap>
+                    </property>
+                </item>
+                <item>
+                    <property name="text">
+                        <string>128.1.0.6</string>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>image3</pixmap>
+                    </property>
+                </item>
+                <item>
+                    <property name="text">
+                        <string>128.1.0.7</string>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>image3</pixmap>
+                    </property>
+                </item>
+                <item>
+                    <property name="text">
+                        <string>128.1.0.8</string>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>image3</pixmap>
+                    </property>
+                </item>
+                <item>
+                    <property name="text">
+                        <string>128.1.0.9</string>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>image3</pixmap>
+                    </property>
+                </item>
+                <item>
+                    <property name="text">
+                        <string>128.1.0.10</string>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>image3</pixmap>
+                    </property>
+                </item>
+                <property name="name">
+                    <cstring>ComboBox1</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>250</x>
+                        <y>30</y>
+                        <width>130</width>
+                        <height>20</height>
+                    </rect>
+                </property>
+                <property name="associations" stdset="0">
+                    <stringlist>
+                        <string>@widgetText</string>
+                    </stringlist>
+                </property>
+            </widget>
+            <widget class="LineEdit">
+                <property name="name">
+                    <cstring>LineEdit3_2</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>120</x>
+                        <y>80</y>
+                        <width>260</width>
+                        <height>24</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string></string>
+                </property>
+                <property name="clickMessage">
+                    <string></string>
+                </property>
+                <property name="associations" stdset="0">
+                    <stringlist>
+                        <string>@widgetText</string>
+                    </stringlist>
+                </property>
+            </widget>
+            <widget class="TextEdit">
+                <property name="name">
+                    <cstring>TextEdit1</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>30</x>
+                        <y>150</y>
+                        <width>520</width>
+                        <height>200</height>
+                    </rect>
+                </property>
+                <property name="associations" stdset="0">
+                    <stringlist>
+                        <string>@widgetText</string>
+                    </stringlist>
+                </property>
+            </widget>
+            <widget class="ExecButton">
+                <property name="name">
+                    <cstring>ExecButton2</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>480</x>
+                        <y>380</y>
+                        <width>71</width>
+                        <height>31</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>o&amp;k</string>
+                </property>
+                <property name="iconSet">
+                    <iconset>image3</iconset>
+                </property>
+                <property name="associations" stdset="0">
+                    <stringlist>
+                        <string>#Cria Variavel do Nome do SMS
+sms=$(/bin/date +%Y-%m-%d-%H:%M:%S).txt
+
+#Escreve a MSN
+echo Voce Recebeu uma Menssagen de:  '@LineEdit3_2' &gt; /home/jota/zeus-bin/enviado/$sms
+echo Menssagen:  '@TextEdit1' &gt;&gt; /home/jota/zeus-bin/enviado/$sms
+
+zenity --title "Zeus Envio" --info --text "Sua Menssagen foi enviada"
+</string>
+                    </stringlist>
+                </property>
+            </widget>
+        </widget>
+        <widget class="QWidget">
+            <property name="name">
+                <cstring>tab</cstring>
+            </property>
+            <attribute name="title">
+                <string>Cred&amp;itos</string>
+            </attribute>
+            <widget class="CloseButton">
+                <property name="name">
+                    <cstring>CloseButton3</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>450</x>
+                        <y>380</y>
+                        <width>80</width>
+                        <height>26</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>Fech&amp;ar</string>
+                </property>
+                <property name="iconSet">
+                    <iconset>image2</iconset>
+                </property>
+            </widget>
+            <widget class="ExecButton">
+                <property name="name">
+                    <cstring>ExecButton28_2_3</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>220</x>
+                        <y>10</y>
+                        <width>60</width>
+                        <height>60</height>
+                    </rect>
+                </property>
+                <property name="paletteForegroundColor">
+                    <color>
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                    </color>
+                </property>
+                <property name="paletteBackgroundColor">
+                    <color>
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                    </color>
+                </property>
+                <property name="palette">
+                    <palette>
+                        <active>
+                            <color>
+                                <red>0</red>
+                                <green>0</green>
+                                <blue>0</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>84</red>
+                                <green>84</green>
+                                <blue>84</blue>
+                            </color>
+                            <color>
+                                <red>197</red>
+                                <green>197</green>
+                                <blue>197</blue>
+                            </color>
+                            <color>
+                                <red>0</red>
+                                <green>0</green>
+                                <blue>0</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>0</red>
+                                <green>0</green>
+                                <blue>0</blue>
+                            </color>
+                            <color>
+                                <red>92</red>
+                                <green>95</green>
+                                <blue>118</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>10</red>
+                                <green>95</green>
+                                <blue>137</blue>
+                            </color>
+                            <color>
+                                <red>137</red>
+                                <green>10</green>
+                                <blue>137</blue>
+                            </color>
+                        </active>
+                        <disabled>
+                            <color>
+                                <red>128</red>
+                                <green>128</green>
+                                <blue>128</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>84</red>
+                                <green>84</green>
+                                <blue>84</blue>
+                            </color>
+                            <color>
+                                <red>197</red>
+                                <green>197</green>
+                                <blue>197</blue>
+                            </color>
+                            <color>
+                                <red>197</red>
+                                <green>197</green>
+                                <blue>197</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>0</red>
+                                <green>0</green>
+                                <blue>0</blue>
+                            </color>
+                            <color>
+                                <red>0</red>
+                                <green>0</green>
+                                <blue>128</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>10</red>
+                                <green>95</green>
+                                <blue>137</blue>
+                            </color>
+                            <color>
+                                <red>137</red>
+                                <green>10</green>
+                                <blue>137</blue>
+                            </color>
+                        </disabled>
+                        <inactive>
+                            <color>
+                                <red>0</red>
+                                <green>0</green>
+                                <blue>0</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>84</red>
+                                <green>84</green>
+                                <blue>84</blue>
+                            </color>
+                            <color>
+                                <red>197</red>
+                                <green>197</green>
+                                <blue>197</blue>
+                            </color>
+                            <color>
+                                <red>0</red>
+                                <green>0</green>
+                                <blue>0</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>0</red>
+                                <green>0</green>
+                                <blue>0</blue>
+                            </color>
+                            <color>
+                                <red>92</red>
+                                <green>95</green>
+                                <blue>118</blue>
+                            </color>
+                            <color>
+                                <red>255</red>
+                                <green>255</green>
+                                <blue>255</blue>
+                            </color>
+                            <color>
+                                <red>10</red>
+                                <green>95</green>
+                                <blue>137</blue>
+                            </color>
+                            <color>
+                                <red>137</red>
+                                <green>10</green>
+                                <blue>137</blue>
+                            </color>
+                        </inactive>
+                    </palette>
+                </property>
+                <property name="focusPolicy">
+                    <enum>NoFocus</enum>
+                </property>
+                <property name="text">
+                    <string></string>
+                </property>
+                <property name="pixmap">
+                    <pixmap>image4</pixmap>
+                </property>
+                <property name="accel">
+                    <number>0</number>
+                </property>
+                <property name="associations" stdset="0">
+                    <stringlist>
+                        <string>sudo users-admin</string>
+                    </stringlist>
+                </property>
+            </widget>
+            <widget class="QLabel">
+                <property name="name">
+                    <cstring>TextLabel3_4_4_2_2_2</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>160</x>
+                        <y>70</y>
+                        <width>190</width>
+                        <height>30</height>
+                    </rect>
+                </property>
+                <property name="paletteForegroundColor">
+                    <color>
+                        <red>98</red>
+                        <green>141</green>
+                        <blue>180</blue>
+                    </color>
+                </property>
+                <property name="paletteBackgroundColor">
+                    <color>
+                        <red>246</red>
+                        <green>246</green>
+                        <blue>246</blue>
+                    </color>
+                </property>
+                <property name="font">
+                    <font>
+                        <bold>1</bold>
+                    </font>
+                </property>
+                <property name="text">
+                    <string>Desenvolvimento S.T.I.</string>
+                </property>
+                <property name="alignment">
+                    <set>WordBreak|AlignVCenter</set>
+                </property>
+            </widget>
+            <widget class="QLabel">
+                <property name="name">
+                    <cstring>TextLabel3_2</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>20</x>
+                        <y>130</y>
+                        <width>510</width>
+                        <height>200</height>
+                    </rect>
+                </property>
+                <property name="paletteForegroundColor">
+                    <color>
+                        <red>96</red>
+                        <green>96</green>
+                        <blue>96</blue>
+                    </color>
+                </property>
+                <property name="paletteBackgroundColor">
+                    <color>
+                        <red>246</red>
+                        <green>246</green>
+                        <blue>246</blue>
+                    </color>
+                </property>
+                <property name="backgroundOrigin">
+                    <enum>WidgetOrigin</enum>
+                </property>
+                <property name="font">
+                    <font>
+                    </font>
+                </property>
+                <property name="text">
+                    <string>Sobre: Zeus Envio de menssagens foi uma solução criada 
+pelo departamento de informatica da G. A. Silva, para interagir com os funcionarios no envio de sms e no recebimento dos mesmos, e na solicitação de suporte.
+
+Descrição: Um simples script desenvolvido no Kommander que ultiliza o ssh para encaminhar as menssagens para os usuarios.
+
+Versão: 1.0 Beta</string>
+                </property>
+                <property name="alignment">
+                    <set>WordBreak|AlignJustify|AlignVCenter</set>
+                </property>
+            </widget>
+        </widget>
+    </widget>
+</widget>
+<images>
+    <image name="image0">
+        <data format="XPM.GZ" length="59206">789ceddd496fd3401887f17b3e8595de2a44db940624c4a1ed19892312e2e07849b7744d57c47707cf784a55dad7536f33e33cbfdb7b892af2fc2b2148bcb11e7dfff6355adf185d2de3e561122507f165b49e5e2f16f73f7e7ef9351a7fdadc8c3e6e47db5bd1d6f8dd68fc3e4aa2b5d9875996a4c5b9a6cf64a2cf589da93967e64c778a3329cfa93ed3e24c76cc999567accfbc3c337dce1fcfac380fd4999af3509fe9449f47e539d5e77171a63be63c3167362dce4579c6fa3c2dcf4c9f67eacccc79aecf6ca2cf8bc753bdf26571667f5f579f57e519eb73a9cecc9cd7e6ccd54bdd9467a6cf5b7de6137dde15673e35e77d794ef5f9f078e6c5b95b9eb13ef7d4999b73bf3c737dbe6fc39aa5b83bb38692c0a5a52c74f91bcdbba57ecbf59130010f2460ef129ecf0f6a3ab4c3467ac24682de08090f2861ef02ee3ce1cea9bf24fa6e3001fb9770dd7ebd09b8ae237b6d6c6430090f26e0954ab89e637b6ce40936e20ddf36e23a4d5b8349d875804d751ef09b127ed189a58585d63632988049b8eb7e5b0db807eadf6a434ad875804d791f707009d7766a898df48c8d78e32d1b692f6012ee3c61027ed55947d47f750b85f7019370dffd36765e8d8db0913ad8c8401326e0c002b64ad8ca4503ea73045e044cc2c125ec43c00d5d5a501fae21e07f0613f00012b609b8076ce41936c2469e511fc30cc860120e3d60d7e1b6e8aa42ab1b194cc024ec8daa807ba03ebf1f5ac204ec0dd7fd1a4b5bd7cfdc5463236ca409d7db30bade08090f3461d7e11ad601d74ab873eadb9008d809d7e91a4107dc865b99fa8a3012fe9feb708dc07f07b7a122e1faeeecb09157b8de86c146bcd888eb1ceb709dae41c06efb6dc37d854e36e23a5ca36ebf24ec4fc2550137f5504d7d29716809bb0eaf2dc107ec45c2add815b01187d848d81ba91bb0ebee5a147cc2ab10f0537bdd50cf740851f00193b037f6655d6d24f88409d81b1509778e8db0113652bd91f00226616fb80eb807ea2972043cd0805722e1cea9472b92b01baedf7c5861230eb97ef361453d9397805fe4fabd811fd483aa434cd8f51f1c56061b0164c5464818785db111d73f03e0333602c8d808206323808c8d00323602c8d808206323808c8d00323602c8d808206323808c8d00323602c8d808206323808c8d00323602c8d808206323808c8d00323602c8d808206323808c8d00323602c8d808206323808c8d00323602c8d808201bfffe3cfa03a5e264d8</data>
+    </image>
+    <image name="image1">
+        <data format="XPM.GZ" length="29231">789cdd9cd96e2bb9b2a6eff7531476de6d34f248b2244b68f485075996e4d9d6e4465f3049e69c29db92c746bf7b4732fea0bd56ada1ea9c03f441632190fac42123833f99645855fff6af3f5657e77ffcebdffeb1dda95da6ffd0a97afae35fe6b9aadeffe7fffa1ffffb1fff1cb4fed8efffd16e757b7f74fef9dffef1cfebdd1ffa8f8b4d6d1b500141d01af47a4a371c386eb784c34a58f71cd7e021cadf85a3aee3ad67e3f84e18ed1fc086ebab8167aebf1146fd27e67e1be56fc2287ff4eccad3987968daad8633f81fd9d6a06173ee78e0ef7f2fccfde57366ba9f2b2f66c25caeb69eddfda20db887fe5a9ed95fe90ff1cb0f3d737bdcbf8ff89807cfdcfe43d8b8f240810db3bd651ef4f879cd8b705f395e09efefb978a0fd70c8f18847c2dc3e5d33ab1e9727a8af549bebc3bfa8cff513c44383958b6fa7d52701b9f25878e8f4a29e84395e79ead93d6f3910c6f8eec0d057ddf2ecea67d7c25c3fbbf1eccad5ab30c72b147f0ce23f67dec7f8ea4330e213f6c006f17a1166fd47e86f80f8257760e8cf06ccc3363813eebbc998f7c188b70ec172bf0b618ea705ab76cfb5cf6a30f41ddd32477de62c10c67c40fb4871b945bc238bf209b3ee77580f2bb0e2f2b0743c94f18853cf2e9e7922ccf1cd1ec0986fe9c833972f8539fe55e199f5f0cebc8ff9aff685b97ef9e099c7732ccce39d66e01ec65fda637c839e303f5f742a3ce4f97f208cf65d30c657497d63fbae9cc7733868a3ff4498ebc777e01ecfa74858e6df9459f462ac30cfe7ec058cf99ea07f59efccd4338f3feb69a8d05f1e7b76e5f92518fda9a5676eff21cc7a28d0bfac0739cfe761d481beef85bb6df77cf057f4a711cf087a2a8f3db3fe713f59aff55a18fa9c0aefb9fe0deb7fa83ba8bf14463c2660b9ff0a8cfb9b0a8cfecbad679effed86f7da7dc4376d09637d1e32ef23be6122cc7a2d1e85b19e59cfae3cee08b3bed43b58d673238cf9f5208cf54efa177def81a1a770e0999fe74018f54f8559bf813c0f9eb73816e6f54e9d095bb77f088e9845cfc11358e23563f67a0b9923c5e357e079657c8b2761d64f76c94ce3e9da17f04fc633b79eb9ff0f61d66b390163bcb373cfacef5298eb9b3518fec4997067e8f40dff0df455ed3cf3fe620c867f06fe1ad17bead9d52f0fc1b89fcd3d7339e26bd17fc87aa1f58c394d85594ff55018fb856b30c6df9e0be37d77260cfd29cf3cbe3118eb49f5228cfd50228cfa6d61d69359320fa077bb16e6fae619dc63ce6e85b9bd8e3cbbf27c03867fe51358dec7a930d78f6ae6619bd9be8311bffc006c787cd505b3b2ac8784e3dfac5fac9777e13d57bf46fd08fac8107fdde1f24858debf6d61ee3f6b81653d2a3db39e4ec0a2878e30f4caf37b28fa2b6e84b93cdef3ecfc292b309ea74c84b9bec5fd459fa91546b9f42f7aad3db3bff7c2a8ffca2cfab5b8bfc5fd2dc6dfe27e817bbf76693d427c56c2d0a730d697e4d033fb3b11667dd63d61d64b5e320fb0de06af9ef93cf400c6fa9b3e7ae67845c2986f8530fafb1066fde6d27ec8f14f5e84b1fe87c2a85f7876fee87b309eaf3812667fa377616e9fec98876d5e5ff35c18f54f84b9be6a0bc78e4b0dc6f9af88c1c3813b3fe87366d5e6f344fac41c413f4525ccf72f379e797e0cc08ab9c4f34732dff69835f45b9f0b63bedd80d17fae84bb6e7f54e6c2bcbfaeafc1d06ff922ccef97fc0a0c3de7379e59cfa7ccb2de17d7c2dc9f7ef7ecfc332d30e2515f79e6f7c73e58e6774718f3d997a33ef4e8e7575718f57b9eb93ec6c3cfb79d30eab73d73fc311facccff4b30fcb38fc2781ebebfdac7f93358300ff07e0fac308f4ffa20ccf3317811c6fe7c0096f9b41466bd6ea43fcca7f2068cf9538e85e1cf4418f3a9f6ccef8b0f30fc2f1f3df37c93fa86e74301fffd7ce90b73b9d660795fcd84319f0e98551bf3e91cac783e65ac2fa531de4509c6feb6c0f3c8fa5eee0b73fdfc5d18f36d0a96fdcf9567ae2fed317fec1b58f6234698eb5727c2e81ff1113d167bc2f0bf2d8cfe793d535e8fd7c2f02ff6ccfa853ee4fd60f684518ee7113d9abe67d6b315e6fbc76e3ef43aa2b78d01435fc1123ce4f565530823bf927a66fdb4c0a2ff0b61d65776c73cc4fd8a3918ef87bc0b863e8ba5675e9f3361e8cb788e1d77c058eff54898eb1bedd9d5afcf989565bd95f037eaef47cedf03668d78d5979e79bdbd15e6f5350f8439ff50acc096cb8b2db3c17a9dbd0af37a5b8dc1184ff3268cf39cd497f1fd1046f9c833b787ffa437d6479b59f415179e599f3d61ccafbe67d68fd497f5b0e799fbdf80653d4c3c737bc4cf627d8e73cfbc1fe4e76dd62fd6c39d30d69f002cfbd147618e5fdd16e6f56fa385595f49e499f5fa2c8cfd33c75fc97e386909b37e120bc6fc88e7c2acb7f8d933f73f0463be5413cface74a187ade0343bfe5ad67f62f13e6fad18767a767c3faa5f514e78b9d30ca2fc1f02f40fc14f41b3d08737ea7ec81ad72ac797c55a4303f104fd9dfaba130ebbf5c33eb0ef2716f9e395fb30fee33470330f61f11e22df3c7c4cc325f4c0aee63fe74c1321f72612e2f5760f85b497b799f0c3cf3fc4984d13ff424f323493db3fe317e7e3e6cc1980f454718eb6f09863fc993309707ae7d9fd64f7efed008e3fdfce699f5b6c73cc47932ef09633dbef4cc7a3a1766bd6c7230d6e34de999f5fe081e627cef84b9bcda0743bf7122cc7aad0266d167f5ea99fd3913c67abdf0ecf45b4839e69b997be6e7df09633e1d7b76edadb45738ef26c2981f57cc518739eb33d37aeee25f67cca6c3fbe7b2edd9956bc4d7f4393ef5182cf99c0b611ecfea060cbd15d21e7a4f97cca237f3ee99f5990973fdb806437ff19b30da1f7a66fd6f85319f0acffcbeea82317f8a2bcfec7f0c96f36ccb33dfbf12c67ea7ef99cba57fccaf78c31ce379959b5f7d5a7f399ec1a930eb2d6c817b5c1e6a61e41fa53df46bcec0d85f6c6230d6d74d25ccfaa93bcc4af647b530d6e7ae67f6e75098dbab1d58cebb47c2789f2cc00a7abef6ecfa2ba43fe833c6f353b1ab6f0f3cb39eb530f4ccf353899eed0cdc67562366390f46cf60cb7aaf3cb3be6bd693df4fd773612ecf0d18fa2fb4675eef67c2982f785e83fd52752b8cf3b430de27c903b3e8393df3ccf3672d0cfdee0b73fbf8032cef8763cfdcbe258cf970e499fbbb17e6fe2cc6dfafdfd29fe8bde399cb3361bc4f12cffcf7405e7f95e83f79f4ecda074e0ffb7bf2f7aef05298c72f7c1546fe7a228cfcf59859c9dfd72a30d6cf6c21ccfac8efc1d0a77af1ccfb874818ebf5a367d7be3c015b943f79663de279a20ef46b84b93c48c1d04f1c0ba3fe4a18fd4dc172ff008cfbd5b89feef0df0baa12dcc77913e57e7f7e260cbdbe81e18f7e10463c2361de1f693caf51c8b7dc09737ea8188131dff4b330d7cf305e16fb9de24d18f5b7c25c3f861efcfee2da33eb6f248cf5fb5818eff35330f45b2e85b13ea3bee8337e1546f92d18f351b1bf91c2dfe7820e18ebe1e6010c7d054698f5924f3dbbf1db3c82b1de952361ae1f1e79e6f3a065167d6d36c2a8bff2cceffb27701fe7c7ca33bf3fb6c2981fb7608c67f526cce7177b240c7fef85311f22cfacdf0918cf5785c2a87feb99e7c79c59439f71208cf20cdc67ff8213b0658e5acca6c3ac2fc0d05fb1f3cceb3fdacbfe23d3c23cfe7a21ccedf59567d6eb0b18f345df78e6f5af008b5ea55cf47a280cfdbf0aa3bfb9678e470f2cfb8da130f4faceecf57c248cf3c2c2333f7f2c8cf7099e4ff45e29616eaf5cbc06b49eb23f61210cfd879e79fd7d1686bea43df452f7c1d0477e2acce5e9c633b75f338bfef39130d78fdb9e79bee07ea26fdd0343bfc9bd30f6d763cf5c1ffe897eedb130d7b7d633afcf67cc5ad6ff9130faef7ae6fdff2d18ebb5b91186de713f8df9589e0b63bf83f890feddfa5cbe0a737f35e269b0be561918f78b703f03fd456d61cc27f86b30bf32c453f6e7fa5118fbad7d61bc0f707f8bf95aa760ec4792ae30fcbb1286feef3cf37e45ee2febd31358e683dc1ff321b9f2ccf3712c8cfddcab30faf7e5dc7f7cc82cfb95e45618f3edc033fb3f12c6796a0ec67c4a4a61f81778e6f9c4f32592fd787801c6efb96c0456c82f4a39fc0d17cca2ffbc0d96f5ff93f9fd910963be9d7a66fd2760cc173d1546b9b4c7fc30a130f47eea99f72bfcfc91ec57f44018fd0f85d13ef6ccef933118fe1ae599cf13c2329ff73d73fb1330fc511fccb21faadfc1a2ffa96737bfa26b61cc9f3330e65bd5f3ecea17881fcd07c7f54298cbf50e8cf747910b231f750496f78515c6fba50643efe9b9673e6f1b61ccaf0b61ecc778fdf6ef8764ea99eb5f0be3fd7003163d87c278bff48571fe39f0ccfd5d0af3fdab23cf5c0e7dc7b23e6c3cf37ecbed6f865d79df14160cfd85e7cc11e29db485f1f7deb130d6ff39b8cfe5e93d18e39bcf84a1f71c8cfb6d9430f2970bcfae7e74c0ecf55d08a3fed2b3ab9f9e80313f75290c3d4f3cb3de2330f46e4f3df3fbe3060c7dc65a18efcb8567aeffc06c3a5c3f187876f1ac0cb8cff9d4e8028cfea32b668bf6f9c033cf9f0e58ce273d61fcfeee190c7dd72330f45cbf08231fb5f3ccf3a12f8cf9e4eb63be9c318bbe934b30f41bf785713e3ff5ccf54f84b11fc3f3895e63d697163d553958213fd9028b3e0e99bd1ed69eb9fc080c3d44c7c2a8bff2ccf54760d98f079e592f062cfb97d83397b3beb491fdd4d633eb6303c678c5e7c2f0e7116cb9bcba63f67a78f5cc7ad80a73fdaceb997fdfb307865e8ad033af8f88879cf7a29e30f4d8f7cceb710ac6fa9cb07eb5e8210d8531fe03cf5c1e09b3bed223cfbc7e7584b13ff9004bfef4d933ebe95a18eb21e2e7d7bfca33d79f08235fe2fc515d793f875760c4dfcc9835e2bb4985b11f3812c67e7cdf33af77525ff26b1d30f415e59e79ffabc0b21e169ef9fdbfc72cfab273cfac3ff82b7ab24bcfae3cd160dc3fbef7ccfe65603c7f6498bd9ed0bfe8299a08a3fe3958f473298cf509cf23fa2932612e4f0366d14bfd2a0cbd2c3cb35edac278df239e7efde909431fe79eb97d0596fdc15418ed679eb9dccd07a5e5fd155e336bc4275c0b737c374f60c90f74c0a2b76361c47f0f8cf15791676ecfcfefd797e2935d793500f7f17bae9530f4b0f0cc7ab160d11f9ec758fefd452ced65bd0d99bd1eb430ff3d3052e03eca23612ecff0fca407579e6f85b93c1f82451f8130eabf0973fd02fdc7580f0b25ccf5eb23b0eca716c2d0c3da33af4f3b61d653f500167dd4c2dc5faa85b9bf64df33d7df13c6fe76038ea1af7361e46bddf928f2fb95f01eac783cec8730f4157966fd4cc0b23f9f328b3e8a0d18fdab99672e47ff46e1bf1f590b63bd687966fdecc0b2ffc999490fac9f3361f87309ee7379f22e0c7d3d81450f3bcfac27618c7f6d9863bc1fb31158f6cb4b61ecd7ad671eef17611eeff44298fb4b1518e39b6e85b19f43fcfc780e3df3fddf85717fe399df3f1c1f23e39b74c0987fc98130fe7b8d4418f12a99fdfe620d16fd8c3c73fc9fc1924f9d78e6f7cb142cfb19b01fbf5b709ff511149ef9f7994b61d4bf03434fc95a18fe07608bffbee99a39eee0bf7f417b198f5a7be6f53e05e37c595b61ec9f105f3f1e7361ccef7b618cf7a1672e6f09737fd6e941f70cfc53a1303f4f3803231eaa2b8c78f4c078fe7c0f2cebbdf1cceb71c66c3b58cf67c2189f3558fa3f002bdcff5898db274618f51760cbf5930f619ca7c6cc31ee57e3f925fe29eacbfa965e79e6f1c0fd45ffd54a18f9b0cc33f7f72c8cfedd7cd27e3e980db3bcdfc2b130f41f82f1bcf9b1309e47d8e2f7f8b130c683fd6bf4ce7f7f38f7ccf1ba0643ffc99b30cae760e83dcd85517e05c6fd93576194df30c718ef64290cff0fc0980ff9b330fe7b9717616e9fc23f3f3e379e59df4361ecbfe0bf9f0fafc2d0bf9b8fc6eb3d3e012b5e9f8a5a18fe2660ac5f5a09e3ef2b1b66d2b72b0fde84b17e659ef9fd64c07dd4bf17c678b53cf3fd0bb09ce7e19f853fca337e5feb197a9f30c7f04f95c2f8fdd84a18cfb307eea33fa90f7fea2730e25d3f7ae6fdca8130fcbf04cb7c781746fbad676e1f09f3fb3170ef4b630df29dc1148ce70b6f982d9e679308a3fc052cfb05ed99cb7330de27ca7a66fff7c1a2ef4366895fda1646f91118f1ab4e85f9bc956d85116ff8ebd79b4a18fb452d8cfbf972f8770b46fcd26b61ec2f02cfae5c3b7dd97e1341573e609678d5f760d9ef2fc132ff0b307eaf114ab9ec9ffaccb1e4db2a61fc3df45d18f5f7c1c897042361ae9f4a7f321f3a60f893c56079ded033eba916c67ab6278cf177f3d97abda83518f996ec4a18fe9e81e5fdff0a463cca99673e1f9d08a33ddfdffa78dc7ae6e7d7c2188f0f30fc497bc2f03707cbdf9bef3c737e3210467f0f6089d74618fb65e92fc6fdbac288b7d3077983feb3b530d6b73bb03c6fc5ec9f6f268cf267b0c4f7008cf998cd3d7379098e51bef3cce56ebc1aeff17ba467cffcf7f62db3dcdf0ec1b21e4cc1b85f1880d1fff5eebff6bfff3f7d0c83affffe6bf9f8ad6fdffffb7fefa3f7458551a84313da300e13baa6c4d9dff3f3ef3fd5ef7d449f79588465588575b8091fc2c7f089ec813ed7e136dc85cfe1cbefeefcef1f81dff9889e5ec3b7f03dfc080fc2c3f0283c0e47e14938a6eb11f1297dff4ee59370fab37b7a8f66e159781e5e8497e155781dde708bdff9f92b1fd1ef2dc5ea2e9c878b70f993582cc31595df51bdf59fef893af7612b6c879d702fec86bdb01fee87837048ff5a41f83b3f7fee23fa2e822050411468f7cc3fb540072650e465f1edfd5c1f37810de22009d2200bf2a008caa00aea60133c048fc153380cb6c1ee577efeccc7a645f01cbc9087afc11bf9f0def8f1eb6b98051f54ff2578e6bbb93e0e82c3b01d1c05c73f1e8360149c0409f939feb997bff4f1347c0f26c134980567e4efef6d169c0717d4e6d27b704531ba0e6e82db5f8ec15d300f16c1f2675efed847d7ff8a46ee3458874b8ae3925698cfeb3d59ebcbf54b79b00eda611d745c0f7b4137e8d1e8f66974c5f6bfd8d7ef07c130e8fe751f9b9a2a5481522a525ad1b12f982adabc28fb9b6b534f539b247c5761385569b8a7b2a056b92ac84ab2ea075729dfa807f5f8232f7feae393daaa9d8a292ee714cb4c3dffde9a7a4d7df5a25ea9fd9b7a571fea401d921d7d63c7df31dba11a850375f2672fffeca3f3701cced5a99aa82945e7abcd541c8ebfbd3a9b7eb94ee9df5918ab7375a12ed595ba5637ea96acb9de91cdbfbb7e962fd452add4faaff8183cab7bd5526dd509476a4f4c75c97a3fb6aff5c83aaaaff6d5400dd55d14361605ce1459f4dd55a3aca967221bc5b48e7e17c91ff918919ea234cad434cac5c251632afab3450597457954fafa5554479be8217a8c9e9c6dbdedbeb3cfb2a6de73f412f4a2d75ffbd83c43f4a6b6d17bf4111da8c8d921d911ddf9988de2e42d1ae1fb23d4736da8ed49348e4ea349348d66d1195dcfa2f3e822ba74d72b5c85cf50ef3aba896ea33b7a5b7e13c91ff8380de7d19cee9251641664cbf0385ad29d57cea63f302e5b932dd1268b3e8276741fb5c89f76d421db8bba518facef6cdf5d853ba873150da2a10e75f03b1fb552818eb46e72813ad6894e3579ab73ba33c5481764e5172b5cdcf2c67446759368a52b6aab75ad9ef4463fe847fda4b7643bfdac5fc89aeb2baecc4d7953ef4dbfeb0f7da00f9bb5fd973e1ed19ceeeb633d0a8ff449b4d663baeb297970dac4342a9a98ea4954e8898b5be162b774e52b3da5fa27e14a8fa8fd4c9fe9737da12ff595bed637ce6e9ddd91cdf1f906650baaf7ac977aa5d7fa5eb77ee323bd27280e9de843efe929c5a4ab7b74f7bede77f11c900dc9c301195f73139a40674d46355aeaca447a8fda768c36c658139bc4a42633b9299c25df59eeca32aa9398d254a6d6abe8ce6c7ea3c78979d023f3187d98278ac6a9d9d29d5d2cc993983c642b60f499be6f62388e9666ab4ff5b179323bd7fed9bc9857f366decd077973600ec98ec88e716db830232a7f232f4fcc58afcca99998a999fdda477366cee91e1774af4b7365aee9ae2e967ad2c4d2c56c40311d7eb9f6cd0d62786baecd9d9953db0bb3304bb3326b736f5aa66d3a66cf74c97aa6efade17db20e950fcc90a2485edad00656fdda471b85cd3d2886e1ca6a3db68622450ab4d6048de9d8c69f46dc6dbed713aa1353ddb1d5666b13fa746c539bd9dc8c6d614b5bd9da6eec837db44f766b77640fc4b57d267b3143fb4abebdd113355ebe37fbc95ffaf8417a3c367373670fe88e87e65657d1d21e991b7b4cde8cec891ddb98cc5df550efd377a77642e547fad41edaa93db0337b66aeecb9bd200f5fc983c6c34bf2eaca5e3bdbe07a45df5dda1b5b519ddc864d2cc9d7dba0fa8d8f77e15b54512cbe8b611337a3ec9cfc696c41b66c3e1bd5e8f24b2c571c4b8ae3dadebb1836b1da92472ddbb61dbb67bb641ddba36bdbf6e9fbc7269654ef959e68df0e6815ffcdda63872a88438e611c506c9c0ef5d0ce6913368f23bb88359969869aae915d92cd5d6c8f5d2ce3386e621927711a678821c52ccee3222eed5e5cc575bc21abe87369db710e2f11cbf8217efced7b26889fc2f83386baebe3b7685266f136de7d314ea3b97892d35d7bcab1a4af9fe31717c3078a61bb895dfc1abfc5eff1477c40764876447cec627a4d755897753c8a4ffe828fe370139f9adb2686f6d8e98ee33721afc82872d378169fd175179fbbef9a98722c471c4b7b184ce20bc4b0ede2b7719e5dc657f1757c43764b9f0fc9cb0d95f958da41fcdd48ff64ff380deb78fe2586cb78c1f173ded97819afe235d9923e4fe3fbf88cca5ae41f6994b4e96219b7e34ebc677771372e5c0c8fc8c39bb8f95bc57e3c20ebc7c3248caf9380be97583eda325174eefe0b7bb33048227ad79eea3e62d84c178a5fa21bef12e3ec0c57f294be3fa3f216c572e9e63aad97894de224b157499a64f15b92371e264552c6fb4995d4c986aca2cf6552c487c943f2680e9327fb906c93dd5fd987375e26cfd17df24291210d3631243fcf285e6bf2b3f1ee3579237b4f5ee9f30795ac9b78528c5d2c1b5d9a47bb4e0e92c3e428394e46c949324e4ee35e3249a6c92c394bce930bb233fa5c2797c955729ddc24b7716106c95db3eafc351fc9cbb9da260bf2cd90de6664f72e861fe4d99222b74ad6c9d2d9fba797ae9eb1f3e43e69256deaa3130c93bde431e926bda49fec278364d8581a9205cde754a551aa534323ff96da344e93bf7ae6622fd334cdf49846d036f14bf3267e8d77699196c9475aa5b5bb9669dec493ca77f19aa2ded29374933e4806257d4c9fe2c3d4a4db74973ea72fe96bfa96bea71f6407f4f9253d4c8f92ebf8d2b4e2517afc77cfd7e1341de9b3f484e2d378d8c4cec0bb715a254b5cc9cbc424a44ae7e5596cd2d37462873e0b304ea7e92c3d4bcfc99b8bf432bd4aafd31b67b7e95d3a4f1749952ed355ba4eefff3d790af2b265d7b426af93b7b49dbca69de03ddda3c875d31eac9f7629b29d743f6d9316d636260f07920da3b1186661749b0599caa28cb66f99a5f85d657196a4b7599a65599e1559995559add749926dfe4e1cc54b3bcc1eb2c7ec8966ca32db9237ddc6c36c9bedd27eb6cbb6ccc92adb529c4d34ca9ed34993ed8187c7d94bf46226fa237bcddeb2f7ec233bc80eb3a3ec381b6527d9383bcd26d9349b6567d97976915dd2f3bcfe753d8a8fd955769ddd64b7d99d9aa539c5abcc76ce07e46ab279e32d8df83a5eeb69b6c896d92a437e2fbb4f92e8256b65edaca316d95ed6cd7a593fdbcf06d9300ff320577944a7ac20a8731d3de546af739bc73fca61fe3227a5f3244ff32ccff3222fc3c3f484b4b79438921714c784e26b973acdabbcce377a963f64abb4476d6ff3c7fc8976fecb7c9beff267b217be4641fe9abf4591fbce7f4f5ed25926ffc80ffe968fd3f8293fcc8f4848742ecc8ff3517e928ff3d36841a7d6594aa7ea7c12ada2753ecd67e9a6c96984ab28cbcff287fc3c9ce617f9657e6526740254f975d6f9bd4557f98d5e67edfcf6f7ef1989627e97cff38cce258b7c912ff355f39f70ab299dfde27c9d9ee6f77a9caff356de0e8ff38ed24d79bea74ff32ef9f990f7f23eedfb27f97e3ec88745580445e8ae8a2cfaf6faa55c9b4a7f442f85f9f59e423c2c2c79789467e6514d5deecceae6ffa34207ab701c9cab197d9a92cd8216be6fcaa95eb430ba896511d3b9644067e7cb222952b2acc87f624951b8f224ea17657e955d16d5ef7c741ed6611d4ce84cb2539d266f465ef9fc58d0fad6dc77e79c370bce8b8d3ed19de2a1782c9e8aad9e17bbe299ceae77faaa78217bfdc1d59537f5c8de28fa55f15e7c7cf5f2c73ee64971501c9a47ed6225f9b1267e6c1ccbcfeb671daa1f35e7c2e2a838d6db6244771f1527c59bb7f177c6df73bdd362945abd2a26c5f4573eba55312a66c55973a669f260f9a4c98de50b67e62746654d3d363a431eeb3d9514e7a6282ec82e8babc64c264627577ce6b2a60eea5e9bb1991437c59799f3671f8bbbe8be98872b9acd2b970f6bf26205dd3dca27c5e2c7d6947de6d0d494c6e0a9589ae76255accd417a660e8afb242d5a645745bbe8147b45b7e899e3a2df7cdf9cb78b7d33a27aa362d09c0d8b6119fecc479ecfe1ae0c9a73a12e8b85cb8b8d680c3b6a56aaaf168ebe7253ce75a9cd319dd1e8fc5b46a52e8dd92bf69cf5cdbddb975738b156741e7c34ddd236e54d3db35fc66552a6666dc3dc969978f9d547cc968720726764d3e475e88eab626182c6d44c2c2ad4ccc66cfc1dd769ea3679a026bb6193200a5e4bba5959b8936b73be7ec2f99a6de34eaecdf77559d2d9e7baac9ab361599b35f9baf9998f61523ee8caceccb5eeea61946b5ac638474677278ba326b69fd630973575a86ee1f241399fb1cbc7f2c99fad1befaefcb9faf37cfdf8e58cdd9c5ee96c58a67a556e55fd231ff3e3e83e3f6acec77aacc73ebf53709eccce9bb8dad326565f3f0b7fe67fe8acedced8e5ae7c2e5f9097e0f375df9d6f9a73769bf8da9daf39a68d026e3867d19cb38beb123b8c4f1f1b2edfcaf768493198dac368a97be686ce26c8eb44851d37b9b22657d1e426f8faf57b57af1fad9a76f690bca458961fe581cb4b34e7683e1f7e5acf9fafaf9c0a48a3e56113cff288625995c73ff2d19c972397b331fad49d0bc79f390ab1262fe1ce2cb87ecdfd581bad90af38e5dc4f79528e4de17212cdf9ba8e8fc9dcb99aaeaf76af3c7567428ee916a3ee62594eca6939fbeaa33bc3b4b39bf2ac89a13e8d63c95194e71cb3e68cd8c4cc9da3bfda37799fe64cc8b90a3a9fbb580617e505ced7cdf9908cce81ce1cfb7c4579097d722cc714cdabf2fa7b1fcb87f286e26624e7f86d9ea7d11c723c8bef6c4efe719ec2c592ced7b79fb99ff2b6bca3b81d716e82ced3d7e5dc9dabaf1b2e177cbe2e9714eb6f63392e57a5db8b7ef1719ccfe3208e9b7c23c7d01ebb3c4f8c3cc5d2e77a5cbee7cbe7cf9ccf89d3ebb1b929ef391f690f4993adb28d1cc52d72145774aef6b98ae4c1e57f3eb559638eafcbcea78f2e8a7bd98ab635a79c27a351fbccf32cfd399bf33d2de47a9aabe59ccfd73c1ae77d3e739265b7ec35b12bfb74c6be74398a7dba0ee9da6b3c75b98af7b8a658eef9583ed28aff56ee07a36f7c1c94433d697458ded31d46c85128891fe72a9ccd90e799819b7c0fc775d9e4d638ef539e5721c7b20a62f2b052ceb3fd2a6a7215b85e9297573cea4e9ba2cb47f75e1a54d4fc8b8f27f9dc043f88a1cf953519a826dfe3723ef76c6057e662ba607d7e13cb2d9dd29f2b4b1e4d68933873f989c6a6c924a99389f3d4c732c9e2a28ac9127a9fb7abb4ca3e7dacf2aaa058b10e473e57b6f4f19b3913ef962e33054f9b1c1a622a39491f4b9ee35155954d9ea7aa92b3aa26db903d9035df3d564f146317cb2687963c99c32aa9b671b7dad1a767f6d1bd03d3ea859e3ffa690cd933972f936c94cb48f9fc196289fcd9b7f9c8eab57ae33c4ff55e7d54ef59de5c39e743b16d6219929707e6b83aa80eaba3eab81a5527f6ad1a57a79f3ee6f3b26bc79cb3fd3e869f1e7ec9999d7d9b3bc3c87f6af39bdcaeb9ab26d5943c9c657932240fcfc86669e8e2d9e4d1aae4aaeca7a63aaf2eaacbeaaaba2e8dadab9bea56e6355db3d0bf2bfe94b395f849ceec1df6993bfbeae999e4cf7c2c9b35d3648beaae9a578b2cab96d52a55cd956c4ddfadabfb7457b5aa76baad3ad55ed235c7b64cc655b7ea7dbe0b498dfd7414b7f8ddebd6c36f636831c2ec619337fb6aec65f304f64b2c798e9ff0bb3c0eaafd6ad0e47aaa611dc2826a985ed7aa8e6a9d3ed7a6b6c50bbd74749dd469baacb33a97df80208e93ba88b7cd1ed0e50fbfe66d975fbd4bf326ab97962e77665cce8cb37c6f124f17cbaf739cf79e5139aacb3aa8abba269f36f503d9231dec9eea6d7a911ed6bbea20fea89feb97fab57eabdfeb8fafbf51611fcd99a5f5aed96f434b8b6f6278c679c7c63b671ff5011bd8e721bf8ba5a155de34fb731dab5d7d48da9bd547f571b5ac8f498b0ff5a89aa6e7a4439a4bf5493dae4feb49d0fffcedcfd73357f3b7d634b5cb7a6ae7648b7afa99fbfe1a43ceec252b64f6da9cdd7379c835c55362e9bc74fdcc9abeec9cf647dbf0a83eabcfeb8bfa326bd757f5b589eb1bb2dbfaae9ed78bac1bdc7dfd65d29f7329ee6f0969ddcc8c69bdaa67f59a62d772b95937d23e865f728f623e0729b1742b5162ea69f256afa9af955dd05e689b57dffe3eea67ff7e94d7111febfbba95d07a41b1d8256f2a4e8b7a96ee07adb476b95bc49062b7479eed357948fa760fec6319b45c26b5edda9197a4c8858ef5d43c7e66fcfe9a5f7fcef7b82cd973dd8e3b75a799abcd1dc8d6e4439ef6c9834ee311acdbe4cbc4be7cdfa17a7daadfa676d43e5ed77b4d6e9c6238620f7fe7cbaf7d945fe9a949ddad7b75df2ed24a59f22177b9db6ea09bbc2de71eb3f9d7fc63f36cd9aec9e936751a4f954d568d87b4fca471bbdeaf077f2d5abff751bc242fd6e9433d4c079b305fb8f87539769cbb4d6947b709be35c9e93a8d9ac4d879737acd5b1bf5f98bc97fbf873fca01b853f6dd26dae88dd9d80d6d3ff3968ac2e5d7fcad988b6149a35cd0e8eee216edc5d2e63715511eb482b3ff0cfffeece3573f9b3cee26d9a49b6c9393af45fcbc2937d5a6de6c360ff92c5fbbfce36cf368b69bc7f4b41cd1350b472afeccd8ff67f8f7631fbff714ffa6f5a0f91f2be7c79b282aeb7d8af393ea914fbabe0f9e37dbbf3f5bffe33efec2dbbfbdbefd877dfc3ffffd1fff17c627c851</data>
+    </image>
+    <image name="image2">
+        <data format="XPM.GZ" length="4414">789c8d97c94e24491286eff514a8ec561a59c71e916acd81625f8b6487d11ccc6361df132818cdbbb7a7fde69e3462a40947820f3737b73d32fff83177bcb335f7e38f6f4f13995cb473edb93ccefde89e6f6edefef5ef7ffee7dbf72c9b9bfe24f55cf6fd1fdfbe8f2773eddcf6dd6d3f0577e981127d946fa65c5491872937b3fdab298f24f2857217f96cca9245be562e923449a7cca25c867dee8c6ddf9d1b67891a2bb9719ee42adf2a47fb64d7d8e47955b98efa578ced3c1d2a3771df19d749ad3c31ee924e999467fec2de36192523bd7f642c89a83cf4776996c29eda384ff57e192bf7499bb4ca8db1dd278bc64332e8f90b703cbfa93c44f963e33ed17cca9bb19d17c47ff0e185bf77c6455a683c2e8ceb54fd978d29bb24ea7b340efa7a70ea1f3dbf656cfae4c9b84c4bbd6fdeb84a2b952f95d3101f3a3036ffa832b6f3321887f34bc64ddae87ea19c057bf8cad8ece11d6393a767e351aaf9e373e32145bc617f1eee77ced8eee7ccb84d357fb46ddca59a0f3a32ee538d1f69bdba2230bf1b87fb7e2997819df687aba2be65e53a6b32d8ff622c99d61b69ffba266b33b5871be321837ed833f2e1457cd6945d5ee4880fe2dbe6fe51467e87d85f9a9f2e0ff5ee74bf2bfc71d4e39eb17f745ffdedcac0bc6c3c2ad02f897295b8c4e9fe22389554fd910c5cd405fa51fdebeaa22b50efdadf5d13eb53fbbb1bf9f687bdfbc6e6bf54e0e8df92719da3de357f9dc4fe803f2ecb33f877686cf196141cf5ed1b87783e1877b9daeb185c3405eab534f64b59f3d9b5a11fe4199c9519fa67019c57b9d69fd4e0104f47c652c0be6563bff4fc23d89733f27f605c94e857adbfaecbfa0cf1dc0147fbb47fbb3ef6e329d88f53c44bfbaf1b42fdc99a71d077020ef6c89171c8e7045c2625f4dd1b8f4ad48bcea73e89f3e91c1cfa814b708837ef820bbf547e011cf4cb4fe534f4836c19fb842b9f817df831bf2b632931df5f8dfb12fd6cfaaaa482fd76de8f1be8d779db67b1be713e8bf7ad83a37d5a3f7d1eefdf346e4bcc1b7ddff445983f720f0ef547837199a37e7270a83f42fc0a3fce500f63e3ba42bffd367615faf3065c9735f43d839baec17c82bf655115a84f9c2ffdf5e89f7763ff2877c65589797a6a1ce2bb01f6af63c4f3c57854635edf82637c753ef755989f7209ce9b1cfe36e0500f3401477fb78c4715f4bf81eba1863edc57c779d11a9b7eb902077f888c9b12f7d7e0a8ffc4b8ab50afd7e0c6351a6f423c9acc3fca8fe07cc8d51e7a02177d81f74b0f8ef573631cee2f8c2dbeb4088ef94f8c2d1ec4c652211fdbe0baafd1cfd81fe56d8e7ac47d235f1e88670a0ef27c0c0efef1ba71dfc07e9df7bd644586fa457c24d43f09b8f28f32ea47a6095176c65d8d78a23fa4f14bedc579974b0eff7363bf94d1bf2ebcaf68c1d8e629213f2ee48f906fd7d40de285fe69b351867dd46f1be611a19eda50fff4601cf281fa6a7df9601ff16a437dd3ab71d5c07fc4af0bfd4dc85fe73feea01f507f5de94af8877eec627e919f3ee66fcfd82fe535703114a8b71d70d4b769dc95f06fdfd8e621a1dffbe80fe6f110e3330f0ef392568d437e31cf865a6ac4e7ced8f24bfabe1a123ffe511f2bc6161fd1f7fb103fbf8c27ffff0af24c2cecb8fd4ac6ef74dc32cde4b9f7ff1bf88ccf59be90bee04bbef2bffb28df7ae96bbee15b7fa2fd247dc7f7fcc08ffc34d565f2137ee6177ee5dffcc6efb33bbcf43cffe4055ee4255ee69528bfca6bbcce1bbcc95bbccdbf708797dee131eff21eeff3011fcef4ab45477ccc277cca09a7d33bbc8ecc73ce05975c718d5b67f1f4271a1e11139190a3d6af8e7a1ae88ccee92278f531fedcd2255dd135ddd02dddd13d3dd0233dd1849e671efd3d5ffec40bbdd26f7aa3779aa79fb4408bb4f431629ff3cb42cbb442abb446ebb4419bb4c5ab5fe537caafd236fda21d1ad32eedd13e1dd0e1ff96f7f61cd1319dd029259452463915547eccf9dffc15aaa8a6c67f55f67fd2a6883869a5937ee6c1c778ca2067722e17722957724da5dcc8addcc9bd3cc8e3e778b2c8934ce4595ee4557efbfd555e953779f7d2f3f2531664d1eb5b9ad59b975e961559953559970dab8756363d6dc9b6fc921d194fff0b79d9953dd99703399423399e59eb6f1dcb899cfa2fbaa9ff309c47fde24765e95f17b5349feab9959163de77e4e4433dfb7e71ceb5b8f373bfb8cef553e959bf8c276e7067eedc5db8cb2fd695bbf6bb37eef283fc57729f96c6f3bf7f7efb0bc39c1ec1</data>
+    </image>
+    <image name="image3">
+        <data format="XPM.GZ" length="3342">789c8d965953144910c7dff91413e69bb191f65d55b1b10f808a728f02221bfb90555dcda1dc838a1bfbddb7e69f45e3c27a3846c08ffc775e95953dcf9e4ef6b737264f9f2d5ccf64761c26e148ae264ffb9bd3d3db3ffffae3ef8527553549ffcba698544f7e5b78329d4dc264f3fc2cce418e1350817fe0933937adb545376726707492f930b3cf7c0a1e465e1dd98043e690edd39161a76e640bbbccb92deeec7234b2dadf8decc03e739fe33523434f88df9677cc766481fd2273ccfa737095ec1e7a973916013c801b37143df87664f493bf805b298a01f96b3d4eea12cda7f723d7d0d7e0205da9f5aaff416c89fa08e7d315624ac423f8ef4a71a5e6b306ae444ac4e37d7027ae6aa15736325488cfe867e77c5935e06d70efeb4ae36d8d8cfa05fd35c6871ae747cb60f1b1d67ea21ee3935dfbb1a3dcdbaa046f82436f72fc9591b5fe02dcf72ef3353886b2d67e2e2927bdc6efc1831f1ad53f570e55adf56f28277f3a5f8b9925f7e3e3c8ea6f7dceb6ea7d857e529d39683fb804d7498f7c682f73a8f43caaccbdf68be1df76c136ea7f57b9ef6be44b9fc126548dce47ccec1acd17f558174ca3e7fb092cbdd49a5f9939d6aac7f9581f42a3f99c2aa778d00b678e35e69d355e08bec57de70be574e0daef57e0d88746e715f36f875834aa47ff5d11fa56e7e72a73cc7ca3dcf7b97e03aefaa2d5fbdf829ba4d77c49b91fb45ec2fe715db2eb79be009bbe6cb5ff6de6ae45bf69433996da4fd678b62f3b9d37f4dfa5ebdbeaf97fcd5cb66a7f0b96d17e09f67ddde93ed9cb6c3a9de745e5a4c7fc0bf6a18bbd74a89fe04f8ad8e67cdf80cbd875da3fec97344c65d6635f491d1bcd97b02fa44dacfb6825b3e9343fdc27e9faa1d37a91af9858777a7eafc1361646eb5bcedc74daef5966dbe9fec3798b4bfed58efb2b12add17ccfc021f9d3fd80fb99c6cf19f4830ec0315646e7f524736b743f68fd697e0cf2a521b318d4c3b80fbe888dd1fdf132735a59d02f653639fe9d5dd43f213f5fa678fafc5666a34c6b999dd1fb89fbea9b682dfa237d66b1a897f07ef15d623d9f22b3573ddd8c8cfb2c985f6fa2b3a8474266b13affd3cc5efdf107b08dc66a7d36b3d7e709fbd9bbd85a3ddf5966a77ac6fbc04b62bd2feacfa7e7b57eccb70fd13a9dd783ccd94ed8f7691da4170418fbc10fd1399df7f5ccde69fdb8dfa18c83d37a701f4313d33702f061e62133e62fb4c9aef961df842ed995f1be0c2646d1f9c1f78560e320ba1fb1ef824b76ed17be1f043f1482f8d3d9af7f7eae676261cff46bfaa40edc73e421fda45fd01ff2111ff3097fe08fe977fab13e793fe5333ee70bbee42b0e3ff39f32bfe619dff027fecc5f7e964ff27ecb5f79919778999fcfbdff489fd49e5ff04b5ee157fc9a57b5433fd4aff13a6ff0266ff1361f3eec67b2d35d9741537ec36f798777794f7bf9ad3ed9dff1fefdb924f57b3ee0824baeb8bef7a3faa46eb8e58e0ddbb92db14bc1880b12f2ec1fce0305ea29d240877444c7f3f3a713fa401fe994cee8fcdefba8bfa04bbaa26b9ad10d7da2cff4856ee92b2dd2122df3f4f1bccd678a9ed30b7a492bf48a5ed32aadd13a6dd0663a5f7aacd70a688bb6694a6fe82dedd02eedd13bdabfebe3437d8ef19e0ea8a0922aaaa9a1365542dfd3eb33d491219b5e76e96179a47e7cbef328e225a42f1ff1db3e7e4faf7323831ccad163eff77a39fecfe78457e5e4c1dfd2e7bbfafffdc0ff3fbf2ffc0b3dcb3a7e</data>
+    </image>
+    <image name="image4">
+        <data format="XPM.GZ" length="12462">789cad9959739bb79286eff32b5cc15d6a0a873bf9d5d45c48a24851d4be4b5373819594b889a436ead4fcf7e90ffd36643bc772e2335118f9318046e3ed6e2ccc3ffef8727372f8e58f7ffcb67e324ff7ee8b1b9bd5973ffcf36cb6f9effff9af7ffef67ba3f5a5d1a17f3b5f6abfffc76fbf9f3e7d715f8e16f350823924502dd3a8543a89df4b6ed71b8d6aa564f508eea05d27b6c2fa0eecd03e15c6f8157353ecd784b9ddce856b894d05dcaca6fe760c2e6a45c9becbdca9162ef59f94dcf9f0b70077c0d7cc32bfae829bcc6a21ccf3e96770017f6760cfede65898fdb50fcced6a3389eb6bcc9dc2344a0e73b037c95f7595d866fffa60d16bc92cfa986a66d6c309f3fc7a0886bffa10ece1bf1286fd9e30f43e656e55611ffd5b45bd9ada9bc28dc4718799d6c3ebeb654eeb0b7d61eb1347e6a28af677619bc6fb7a66ee3f1376cdd47e026e42bfb4fea291f5e983114f5d1146fb51666e7f05431fb5278cfe5b99b97f8db95585fd0d18f399ccf5949fea120cfdf400ec99ed1573a768dbb4de8530f480bfa45fe2087f8b6ac1fc24cced610a6e82ebe082f5f23d616e57ebc42ee7cb3e58f2c333533e707e1d8345df0958c6d7c1323e66e6f67b61ce3785f9da55f06de6a49f590823ff76c0d0d7c07e07f5664fc145cba4f573bc5cce27cc27eb0f36736a8fd2ee793ff167c2e8bfc9ccf61ac22eb17f613692cfe3cca95da77693f3cdac99b39e07c2d06f0b0c7d951546fb8d30ea779e99f5391146fecdc0985f9f0ac3de2033fb6798253e663b73b21fbbcc52ffd133e77aad829bcc61042e98e31e58c63f0bb35ebe298cfe43665345ff0761c4679599e3698579bc9b654eedae0e6ea2bf1246ff4966eedf031bc4df0ba3ff41668ef75be28f7a79074bbd1c09a3be1ec0b21f0561b4733ca91e903f5d30eac18ec012ef6db09c4f5a98fb6bd697ea87e3a99e8579bc3a004bbd3961deff0deb47f5d3a9a7789d0a23feb027f10b2133ebd9679678f85db0e48bc9cced2d30f48d1361cffaafc101f3ef0973bb3f66b6358e9f6b0963be71e6d4aed27aec47bd4c99dbb2df7b61ae17350717158ed782b983fad1e79959ff022ce3c7c2d8efee845b697f5375b00777988b2af8048cfe66175cb4537c2cfc917a896fc2bc7e7d0b6e76d279e4cf85a1ffab30eb19076083fdae2f8cf81861ee6f2d38e03cba17e6fea1298c783698251ee14dd8a7fb6aec815ba8ff3d61d4e361668e774518f9f09039d9736db0d42fcfefdb4d9c4fdb60a9df2d61c4ef4918f57407967a5b3277709eaa4666b677268cf946c2b84f0c85517f16dc6ca4f34eb3ffbe90f63361ae4ff50a467f7524cce7a77900e3fc342bb0c77d83e3eb4d40fda09de2c1f5730516bd87c2681f64e6f7460f8cfc714b618c6f0a235ea3cc1cff5db0f8d311c6f82761e413e78777c8275713e67695ce07d794fa563b60a9ff39b3c44bbd0923dec7608f78f4980beca7ba9b99f3e1128cfd543d6466fd47e002f109cc26703ced2d33ed671c9f0330cea37029cc7ad96d7080de73616e0f43e1d04aed588fe8e32f32b3fedbc2e8ff0296fabacaccf68f8403d75b01467c35ebed3b727e3d82717ee99630eae14518f9be27cc7aa90a7381fba1be00cbfdfc5e18e36f8539ffd521981e1c49bf1bb06736f0cf54b1bf9e8303eef31c0fca57d6c72ec1389fdc9130dae18fe4a75f0bb37e7e22ccfdc31658f6af0761b4c33fd1d76f32b3bdb630c7c35b30f2c10f84b93d6ae198ec7bc7ecc5bfa530f7d7a93e3dd503e2b96216bd75075ca05eaec1523f57c2c8ff4b61c4c7309b2af6ab0330ce2f17986d8deb453b700b2ced06f79729b3e86b2fc0d8cffca530f2fd3433d7d71d187a87edcc1c9f6761c4e73033d707f472c807ff9699edb798bdd4634518fd1f33b33d25ccf1b22f60a9cf1d611e1f4366f6f74618f146fcbc6156291f7d30b86f780396fd85f50e36703cf49330dfdf7d6496f5bb1330d61b3263be0db3c77dcd1a61e85b15c6f86361f81fc0589fbf16863e076089d7b630e2759d99c77b30e215aa99b93de543a0eb3dde93db6079ef6c98e53cb54d66db427eef0af3f96b5a60c3f6dc98d9a1dd3e09e33ed61166ffd43b58de2f4bb0f82fe3a1b7bb66163dfda130b7873518fac559e698fc3901433fb79b99f5dd17c6f869e634de6d81e14f2832a7760f7f839c3fddcc1cff949f2174707fb13c3e982af6f30ab335bc7f877b619c479ed9d5a07714e6f8d9c3ccdc7e268cf7c305b885fec760dc77b4d8433d682b8cf3fc8539eb75270c3d2e32273d8c30f2cfdd0b43df79e6d45f8f9803fcb597c218ff288c7cb8cdccf19576d92fac30fa4f33b37f0db0d48fb0d47bda1f63abc0f7a54e33db1a9fa7ee158cfcb635b0e1765b07e37ee417c2787f7499251ece830db3b901437f3bccccf55211c6f9d06396fd4863bcc7fd4b9d83a5bedbc2d8cfaacc41f6af8d30f663278c780b8bbe8bcc5c2f068cfc70579939ded22efeef08a3ff0773bce07fc4fc6a0a96f9df33a7fe31e5438c157cff1fa330bf77e298b9d6e0fb5c68811ddf0f22db8bf50a780d767cfe870e73a3c2f7877007767c5f882361ee1f97cccd0a9f4f7105c67b27dc64e6ef0b393eb185f77438cfccf6b7c038efc22918efeb700bc6fd2470bec536ee875e839b60acb7ed397f3dfce9e0bde69530ef5f7e06c6fd269c09e37d762f8cefe31fc005def3fbc2dc3fec80711ef982399f577330ec871761d87f0517dc3f6861bcefa1977c7feab99ea27c7fe7ce3373ff0361dc1f2ec006edd057bebfb155b061bd6d4718fbc5a530ee0bd760793f353273ff3766d9bfed008cfba23dcaccfb0df474b83fda4de6d4aebac2387f102f27f3af32b3bd7761f4dfcd9cd66fbd30ee0f0b61d433fcf735d85b0bc3de2433db9b09e37c42bc7c0bff3fad2d8cf67e661eff2a8cfd12f5ee653fed64e6fe7bc288ef2833eb3d05e3fb213310e6fee629339fafe21fde535ad68bf78b43fd049ccf3608c3de7ee664cf0c85d99eb9cacceda80fba8131bf0aa3ff7d666e7f16c6f70b3a33dfe7733bef9faa09c6f71faa258cf50c84b13f239f03beef306fc2b8bff48571ffab09633cea39e23d61c699f9fdb6278cfd5f65667f91cf11f74b2de3e5bcc7fe1be5fc91f191f9f4e9f31fadfef5cfcfc6953f3fb39fad196db5d35e071df5e8afcff1b97d5819eb7bfda0277aaa677aae17fa512ff54aafffca0c9fd987f527fdac5ff4ab7ed31bfd4e336ce96dbda3bb7a57f774ff6733fcd4fe9e1ee87d3dd407fa501fe9637da24ff5993ed717fa525fe96b7df3f90c3fb60fef6ff51dfd547495e618d23a6ab48eba6ee8a66ee9b6eee842e9cf66f8dc3efd63f44c597da79cae2a9fd65153414535526375af1ed484b4fa05fbc9fa94b43e513335570bf5a8966a45aba8aa35297540333ca967f5a25ed59bdafc78864fedbfab2db54d33eca8aeda553dd5a775ecf13ad440edaba13a5087ea481dab5fb37f42f93251a7a4d0993a5717ea525dd10cd7ea9ae2315437ea56ddd10c15ea53fdfbf6554dd5299a94f7aaa19a34434bb555471546abbe5aa93da38c51b7860e65430f9b5ff07f6c22e7bd1999b16aa6cfbd793013f568a6654e9999999b851aea7bf36896ff7a864ffc5766a58766ad5fcd9379362fe69566689937edcdc6bc974a992dd533db66c774cdee8f22fc99fea667faba6af6cc803cdf376f3443f9199ba139308734c7a33932c7e6c49c9a3373fe77ed9ba5b9483a5f92cd72862b739d6679a6195ecd8db93577a64277ae9af2a6fe4bfe374cd368ba74b5c96e07b3ec6396d7344b61b5e95b658d59febdf8f20cd65a673dd96bdb6023d9ebe4b524b56cb4233bb6f7aaf677f3072bb8b00f64a74d17b58919601d859dca5aecccceedc23efefdfac5fe36b64bb23ab02b9a616da75fcd426b21efd7f6c93effdafe06855e2cf96fdfecc64eec8a2cbef35ac8f296ddd09fb73f3f657e6a7fc776cd30594f1f9aebbdfc24eb6dbb6bcdafeeff9243b667fb768facbfd901cd30c0ef7dfafd6e87f6e0d7ed630587762fc56093ac4fec117e6fe8ef3ed939ff9a7db3b427f69494df25ad37f68c2cefd26795ac9fdb0b3a23fe0dfb98e1d25ed96bd5356dd54dbecfe8bf337b636f7f9cf77fdd7ecad23b5bb1557a4fcd6886beaddb866d52745bffdefde4e37665db94fb1bdbb185d3b6b0d776e0945d3bf3f35bd667fbcfc78fb3ce39ef9cedbae022fd79e4c6ceb3ff9fdfe5fe6cfffb5ba6bb770f6ef2d5df8c73cbd4cddcdc2d3e9be55bfb1fbdccb97b744bb7726bb2fee49edd8b629bafeecdd17dc1bdbb2db7ed765cd7edba9eebbbbd8f797f641f5e0ddcbedb73437740be1d92f523b27eec4edca95bb83377ee2edca5bba23ed7f4b971b7ee8ee88efa545c95fa5d7d3bc7877d58af91cf75d7209fcaff1f32776d9aa153fa4fa30b57f5dad371e2f6bda58fcb9f722d57ded30bade7865f9fc5dfdaf7d18ffcd8dfbb09f9bf7673ffe027a53a7e4afed30cd43ef373bf20daf78fbc06bfc4ef15adef9e546df9f5c70ac47eb2fe54faee9ffd8b7f2dfdc8fe3ff9b7647d432fc677bfe5b7bff3bffcb3a5b61df7489f5ddffd58c1877db32c7df6bbbee7fba4d0caef95fa93ff47ac8e2fdfa303bfef87fea0f4dd1f7eb586326627d4fee8b6fcc41ff96359c137f64bab27fed49ff973f6df5fb8b6bf7435ffe6af92ffd7fec6dffa3bb258f9cef7f243eb238faabee6ebbef1b57de4cdca4d7c93fc6f91fe2bd61fea9c92f53659eaf8c25d044dbe6f0545be1e7ee57b9bac1fd11bf5849ee535b7f3bdfde0d217d2318cc8ffa47f18933acb949decbb0df7e1c11f840959aea40fd650fa4ef9d5a0f1d3300bf3b0088f7fb24fd5e4cfc2887a98b082fea44e993bbe1dd6e1897c7e0e2fe195d640791fd6eefeab3554c39bef878deb87f7d2ffb0c511f8cafe36fb4ffaf5fc79f07ee41a657696da97fa969afb5978083ba1eb6e294fca0fafc1865d5273e5c7ae4f63aba117faaef527fb7b6110f64bfde9dd3f2bf50fc370100ec351380e275cabe1349cf9f7701e2edc943ee51ab6282e0ffe215c9633b819e9dff34d9ae1aadc2f3eecab69cace6a993f61e35f692d97697728fddfa47cb90dd7e126dc866eb80b95507553f27fdf6fc221f599d05a47b4e6571a7b4a31ac85fab7f6cdd297fe47d2af119a647d407a923a34fa94b45764fdc22d428b56d00e1dda8516e1221451fb6b6a4f3384b730882a9ad0889666b0d17d63bf4116cb129a86403aa6eca4daa5dc09c7a4fd560c64b11a63b88ba3388ef7e4ff6df2dfa65ded81d63ae718480eb9dd6ff451913424df4dd884669cb03a943b553f88d338738b388f8bf818977115d7e1d45d45daf9e9eff749ff13ea4733844b1ad72c73283ec5e7f8f2ad3ed6c4d7f8566ae8ea6140b58bdc09eba47d952c6ee27bb8f5ef718b224c9cd650a1bab822859a713b8c298675b2be13bb71f7fbfca153fc24f6623feec541dca7cfaffe1ec603db921deefbfdffffef07fbe7fffee76fff07cf901883</data>
+    </image>
+</images>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

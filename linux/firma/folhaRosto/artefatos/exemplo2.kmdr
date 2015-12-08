@@ -1,0 +1,193 @@
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<class>Form2</class>
+<widget class="Dialog">
+    <property name="name">
+        <cstring>Form2</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>456</width>
+            <height>212</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Form2</string>
+    </property>
+    <widget class="FileSelector">
+        <property name="name">
+            <cstring>arquivo</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>10</y>
+                <width>231</width>
+                <height>21</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="Label">
+        <property name="name">
+            <cstring>Label5</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>180</y>
+                <width>440</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="populationText">
+            <string>@exec(identify "@arquivo.text" | cut -d " " -f 2-10)</string>
+        </property>
+        <property name="associations" stdset="0">
+            <stringlist>
+                <string></string>
+            </stringlist>
+        </property>
+    </widget>
+    <widget class="ExecButton">
+        <property name="name">
+            <cstring>ExecButton3_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>50</y>
+                <width>230</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Deletar a imagem</string>
+        </property>
+        <property name="associations" stdset="0">
+            <stringlist>
+                <string>kdialog --yesno "Tem certeza?"
+retval=$?
+if [ "$retval" = "0" ]; then
+  rm -f @arquivo.text
+fi</string>
+            </stringlist>
+        </property>
+    </widget>
+    <widget class="ExecButton">
+        <property name="name">
+            <cstring>ExecButton3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>140</y>
+                <width>230</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Limpar</string>
+        </property>
+    </widget>
+    <widget class="ExecButton">
+        <property name="name">
+            <cstring>ExecButton3_2_2_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>110</y>
+                <width>230</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Girar no sentido anti-horário</string>
+        </property>
+        <property name="associations" stdset="0">
+            <stringlist>
+                <string>jpegorient +270 @arquivo.text </string>
+            </stringlist>
+        </property>
+    </widget>
+    <widget class="ExecButton">
+        <property name="name">
+            <cstring>ExecButton3_2_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>80</y>
+                <width>230</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Girar no sentido horário</string>
+        </property>
+        <property name="associations" stdset="0">
+            <stringlist>
+                <string>jpegorient +90 @arquivo.text </string>
+            </stringlist>
+        </property>
+    </widget>
+    <widget class="PixmapLabel">
+        <property name="name">
+            <cstring>PixmapLabel3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>251</x>
+                <y>10</y>
+                <width>190</width>
+                <height>160</height>
+            </rect>
+        </property>
+        <property name="scaledContents">
+            <bool>true</bool>
+        </property>
+        <property name="populationText">
+            <string>@arquivo.text</string>
+        </property>
+        <property name="associations" stdset="0">
+            <stringlist>
+                <string>@arquivo.text</string>
+            </stringlist>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>arquivo</sender>
+        <signal>widgetTextChanged(const QString&amp;)</signal>
+        <receiver>PixmapLabel3</receiver>
+        <slot>setWidgetText(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>arquivo</sender>
+        <signal>widgetTextChanged(const QString&amp;)</signal>
+        <receiver>Label5</receiver>
+        <slot>populate()</slot>
+    </connection>
+    <connection>
+        <sender>ExecButton3</sender>
+        <signal>pressed()</signal>
+        <receiver>PixmapLabel3</receiver>
+        <slot>clear()</slot>
+    </connection>
+    <connection>
+        <sender>ExecButton3</sender>
+        <signal>pressed()</signal>
+        <receiver>Label5</receiver>
+        <slot>clear()</slot>
+    </connection>
+    <connection>
+        <sender>ExecButton3_2_2</sender>
+        <signal>pressed()</signal>
+        <receiver>PixmapLabel3</receiver>
+        <slot>populate()</slot>
+    </connection>
+</connections>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
