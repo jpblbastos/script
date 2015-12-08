@@ -1,0 +1,2 @@
+#!/bin/sh
+/opt/spoolga/bin/account-processes.sh --impressions --email --display

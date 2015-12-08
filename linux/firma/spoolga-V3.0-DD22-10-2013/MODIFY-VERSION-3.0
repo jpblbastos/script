@@ -1,0 +1,23 @@
+ alterações para spoolga 3.0
+                                                  
+ spoolga
+ ├── bin
+ │   ├── account-processes.sh        --> (modificação) no script para contar processos processamento de txt para
+ │   │                                   pdf 
+ │   ├── lpga.sh                     --> (modificação) não entrar no diretorio DIRSPOOL, fazer processamento no
+ │   │                                   dir raiz da aplicação
+ │   ├── spoolprocessor              --> (criar) script que monitora o servico processor
+ │   │
+ │   ├── processorDir                --> (criar) script que manipula os diretorios de destino dos relatorios
+ │   │                                   dos usuarios mapeados em map-user.xml
+ │   │                                   
+ │   └── processor                   --> (criar) plugin do processador de arquivo txt para pdf's
+ │                                      
+ ├── conf
+ │   ├── map-user.xml                --> (criar) arquivo contendo o mapeamento dos usuario
+ │   │
+ │   └── config.php                  --> (modificar) arquivo de configuração para script php
+ ├── LEIAME                          --> (modificação) modificar arquivo para versão 3.0
+ └── libs
+     └── processorPdf.class.php      --> (criar) objeto que manipula a converssão de txt to pdf
+ 

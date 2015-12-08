@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<livro>
+  <nome>Exemplos de XML</nome>
+  <data formato="w3c">2011-02-28</data>
+  <edicao>1</edicao>
+  <autor>
+    <nome>Rubens Takiguti Ribeiro</nome>
+    <site>http://rubsphp.blogspot.com</site>
+  </autor>
+  <comentarios>
+    <comentario>
+      <autor>Alguém</autor>
+      <texto>Gostei muito do livro</texto>
+    </comentario>
+    <comentario>
+      <autor>Outro</autor>
+      <texto>Poderia ter mais figuras.</texto>
+    </comentario>
+  </comentarios>
+</livro>

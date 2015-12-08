@@ -1,0 +1,180 @@
+#!/bin/sh
+# /**
+# *
+# * Este arquivo é parte do projeto spoolga - sistema de impressao G. A. Silva
+# *
+# * Este programa é um software livre: você pode redistribuir e/ou modificá-lo
+# * sob os termos da Licença Pública Geral GNU (GPL)como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior
+# * e/ou 
+# * sob os termos da Licença Pública Geral Menor GNU (LGPL) como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+# *  
+# * Você deve ter recebido uma cópia da Licença Publica GNU e da 
+# * Licença Pública Geral Menor GNU (LGPL) junto com este programa.
+# * Caso contrário consulte <http://www.fsfla.org/svnwiki/trad/GPLv3> ou
+# * <http://www.fsfla.org/svnwiki/trad/LGPLv3>. 
+# *
+# * @package        spoolga
+# * @name           spoolstatus
+# * @version        2.1
+# * @license        http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
+# * @copyright      2011 &copy Twoclick Criações
+# * @author         Joao Paulo Bastos L. <jpbl.bastos at gmail dot com>
+# * @date           01-Março-2013
+# * @description    monitor de conectividade das PRINTERS
+# * @dependencies   arquivo de variaveis globais  : var_globais
+# *
+# **/  
+
+#  // propriedades do script
+
+# /**
+# * sysconfig_spoolga
+# * arquivo de variaveis globais
+# * @var string
+# */
+: ${sysconfig_spoolga:=/opt/spoolga/conf/var_globais}
+test -e $sysconfig_spoolga || exit 4
+
+# carrega variaveis globais
+. $sysconfig_spoolga
+
+# /**
+# * CMD
+# * variavel de decisao passada no paramentro $1
+# * @var string
+# */
+CMD="$1"
+
+# /**
+# * pidfile
+# * @var string
+# */
+: ${pidfile:=/opt/spoolga/conf/status-printers.sh.pid}
+
+# /**
+# * NAME
+# * variavel de nome do servico
+# * @var string
+# */
+NAME=status-printers
+
+# /**
+# * DESC
+# * variavel de descricao do servico
+# * @var string
+# */
+DESC="Verifica Status Printers"
+
+
+# /**
+# * STOPDAEMON
+# * variavel que define linha de comando de parada de servico
+# * @var string
+# */
+STOPDAEMON="start-stop-daemon --stop --quiet --pidfile $pidfile"
+
+# /**
+# * STARTDAEMON
+# * variavel que define linha de comando de inicializacao de servico
+# * @var string
+# */
+STARTDAEMON="start-stop-daemon --start --exec $STATUS_BIN -b -m --pidfile $pidfile"
+
+# // fim das propriedades
+
+# // funcoes do script
+
+# /**
+# * cleardir
+# * Método limpeza do diretorio lixo e mailBox
+# * @version 2.0
+# * @package spoolga
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+function cleardir(){
+  # remove todos arquivos do diretorio setado em $DIRLIXO
+  rm -f $DIRLIXO*.*
+  # remove todos arquivos do diretorio setado em $DIRSENTITEMS
+  rm -f $DIRSENTITEMS*.*
+  # remove todos arquivos do diretorio setado em $DIRSENTITEMSPDFS
+  rm -f $DIRSENTITEMSPDFS*.*
+  # remove todos arquivos do diretorio setado em $DIROUTBOX
+  rm -f $DIROUTBOX*.*
+} >&2
+
+# /**
+# * testScripts
+# * Método que testa permissoes do script
+# * @version 2.0
+# * @package spoolga
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+function testScripts(){
+   # testa a existencia do script e suas permissoes
+   if ! test -e "$STATUS_BIN" || ! test -x "$STATUS_BIN" ; then 
+      echo "OPS, impossivel de prosseguir o script $STATUS_BIN nao foi encontrado ou nao tem permissoes de execucao.\n"
+      exit 1
+   fi
+} >&2
+
+# // fim das funcoes
+
+# // Corpo do Programa
+
+# testa permissoes dos scripts de servicos
+testScripts 
+
+# faz a limpeza nos diretorio de processamentos, se hora < 8 para evitar perda de arquivos
+flag=`date +%H`
+if [ "$flag" -lt "8" ] ; then
+cleardir   
+fi
+
+# executa script de contagem de processos, se hora > 8 pois ja ha processos executados 
+flag=`date +%H`
+if [ "$flag" -gt "8" ] ; then
+   $SERVICESACCOUNT_BIN --impressions --email 
+fi
+
+# tomada de decisao
+case "$CMD" in
+    start)
+         echo -e "Servico : $NAME "
+         if [ -e $pidfile ]; then
+            if [ -s $pidfile -a -d /proc/$(<$pidfile) ]; then
+               echo -e "  └ Iniciando : \033[1;32m Ja em execucao pid ($(<$pidfile)) \033[0m"
+               exit 1
+            fi
+         fi
+         $STARTDAEMON
+         echo -e "  └ Iniciando :  \033[1;32m Feito \033[0m"
+	;;
+    stop)
+	echo -e "Servico : $NAME"
+        if [ -s $pidfile -a -d /proc/$(<$pidfile) ]; then
+	   if $STOPDAEMON ; then
+              echo -e "  └ Desligando :  \033[1;32m Feito \033[0m"
+           fi
+        else
+           echo -e "  └ Desligando :  \033[1;31m Processo nao encontrado \033[0m"
+        fi  
+	;;
+    restart)
+        $0 stop
+        $0 start
+        ;;
+    status)   
+        echo -e "Servico : $NAME "
+	if [ -s $pidfile -a -d /proc/$(<$pidfile) ]; then
+	     echo -e "  └ Verificando :  \033[1;32m Em execucao pid ($(<$pidfile)) \033[0m" 
+	else
+             echo -e "  └ Verificando :  \033[1;31m Processo nao encontrado \033[0m"
+	fi
+	;;
+    *)
+	echo -e "Usage: $0 {start|stop|status|restart}"
+	exit 1
+	;;
+esac

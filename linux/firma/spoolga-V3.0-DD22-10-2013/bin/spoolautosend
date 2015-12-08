@@ -1,0 +1,149 @@
+#!/bin/sh
+# /**
+# *
+# * Este arquivo é parte do projeto spoolga - sistema de impressao G. A. Silva
+# *
+# * Este programa é um software livre: você pode redistribuir e/ou modificá-lo
+# * sob os termos da Licença Pública Geral GNU (GPL)como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior
+# * e/ou 
+# * sob os termos da Licença Pública Geral Menor GNU (LGPL) como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+# *  
+# * Você deve ter recebido uma cópia da Licença Publica GNU e da 
+# * Licença Pública Geral Menor GNU (LGPL) junto com este programa.
+# * Caso contrário consulte <http://www.fsfla.org/svnwiki/trad/GPLv3> ou
+# * <http://www.fsfla.org/svnwiki/trad/LGPLv3>. 
+# *
+# * @package        spoolga
+# * @name           spoolautosend
+# * @version        2.1
+# * @license        http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
+# * @copyright      2011 &copy Twoclick Criações
+# * @author         Joao Paulo Bastos L. <jpbl.bastos at gmail dot com>
+# * @date           01-Março-2013
+# * @description    script que realiza os autos envios de e-mail
+# * @dependencies   arquivo de variaveis globais  : var_globais
+# *
+# **/  
+
+#  // propriedades do script
+
+# /**
+# * sysconfig_spoolga
+# * arquivo de variaveis globais
+# * @var string
+# */
+: ${sysconfig_spoolga:=/opt/spoolga/conf/var_globais}
+test -e $sysconfig_spoolga || exit 4
+
+# carrega variaveis globais
+. $sysconfig_spoolga
+
+# /**
+# * pidfile
+# * @var string
+# */
+: ${pidfile:=/opt/spoolga/conf/auto-send.pid}
+
+# /**
+# * CMD
+# * variavel de decisao passada no paramentro $1
+# * @var string
+# */
+CMD="$1"
+
+# /**
+# * NAME
+# * variavel de nome do servico
+# * @var string
+# */
+NAME=auto-send
+
+# /**
+# * DESC
+# * variavel de descricao do servico
+# * @var string
+# */
+DESC="Realiza o auto envio de pedidos"
+
+# /**
+# * STOPDAEMON
+# * variavel que define linha de comando de parada de servico
+# * @var string
+# */
+STOPDAEMON="start-stop-daemon --stop --quiet --pidfile $pidfile"
+
+# /**
+# * STARTDAEMON
+# * variavel que define linha de comando de inicializacao de servico
+# * @var string
+# */
+STARTDAEMON="start-stop-daemon --start --exec $AUTOSEND_BIN -b -m --pidfile $pidfile"
+
+# // fim das propriedades
+
+# // funcoes do script
+
+# /**
+# * testScripts
+# * Método que testa permissoes do script
+# * @version 2.0
+# * @package spoolga
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+function testScripts(){
+   # testa a existencia do script e suas permissoes
+   if ! test -e "$AUTOSEND_BIN" || ! test -x "$AUTOSEND_BIN" ; then 
+      echo "OPS, impossivel de prosseguir o script $AUTOSEND_BIN nao foi encontrado ou nao tem permissoes de execucao.\n"
+      exit 1
+   fi
+} >&2
+
+# // fim das funcoes
+
+# // Corpo do Programa
+
+# testa permissoes dos scripts de servicos
+testScripts 
+
+# tomada de decisao
+case "$CMD" in
+    start)
+         echo -e "Servico : $NAME"
+         if [ -e $pidfile ]; then
+            if [ -s $pidfile -a -d /proc/$(<$pidfile) ]; then
+               echo -e "  └ Iniciando : \033[1;32m Ja em execucao pid ($(<$pidfile)) \033[0m"
+               exit 1
+            fi
+         fi
+         $STARTDAEMON
+	 echo -e "  └ Iniciando :  \033[1;32m Feito \033[0m"
+	;;
+    stop)
+	echo -e "Servico : $NAME"
+        if [ -s $pidfile -a -d /proc/$(<$pidfile) ]; then
+           if $STOPDAEMON ; then
+              echo -e "  └ Desligando :  \033[1;32m Feito \033[0m"
+           fi
+        else
+           echo -e "  └ Desligando :  \033[1;31m Processo nao encontrado \033[0m"
+        fi  
+	;;
+    restart)
+        $0 stop
+        $0 start
+        ;;
+    status)
+        echo -e "Servico : $NAME "
+	if [ -s $pidfile -a -d /proc/$(<$pidfile) ]; then
+	     echo -e "  └ Verificando :  \033[1;32m Em execucao pid ($(<$pidfile)) \033[0m" 
+	else
+             echo -e "  └ Verificando :  \033[1;31m Processo nao encontrado \033[0m"
+	fi
+	;;
+    *)
+	echo -e "Usage: $0 {start|stop|status|restart}"
+	exit 1
+	;;
+esac

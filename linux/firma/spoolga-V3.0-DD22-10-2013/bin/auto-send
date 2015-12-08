@@ -1,0 +1,90 @@
+#!/usr/bin/php -q
+<?php
+/**
+*
+* Este arquivo é parte do projeto spoolga - sistema de impressao G. A. Silva
+*
+* Este programa é um software livre: você pode redistribuir e/ou modificá-lo
+* sob os termos da Licença Pública Geral GNU (GPL)como é publicada pela Fundação
+* para o Software Livre, na versão 3 da licença, ou qualquer versão posterior
+* e/ou 
+* sob os termos da Licença Pública Geral Menor GNU (LGPL) como é publicada pela Fundação
+* para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+*  
+* Você deve ter recebido uma cópia da Licença Publica GNU e da 
+* Licença Pública Geral Menor GNU (LGPL) junto com este programa.
+* Caso contrário consulte <http://www.fsfla.org/svnwiki/trad/GPLv3> ou
+* <http://www.fsfla.org/svnwiki/trad/LGPLv3>. 
+*
+* @package        spoolga
+* @name           auto-send
+* @version        2.0
+* @license        http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
+* @copyright      2011 &copy Twoclick Criações
+* @author         Joao Paulo Bastos L. <jpbl.bastos at gmail dot com>
+* @date           21-Fev-2013
+* @description    plugin de auto envio dos emails 
+* @dependencies   config.php
+*                 MailPedPHP.class.php
+*                 functions.php
+*
+**/  
+
+//define o caminho base da aplicacao
+if (!defined('PATH_ROOT')) {
+   define('PATH_ROOT', dirname(dirname( __FILE__ )) . DIRECTORY_SEPARATOR);
+}
+//carrega arquivo de configuracoes
+if ( is_file(PATH_ROOT.'conf/config.php') ){
+   require_once(PATH_ROOT.'/conf/config.php');
+}else{
+   echo "OPS, arquivo config.php nao encontrado, impossivel de prosseguir!!\n";
+   exit;
+}   
+//carrega arquivo functions.php
+if ( is_file(PATH_ROOT.'includes/functions.php') ){
+   require_once(PATH_ROOT.'includes/functions.php');
+}else{
+   echo "OPS, arquivo functions.php nao encontrado, impossivel de prosseguir!!\n";
+   exit;
+}  
+//carrega as classes do MailPedPHP.class.php
+if ( is_file(PATH_ROOT.'libs/MailPedPHP.class.php') ){
+   require_once(PATH_ROOT.'libs/MailPedPHP.class.php');
+}else{
+   echo "OPS, arquivo MailPedPHP.class.php nao encontrado, impossivel de prosseguir!!\n";
+   exit;
+}
+//define timezone
+date_default_timezone_set('America/Sao_Paulo');
+
+//corpo do plugin
+while ($service) {
+    //cria um array limpo
+    $aName=array();
+    //array contendo o path+nome_do_arquivo
+    $aName = listDir($dirOutBox , '*.eml', true);
+    //continua se houver arquivos na caixa de saida
+    if(count($aName)){
+       for( $x=0; $x < count($aName); $x++ ) {
+          //instancia a classe manipuladora de e-mail
+          $oMail = new MailPedPHP();
+          //trata retorno 
+          if (!$oMail->enviaMail($aName[$x])){ 
+             my_log ("Motor-AutoEmail Diz: OPS, erro ao enviar o e-mail do orcamento ".$oMail->aMail['numero']." para ".$oMail->aMail['para']." em ".date('Y-m-d H:i:s'), $logApp);
+             my_log ($oMail->mailERROR, $logApp);
+          }else{
+             my_log ("Motor-AutoEmail Diz: E-mail do orcamento ".$oMail->aMail['numero']." enviado com sucesso para ".$oMail->aMail['para']." em ".date('Y-m-d H:i:s'), $logApp);
+             my_log ($oMail->aMail['para'] ,$logEmail);
+             //mover o pedido para pasta de enviados
+             $newname=$dirsentItems.$oMail->aMail['numero'].'.eml';
+             rename($aName[$x],$newname);
+          }//fim if enviaMail
+       }//fim for
+    }else{
+       my_log ("Motor-AutoEmail Diz: OPS, Existem 0 e-mail, sem nada a fazer em ".date('Y-m-d H:i:s'), $logApp); 
+    }//fim if count
+    //aguarda a proxima interacao
+    sleep($tempo);
+}//fim do corpo
+?>

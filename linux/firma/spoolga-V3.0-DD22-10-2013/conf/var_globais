@@ -1,0 +1,162 @@
+# /**
+# *
+# * Este arquivo é parte do projeto spoolga - sistema de impressao G. A. Silva
+# *
+# * Este programa é um software livre: você pode redistribuir e/ou modificá-lo
+# * sob os termos da Licença Pública Geral GNU (GPL)como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior
+# * e/ou 
+# * sob os termos da Licença Pública Geral Menor GNU (LGPL) como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+# *  
+# * Você deve ter recebido uma cópia da Licença Publica GNU e da 
+# * Licença Pública Geral Menor GNU (LGPL) junto com este programa.
+# * Caso contrário consulte <http://www.fsfla.org/svnwiki/trad/GPLv3> ou
+# * <http://www.fsfla.org/svnwiki/trad/LGPLv3>. 
+# *
+# * @package        spoolga
+# * @name           var_globais
+# * @version        2.0
+# * @license        http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
+# * @copyright      2011 &copy Twoclick Criações
+# * @author         Joao Paulo Bastos L. <jpbl.bastos at gmail dot com>
+# * @date           21-Ago-2012
+# * @description    variaveis globais do sistema spoolga
+# * @changeVersion  envio dos pedidos por email: acrescentadas novas variaveis
+# * @dateChange     18-Fev-2013         
+# * @author         Joao Paulo Bastos L. <jpbl.bastos at gmail dot com>
+# *
+# **/ 
+
+# /**
+# * RAIZDIR
+# * Diretorio raiz da App
+# * @var string
+# */
+RAIZDIR="/opt/spoolga"
+
+# /**
+# * CONFPRINTERS
+# * Arquivo de configuração das printers
+# * @var string
+# */
+CONFPRINTERS="/opt/spoolga/conf/conf-printers.xml"
+
+# /**
+# * CONFUSER
+# * Arquivo de configuração dos usuarios
+# * @var string
+# */
+CONFUSER="/opt/spoolga/conf/map-user.xml"
+
+# /**
+# * LOGAPP
+# * Arquivo de log da app
+# * @var string
+# */
+LOGAPP="/opt/spoolga/log/status-printers.log"
+
+# /**
+# * LOGSERVICESACCOUNT
+# * Arquivo de log onde seram gravados os numeros estatitiscos do dia
+# * @var string
+# */
+LOGSERVICESACCOUNT="/opt/spoolga/log/qtd_imp_printer.log"
+
+# /**
+# * ARQSTATUS
+# * Arquivo de status das printers
+# * @var string
+# */
+ARQSTATUS="/opt/spoolga/conf/printers.status"
+
+# /**
+# * LPGA_BIN
+# * path do script lpga.sh
+# * @var string
+# */
+LPGA_BIN="/opt/spoolga/bin/lpga.sh"
+
+# /**
+# * PROCESSOR_BIN
+# * path do script processor
+# * @var string
+# */
+PROCESSOR_BIN="/opt/spoolga/bin/processor"
+
+# /**
+# * PROCESSORDIR_BIN
+# * path do script processorDir
+# * @var string
+# */
+PROCESSORDIR_BIN="/opt/spoolga/bin/processorDir"
+
+# /**
+# * STATUS_BIN
+# * path do script status-printers.sh
+# * @var string
+# */
+STATUS_BIN="/opt/spoolga/bin/status-printers.sh"
+
+# /**
+# * AUTOSEND_BIN
+# * path do script auto-send
+# * @var string
+# */
+AUTOSEND_BIN="/opt/spoolga/bin/auto-send"
+
+# /**
+# * SERVICESACCOUNT_BIN
+# * path do script account-processes.sh
+# * @var string
+# */
+SERVICESACCOUNT_BIN="/opt/spoolga/bin/account-processes.sh"
+
+# /**
+# * DIRSPOOL
+# * Diretorio onde sera buscado os arquivos 
+# * @var string
+# */
+DIRSPOOL="/mnt/box/printers/pedidos"
+
+# /**
+# * DIROUTBOX
+# * Diretorio onde seram movidos os email a serem enviados
+# * @var string
+# */
+DIROUTBOX="/opt/spoolga/mailBox/outBox/"
+
+# /**
+# * DIRSENTITEMS
+# * Diretorio onde sera movidos os email enviados
+# * @var string
+# */
+DIRSENTITEMS="/opt/spoolga/mailBox/sentItems/"
+
+# /**
+# * DIRSENTITEMSPDFS
+# * Diretorio onde sera movidos os pdf's gerados 
+# * @var string
+# */
+DIRSENTITEMSPDFS="/opt/spoolga/mailBox/sentItems/pdfs/"
+
+# /**
+# * DIRLIXO
+# * Diretorio onde sera movido os arquivos
+# * @var string
+# */
+DIRLIXO="/tmp/spoolprinted"
+
+# /**
+# * PARMS
+# * Parametros para impressao
+# * @var string
+# */
+PARMS="-o cpi=25"
+
+# /**
+# * REGEX
+# * Parametros para verificacao do email 
+# * @var string
+# */
+REGEX='^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)'

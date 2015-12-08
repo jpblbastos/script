@@ -1,0 +1,95 @@
+#!/usr/bin/php -q
+<?php
+/**
+*
+* Este arquivo é parte do projeto spoolga - sistema de impressao G. A. Silva
+*
+* Este programa é um software livre: você pode redistribuir e/ou modificá-lo
+* sob os termos da Licença Pública Geral GNU (GPL)como é publicada pela Fundação
+* para o Software Livre, na versão 3 da licença, ou qualquer versão posterior
+* e/ou 
+* sob os termos da Licença Pública Geral Menor GNU (LGPL) como é publicada pela Fundação
+* para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+*  
+* Você deve ter recebido uma cópia da Licença Publica GNU e da 
+* Licença Pública Geral Menor GNU (LGPL) junto com este programa.
+* Caso contrário consulte <http://www.fsfla.org/svnwiki/trad/GPLv3> ou
+* <http://www.fsfla.org/svnwiki/trad/LGPLv3>. 
+*
+* @package        spoolga
+* @name           processor
+* @version        3.0
+* @license        http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
+* @copyright      2013 &copy its Code
+* @author         Joao Paulo Bastos L. <jpbl.bastos at gmail dot com>
+* @date           27-Ago-2013
+* @description    plugin de auto conversão de txt para pdf
+* @dependencies   config.php
+*                 processorPdf.class.php
+*                 functions.php
+*
+**/  
+
+//define o caminho base da aplicacao
+if (!defined('PATH_ROOT')) {
+   define('PATH_ROOT', dirname(dirname( __FILE__ )) . DIRECTORY_SEPARATOR);
+}
+//carrega arquivo de configuracoes
+if ( is_file(PATH_ROOT.'conf/config.php') ){
+   require_once(PATH_ROOT.'/conf/config.php');
+}else{
+   echo "OPS, arquivo config.php nao encontrado, impossivel de prosseguir!!\n";
+   exit;
+}   
+//carrega arquivo functions.php
+if ( is_file(PATH_ROOT.'includes/functions.php') ){
+   require_once(PATH_ROOT.'includes/functions.php');
+}else{
+   echo "OPS, arquivo functions.php nao encontrado, impossivel de prosseguir!!\n";
+   exit;
+}  
+//carrega as classes do MailPedPHP.class.php
+if ( is_file(PATH_ROOT.'libs/processorPdf.class.php') ){
+   require_once(PATH_ROOT.'libs/processorPdf.class.php');
+}else{
+   echo "OPS, arquivo processorPdf.class.php nao encontrado, impossivel de prosseguir!!\n";
+   exit;
+}
+//define timezone
+date_default_timezone_set('America/Sao_Paulo');
+
+//corpo do plugin
+while ($service) {
+    //cria um array limpo
+    $aName=array();
+    //array contendo o path+nome_do_arquivo
+    $aName = listDir($dirTxttoPdf , '*.imp', false);
+    //continua se houver arquivos na caixa de saida
+    if(count($aName)){
+       // laço com os arquivos encontrados 
+       for( $x=0; $x < count($aName); $x++ ) {
+           // instancia a classe de manipulação
+           $oPdf = new processorPdf(0,$dirTxttoPdf.$aName[$x]);
+           //se não haver erro no instaciamento
+           if (!$oPdf->error){
+               if ($oPdf->convertTxttoPdf()){
+                 my_log ("Motor-Pdf Diz: Eba relatorio ".$oPdf->oPdf['nomePdf']." do ".$oPdf->oPdf['user']." foi salvo com sucesso em seu diretorio de trabalho em ".date('Y-m-d H:i:s'), $logApp); 
+                 // move arquivo
+                 $newname=$dirLixo.$aName[$x];
+                 if (! rename($dirTxttoPdf.$aName[$x],$newname)){
+                     my_log ("Motor-Pdf Diz: Ops erro ao mover relatorio ".$dirTxttoPdf.$aName[$x]." do ".$oPdf->oPdf['user']." para lixos verifique se existe destino ".$dirLixo." em ".date('Y-m-d H:i:s'), $logApp); 
+                 }    
+               }else{
+                 my_log ("Motor-Pdf Diz: Ops erro ao gerar o relatorio ".$oPdf->oPdf['nomePdf']." do ".$oPdf->oPdf['user']." verifique permisões em ".date('Y-m-d H:i:s'), $logApp); 
+                 my_log ("Motor-Pdf Diz: Eventos de erro do relatorio ".$oPdf->oPdf['nomePdf'].", ".$oPdf->errorClass." em ".date('Y-m-d H:i:s'), $logApp); 
+               }  
+           }else{    
+               my_log ("Motor-Pdf Diz: Ops erro na criação da instancia da classe processorPdf para o arquivo ".$aName[$x]." em ".date('Y-m-d H:i:s'), $logApp); 
+               my_log ("Motor-Pdf Diz: Eventos de errro ".$oPdf->errorClass." em ".date('Y-m-d H:i:s'), $logApp); 
+           }
+       }//fim for
+    }//fim if count
+    //aguarda a proxima interacao
+    sleep($tempo1);
+}//fim do corpo
+?>

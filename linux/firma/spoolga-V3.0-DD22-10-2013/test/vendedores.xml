@@ -1,0 +1,14 @@
+<xml>
+  <vendedor codigo="000001">
+    <nome>João Da Silva</nome>
+    <endereco>Avenida São Paulo</endereco>
+    <bairro>Centro</bairro>
+    <cidade>São Paulo</cidade>
+    <cep>xx.xx-xx</cep>
+    <telefone>(11) 1234-4321</telefone>
+    <cpf>12345678901</cpf>
+    <rg>1234567890</rg>
+  </vendedor>
+  <vendedor>
+  </vendedor>
+</xml>

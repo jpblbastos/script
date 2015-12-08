@@ -1,0 +1,77 @@
+         ##################     ################# ############## ############## #####                  
+         ##################     ################# ############## ############## #####                  
+         ######                 #####       ##### ####      #### ####      #### #####                  
+         ######                 #####       ##### ####      #### ####      #### #####                  
+            #############       #####       ##### ####      #### ####      #### #####                  
+            ##############      ######      ##### ####      #### ####      #### #####                  
+                  ########      ################  ####      #### ####      #### #####               
+                  #######      #################  ####      #### ####      #### #####             AUTOR[JOAO PAULO BASTOS]
+         ###############      ######              ####      #### ####      #### ###############   VERSAO[3.0] 
+         ##############      ######               ############## ############## ###############   DATA[29-Ago-2013] 
+SISTEMA  #############      ######                ############## ############## ###############   COPYRIGHT[PORTO IDEIAS]
+
+       APLICACAO CRIADA PARA REALIZAR IMPRESSOES EM IMPRESSORAS LASER, E ENVIO AUTOMATICO DE E-MAIL, E CONVERÇÃO PARA PDF
+                                   INTEGRANDO O SISTEMA LEGADO DA G. A. SILVA        
+
+                           REFERENTE A ARQUITETURA DOS DIRETORIOS
+           
+                                                     spoolga                                             => raiz da aplicacao
+         ├── artefatos                                       => diretorio das imagens
+         │   ├── footer-email.jpg
+         │   ├── head-email.jpg
+         │   ├── logo.gif
+         │   ├── logo.jpg
+         │   └── logo.png
+         ├── bin                                             => diretorio dos scripts
+         │   ├── account-processes.sh                        => script que realiza estatisticas do dia
+         │   ├── auto-send                                   => script de auto envio do e-mail
+         │   ├── lpga.sh                                     => script de auto impressao
+         │   ├── processor                                   => script de auto conversão de pdf
+         │   ├── processorDir                                => script que gerencia a criação de diretorios para destino pdf
+         │   ├── spoolautosend                               => script do servico de auto envio dos e-mail
+         │   ├── spoollpga                                   => script do servico auto impressao
+         │   ├── spoolstatus                                 => script do servico de status das printers
+         │   ├── spoolprocessor                              => script do servico processor
+         │   ├── status-printers.sh                          => script que verifica conectividade das printers
+         │   └── testEmail.sh                                => script que testa os e-mail
+         ├── conf                                            => diretorio de configuracoes
+         │   ├── auto-send.pid                               => pid do servico de auto envio de e-mail
+         │   ├── config.php                                  => arquivo de configuracao do PHP
+         │   ├── conf-printers.xml                           => configuracao das impressoras
+         │   ├── map-user.xml                                => configurações dos usuarios
+         │   ├── layout_email.html                           => layout do e-mail que e enviado
+         │   ├── lpga.sh.pid                                 => pid do servico de auto impressao 
+         │   ├── processor.pid                               => pid do servico de auto conversão
+         │   ├── printers.status                             => status das printers
+         │   ├── status-printers.sh.pid                      => pid do servico de status das printers
+         │   └── var_globais                                 => variaveis comuns para os scripts
+         ├── includes                                        => diretorio de includes
+         │   └── functions.php                               => funcoes gerais para o PHP
+         ├── LEIAME                                          => LEIAME do aplicacao
+         ├── libs                                            => diretorio das bibliotecas e classes
+         │   ├── fpdf_v1.7                                   => biblioteca de manipulacao do PDF
+         │   ├── MailPedPHP.class.php                        => classe manipuladora do e-mail
+         │   ├── PedPdfPHP.class.php                         => classe manipuladora do pdfs
+         │   ├── PHPMailer_v5.1                              => biblioteca de manipulacao do envio dos e-mail
+         │   └── processorPdf.class.php                      => biblioteca de manipulacao das conversões pdf's
+         ├── licencas                                        => diretorio de licencas
+         │   ├── lincenca_GPL.txt
+         │   └── lincenca_LGPL.txt
+         ├── log                                             => diretorio de logs da aplicacao
+         │   ├── qtd_imp_printer.log                         => quantidades de impressao/envio de e-mail
+         │   ├── record_email.log                            => e-mails 
+         │   └── status-printers.log                         => status da aplicacao
+         ├── mailBox                                         => diretorio caixa do e-mail
+         │   ├── outBox                                      => caixa de saida
+         │   └── sentItems                                   => itens enviados
+         │       └── pdfs                                    => pdf's gerados              
+         └── test                                            => diretorio de testes
+             ├── 9702081.imp
+             ├── test1.sh
+             ├── test2.sh
+             ├── test3.sh
+             ├── test.php
+             ├── test.sh
+             └── ttt
+
+

@@ -1,0 +1,171 @@
+#!/bin/sh
+# /**
+# *
+# * Este arquivo é parte do projeto spoolga - sistema de impressao G. A. Silva
+# *
+# * Este programa é um software livre: você pode redistribuir e/ou modificá-lo
+# * sob os termos da Licença Pública Geral GNU (GPL)como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior
+# * e/ou 
+# * sob os termos da Licença Pública Geral Menor GNU (LGPL) como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+# *  
+# * Você deve ter recebido uma cópia da Licença Publica GNU e da 
+# * Licença Pública Geral Menor GNU (LGPL) junto com este programa.
+# * Caso contrário consulte <http://www.fsfla.org/svnwiki/trad/GPLv3> ou
+# * <http://www.fsfla.org/svnwiki/trad/LGPLv3>. 
+# *
+# * @package        spoolga
+# * @name           processorDir
+# * @version        3.0
+# * @license        http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
+# * @copyright      2013 &copy its Code
+# * @author         Joao Paulo Bastos L. <jpbl.bastos at gmail dot com>
+# * @date           27-Ago-2013
+# * @description    criar/deleta/limpa o diretorio de destino dos relatorios convertidos para pdf
+# *                 deleta os com mais de sete dias e limpa area de conversão 
+# * @dependencies   arquivo de configuração       : map-user.xml
+# *                 arquivo de variaveis globais  : var_globais
+# *
+# **/   
+
+#  // propriedades do script
+
+# /**
+# * sysconfig_spoolga
+# * arquivo de variaveis globais
+# * @var int
+# */
+: ${sysconfig_spoolga:=/opt/spoolga/conf/var_globais}
+test -e $sysconfig_spoolga || exit 4
+test -x $sysconfig_spoolga || exit 5
+
+# /**
+# * nameUser
+# * nomes dos usuarios 
+# * @var array
+# */
+nameUser=
+
+# /**
+# * dirUser
+# * nome dos diretorios a serem manipulados
+# * @var array
+# */
+dirUser=
+
+# /**
+# * mascDirs
+# * mascara dos diretoios a serem criados
+# * @var string
+# */
+mascDirs=`date +%d-%m-%Y`
+
+# /**
+# * limitDD
+# * define o tempo de armazenamento dos diretorios de relatorios
+# * @var int
+# */
+limitDD=7
+
+# // fim das propriedades do script
+
+# // funcoes do script
+
+# /**
+# * setGlobais
+# * Método que seta as variaveis globais
+# * @version 3.0
+# * @package spoolga
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+function setGlobais(){
+   # carrega arquivo variaveis globais
+   . $sysconfig_spoolga
+   # testa se arquivo configuracoes existe
+   if [ ! -e $CONFUSER ] ; then
+      echo  Motor-Pdf Diz: OPS, Erro fatal, o arquivo de configuracoes nao encontrado $CONFUSER , impossivel prosseguir em `date +%d.%b.%Y-%H.%M` ! >> $LOGAPP
+      exit 1
+   else
+      echo  Motor-Pdf Diz: Os arquivos de configuracoes $CONFUSER VAR_GLOBAIS, foram localizados  em `date +%d.%b.%Y-%H.%M` ! >> $LOGAPP
+   fi 
+}
+
+# /**
+# * writeCab
+# * Método que escreve cabecalho do log
+# * @version 3.0
+# * @package spoolga
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+function writeCab(){
+   echo  Motor-Pdf Diz: Iniciado o serviço de conversão de txt para pdf  em `date +%d.%b.%Y-%H.%M` >> $LOGAPP
+} 
+
+# /**
+# * loadConfUser
+# * Método que carrega arquivo de configurações dos usuarios
+# * @version 3.0
+# * @package spoolga
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+function loadConfUser(){
+   # faz o loop para ler o arquivo de configurações dos usuarios atraz de "nameUser dirUser"
+   for tag in nameUser dirUser
+   do
+      OUT=`grep  $tag $CONFUSER | tr -d '\t' | sed 's/^<.*>\([^<].*\)<.*>$/\1/' `
+      # fazendo o eval_trick
+      eval ${tag}=`echo -ne \""${OUT}"\"`
+   done
+   # carregando para os array
+   nameUser=( `echo ${nameUser}` )
+   dirUser=( `echo ${dirUser}` )
+} 
+
+# // fim funcoes do script
+
+# // corpo do script
+
+sleep 5                    # espera carga total do sistema
+setGlobais                 # seta variaveis globais da app
+writeCab                   # escreve cabeçalho
+loadConfUser               # carrega configuracao das printers
+
+# // laço do programa percorrendo nameUser
+for (( x = 0 ; x < ${#nameUser[@]} ; x++ )) 
+do
+    # // entra em cada diretorio para manipulalo
+    if cd ${dirUser[$x]} 2>&- ; then
+       # manipula a criação de diretorios
+       if [ ! -d $mascDirs ]  ; then 
+          # criação do dir do dia atual
+          if mkdir $mascDirs 2>&- ; then
+             echo  Motor-Pdf Diz: Eba, o diretorio $mascDirs foi criado com sucesso para ${nameUser[$x]} em `date +%d.%b.%Y-%H.%M` >> $LOGAPP               
+             chown apache.apache $mascDirs -Rf
+          else
+             # ha criação do diretorio retornou um erro
+             echo  Motor-Pdf Diz: OPS, o diretorio $mascDirs não pode criado para ${nameUser[$x]} verifique as permisões, em `date +%d.%b.%Y-%H.%M` >> $LOGAPP               
+          fi   
+       else
+          # o dir ja  foi criado hj  
+          echo  Motor-Pdf Diz: OPS, isso e apenas um alerta. O diretorio $mascDirs ja existe para o usuario ${nameUser[$x]} pulando a criação do mesmo em `date +%d.%b.%Y-%H.%M` >> $LOGAPP            
+       fi 
+       # manipula o delete dos diretorios
+       cont=1
+       for i in `ls -At 2>&-` ; do  
+          if [ "$cont" -gt "$limitDD" ] ; then
+             if rm -rf $i 2>&- ; then
+                echo  Motor-Pdf Diz: Aviso, o diretorio $i do usuario ${nameUser[$x]} tem mais de $limitDD e por isso foi deletado em `date +%d.%b.%Y-%H.%M` >> $LOGAPP            
+             else
+                echo  Motor-Pdf Diz: OPS, erro na rotina de deletar o diretorio $i do usuario ${nameUser[$x]} verifique permisões, pulando o mesmo em `date +%d.%b.%Y-%H.%M` >> $LOGAPP                
+             fi   
+          fi
+          cont=$((cont + 1))
+       done
+    else
+       echo  Motor-Pdf Diz: OPS, impossivel entrar no diretorio do usuario ${nameUser[$x]} verifique permisões, pulando o mesmo em `date +%d.%b.%Y-%H.%M` >> $LOGAPP
+    fi 
+done
+# // fim do laço principal 
+
+# // fim corpo do script
