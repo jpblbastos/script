@@ -1,0 +1,87 @@
+#topo {
+	position:relative;
+	height:53px;
+	background:#1daecb url('topo-galeria.jpg') center no-repeat;
+	margin-bottom:30px;
+	}
+#topo h1, #topo h2 {
+	height: 0;
+	width: 0;
+	overflow: hidden;
+	position: absolute; 
+	 }
+.galeria {
+	width:680px; 
+	margin:0 auto;
+	text-align:left; 
+	}
+.img-aqui { 
+	background: #fff url('http://i79.photobucket.com/albums/j152/maujor/site/foto00.jpg') center no-repeat; 
+	width:500px; 
+	height:375px; 
+	position:relative; 
+	top:8px;
+	float:right; 
+	border:1px solid #fff;
+	}
+ul.fotos {
+	position:relative;
+	list-style:none;  
+	width:162px;
+	padding:1px;
+	background:#999;
+	margin:0; 
+	padding:0; 
+}
+.fotos:after {
+	display: block;
+	content: ".";
+	height: 0;
+	font-size:0; 
+	visibility: hidden;
+	clear: both;
+	}
+ul.fotos li {
+	width:75px;
+	height:50px;
+	float:left; 
+	border:2px solid #444;
+	margin:1px; 
+}
+ul.fotos li img {
+	border:none; 
+	width:75px;
+	height:50px;
+}
+ul.fotos li span img {
+	border:none;
+	width:500px;
+	height:375px;
+	height:auto;
+}
+ul.fotos a {
+	display: block;
+	} 
+ul.fotos a span {
+	display: none;
+}
+ul.fotos a:hover span.legenda {
+	display: block;
+	text-align:center; 
+	width:500px;
+	position:absolute;
+	top:375px;
+	left:-2px;
+}
+ul.fotos a:hover span {
+	display: block;
+    position: absolute; 
+	top:-5px; 
+	left: 177px; 
+	background:#fff;
+	border:2px solid #666;
+   }
+ul.fotos a:hover span.legenda {
+	padding:5px 0;
+	color:#333; 
+}

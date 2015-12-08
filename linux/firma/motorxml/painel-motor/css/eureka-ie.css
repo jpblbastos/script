@@ -1,0 +1,386 @@
+/* Geral
+----------------------------------------------- */
+body { 
+  font-family:          Cantarell,"Droid Sans",Verdana,sans-serif;
+  font-size:            small;
+  margin:               0px;
+  padding:              0 0 40px;
+  background-color:     #fff;
+  background-position:  0 0;
+  background-repeat:    repeat-x;
+  background-image:     url("./../img/background.png");
+}
+
+
+#wrapper {
+  min-height:           600px;
+  padding:              0 10px;
+}
+
+#doc {
+  margin:               0 auto;
+  width:                900px;
+}
+
+/* headings
+----------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {line-height:1.2em; margin-bottom:.3em;}
+h1 { font-size:2em; color: #ffffff;}
+h2 { margin-top:1em; color: #294172; }
+h3 { color: #3c6eb4; text-transform: uppercase; }
+h4 { color: #666; }
+h5 {font-size:1.2em; }
+h6 {font-size:1em; }
+
+
+h1 a {
+  font-weight:          normal;
+}
+
+
+/* paragraphs, quotes and lists, links
+----------------------------------------------- */
+p {
+  margin-bottom:        1em;
+}
+
+blockquote {
+  font-family:          Georgia, 'Times New Roman', serif;
+  font-size:            1.2em;
+  padding-left:         1em;
+  border-left:          4px solid #ccc;
+}
+
+blockquote cite {
+  font-size:            .9em;
+}
+
+ul, ol {
+  padding-top:          0;
+}
+
+a {
+  text-decoration:       none;
+  color:                 #3b6eb4;
+  font-weight:           bold;
+}
+
+a:hover {
+  color:                 #87a9d8;
+}
+
+/* Header, top section
+----------------------------------------------- */
+#header {
+  padding-bottom:       20px;
+  padding-top:          10px;
+}
+
+/* Logo Pagina
+----------------------------------------------- */
+#logo {
+  float:                center;
+  margin-left:          200px;
+}
+
+/* Menu Pagina
+----------------------------------------------- */
+#main-nav {
+  background-color:     #2a5694;
+  background:           url("./../img/bg_main-nav.png") repeat-x !important;
+  height:               40px;
+  padding-top:          15px;
+  padding-left:         55px;
+  padding-bottom:       15px;
+}
+
+#main-nav div { 
+  background-color:     inherit !important; 
+  text-align:           center;
+}
+
+#main-nav li {
+  display:              inline;
+}
+
+#main-nav a {
+  text-decoration:      none;
+  font-weight:          bold;
+  color:                #ececec;
+}
+
+#nav-menu li {
+  font-family:          Cantarell,"Droid Sans",Verdana,sans-serif;
+  font-size:            1.2em;
+  text-shadow:          .5px .5px .5px #222;
+  margin-left:          .6em;
+  margin-right:         .6em;
+}
+
+#nav-menu a:hover {
+  color:                 #fcf7d5;
+  text-shadow:           1.5px 1.5px black;
+}
+
+/* Box 
+----------------------------------------------- */
+#box {
+  background-color:     #E5F1FE !important;
+  background-image:     url("./../img/background-content.png") !important;
+  background-position:  100% 100% !important;
+  background-repeat:    repeat-x !important;
+  float:                left !important;
+  margin-top:           -15px !important;
+  width:                100% !important;
+}
+
+
+/* Links Sociais  
+----------------------------------------------- */
+#social-footer {
+  float:                right;
+  width:                270px;
+  clear:                both;
+  margin:               30px 0; 
+  -moz-border-radius:   10px;
+  border-radius:        10px;
+  -moz-box-shadow:      1px 1px 1px lightgray !important;
+  background-color:     #f2f8fe;
+  background-position:  100% 0, 0 0;
+  background-repeat:    no-repeat, repeat;
+  background-image:	    url("./../img/background-footer.png");
+}
+
+
+#connect ul.social {
+  float:                right;
+  margin-right:         40px;
+}
+
+#connect ul.social li {
+  float:                left;
+  list-style-type:      none;
+  margin:               0 10px 0 0;
+  padding:              0;
+}
+
+#connect ul.social li a,
+#connect ul.social li a:link,
+#connect ul.social li a:visited {
+  display:              block;
+  width:                80px;
+  padding:              45px 0 0 0;
+  font-family:          georgia, serif;
+  font-weight:          normal;
+  line-height:          18px;
+  font-style:           italic;
+  font-size:            13px;
+  text-align:           center;
+  background-position:  50% 5px;
+  background-repeat:    no-repeat;
+  background-image:     url("./../img/icon-social.png");
+}
+
+#connect ul.social li a:hover,
+#connect ul.social li a:active {
+  text-shadow:          1px 1px 0 rgba(255,255,255,0.8),
+		                0 0 10px rgba(83,141,219,0.8);
+  background-position:  50% 1px;
+}
+
+#connect ul.social li#connect-facebook a,
+#connect ul.social li#connect-facebook a:link,
+#connect ul.social li#connect-facebook a:visited
+ { background-position: 50% -188px; }
+#connect ul.social li#connect-facebook a:hover { background-position: 50% -192px; }
+
+/* Pagina de Contatos
+-----------------------------------------------------*/
+#contatos {
+   margin:              10px;
+   margin-left:         150px;
+
+}
+
+#title {
+   margin:              nome;
+}
+
+#title h1 {
+  font-family:          "ComfortaaRegular", sans-serif;
+  text-align:           center;
+  text-shadow:          1px 1px 0 rgba(255,255,255,0.8),
+		                0 0 10px rgba(83,141,219,0.8);
+  color:                #294172;
+}
+
+#title h2 {
+  font-family:          "ComfortaaRegular", sans-serif;
+  text-align:           center;
+  text-shadow:          1px 1px 0 rgba(255,255,255,0.8),
+		                0 0 10px rgba(83,141,219,0.8);
+  color:                #294172;
+}
+
+#contatos table {
+   border: thin dotted #7e7e7e;
+   padding: 15px;
+}
+
+#contatos th {
+   text-align:  right;
+   vertical-align: top;
+   padding-right: 10px;
+   padding-top: 2px;
+}
+
+#contatos td {
+   vertical-align: top;
+   padding-bottom: 15px;
+}
+
+#contatos table{
+   border: nome;
+   border-style: inset;
+   border-width: 3px;
+   padding: 0px;
+   padding-top: 5px;
+}
+
+#contatos table table td {
+   text-align: right;
+   padding-bottom: 0px;
+}
+
+/* Downloads
+-------------------------------------------*/
+#downloads{
+    overflow: auto;
+    width: 605px;
+    text-align: center;
+    padding-top: 20px;
+    padding-left: 180px;
+    padding-right: 10px;
+}
+#downloads h1 {
+  font-family:          "ComfortaaRegular", sans-serif;
+  text-align:           center;
+  text-shadow:          1px 1px 0 rgba(255,255,255,0.8),
+		                0 0 10px rgba(83,141,219,0.8);
+  color:                #294172;
+}
+
+.bottom-links {
+    height: 80px;
+    text-align: center;
+    padding-top: 60px;
+    display: inline-block;
+    background: blue;
+    margin-right: 20px;
+}
+.bottom-links a {
+    text-decoration: none;
+    color: gray;
+    padding: 10px 0 10px 20px;
+}
+.bottom-links a:hover {
+    color: #e24912;
+}
+
+
+/*--->Coloque os logos Aqui<---*/
+#cobianbk{
+    background: url("./../img/cobianbackup.png") no-repeat;
+}
+#cobianbk:hover {
+    background: url("./../img/download.png") no-repeat;
+}
+
+#winscp {
+    background: url("./../img/winscp.png") no-repeat;
+}
+#winscp:hover {
+    background: url("./../img/download.png") no-repeat;
+}
+
+#rar{
+    background: url("./../img/winrar.png") no-repeat;
+}
+#rar:hover {
+    background: url("./../img/download.png") no-repeat;
+}
+
+#teamviewer{
+    background: url("./../img/teamviewer.png") no-repeat;
+}
+#teamviewer:hover {
+    background: url("./../img/download.png") no-repeat;
+}
+#java {
+    background: url("./../img/java.png") no-repeat;
+}
+#java:hover {
+    background: url("./../img/download.png") no-repeat;
+}
+#putty {
+    background: url("./../img/putty.png") no-repeat;
+}
+#putty:hover {
+    background: url("./../img/download.png") no-repeat;
+}
+
+#realvnc {
+    background: url("./../img/real-vnc.png") no-repeat;
+}
+#realvnc:hover {
+    background: url("./../img/download.png") no-repeat;
+}
+
+#showmypc {
+    background: url("./../img/showmypc.png") no-repeat;
+}
+#showmypc:hover {
+    background: url("./../img/download.png") no-repeat;
+}
+
+#ddns {
+    background: url("./../img/ddns.png") no-repeat;
+}
+#ddns:hover {
+    background: url("./../img/download.png") no-repeat;
+}
+
+#danfeview {
+    background: url("./../img/danfeview.png") no-repeat;
+}
+#danfeview:hover {
+    background: url("./../img/download.png") no-repeat;
+}
+
+#notepad {
+    background: url("./../img/notepa++.png") no-repeat;
+}
+#notepad:hover {
+    background: url("./../img/download.png") no-repeat;
+}
+
+#devcpp {
+    background: url("./../img/devcpp.png") no-repeat;
+}
+#devcpp:hover {
+    background: url("./../img/download.png") no-repeat;
+}
+
+#codeblocks{
+    background: url("./../img/codeblocks.png") no-repeat;
+}
+#codeblocks:hover {
+    background: url("./../img/download.png") no-repeat;
+}
+
+#firefox{
+    background: url("./../img/firefox.png") no-repeat;
+}
+#firefox:hover {
+    background: url("./../img/download.png") no-repeat;
+}

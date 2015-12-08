@@ -1,0 +1,39 @@
+ * Este é o projeto motorxml - converte xml em txt (especifico para G. A. Silva & Cia Ltda)
+ *
+ * Este programa é um software livre: você pode redistribuir e/ou modificá-lo
+ * sob os termos da Licença Pública Geral GNU (GPL)como é publicada pela Fundação
+ * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior
+ * e/ou 
+ * sob os termos da Licença Pública Geral Menor GNU (LGPL) como é publicada pela Fundação
+ * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+ *  
+ * Você deve ter recebido uma cópia da Licença Publica GNU e da 
+ * Licença Pública Geral Menor GNU (LGPL) junto com este programa.
+ * Caso contrário consulte <http://www.fsfla.org/svnwiki/trad/GPLv3> ou
+ * <http://www.fsfla.org/svnwiki/trad/LGPLv3>. 
+ *
+ *
+ * @package   motorxml
+ * @version   2.0
+ * @license   http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
+ * @copyright 2011 &copy; Eureka Soluçoes
+ * @link      http://www.eurekasolucoes.com/
+ * @author    Joao Paulo Bastos L. <jpbl.bastos at gmail dot com>
+ *
+ *  
+ *                    Agradecimentos
+ * A equipe nfephp pela iniciativa brilhante, leia mais em, 
+ * link: http://www.nfephp.org/
+
+
+ * M E L H O R I A S    D O   M O T O R    X M L
+
+ # ---------------------------------------------------------------------------------------------------------------- #
+ # Por             | Data        |  Melhoria/Correção                                                               #
+ # ---------------------------------------------------------------------------------------------------------------- #
+ # João Paulo      | 10-Nov-2011 | Criada a classe "MotorMail", responsavel de manipular uma conta pop3 em busca    #
+ #                 |             | de arq. xml.A chamada a classe foi implementada no "mainMotor".                  #
+ # ---------------------------------------------------------------------------------------------------------------- #
+ # João Paulo      | 14-Nov-2011 | Criada a classe "MotorMailSmtp",responsavel de enviar erros aos administradores  #
+ #                 |             | configurados no arq. config.php                                                  #
+ # ---------------------------------------------------------------------------------------------------------------- #

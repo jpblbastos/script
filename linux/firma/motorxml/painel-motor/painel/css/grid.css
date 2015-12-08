@@ -1,0 +1,25 @@
+/* Geral
+----------------------------------------------- */
+#wrapper {
+  min-height:           500px;
+  padding:              0 10px;
+}
+
+#doc {
+  margin:               0 auto;
+  width:                930px;
+}
+/* Box 
+----------------------------------------------- */
+#box {
+  -moz-border-radius:   10px 10px 10px 10px !important;
+  background-image:     url("./../img/background-content.png") !important;
+  background-color:     #E5F1FE !important;
+  background-position:  100% 100% !important;
+  background-repeat:    repeat-x !important;
+  float:                center !important;
+  margin-top:           80px !important;
+  padding-left:         -10px !important;
+  width:                100% !important;
+  border-style: inset;
+}

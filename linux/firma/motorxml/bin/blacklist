@@ -1,0 +1,84 @@
+#!/bin/bash
+#/**
+# * Este arquivo é parte do projeto motorxml
+# *
+# * Este programa é um software livre: você pode redistribuir e/ou modificá-lo
+# * sob os termos da Licença Pública Geral GNU como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+# * e/ou
+# * sob os termos da Licença Pública Geral Menor GNU (LGPL) como é publicada pela
+# * Fundação para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+# *
+# * Você deve ter recebido uma cópia da Licença Publica GNU e da
+# * Licença Pública Geral Menor GNU (LGPL) junto com este programa.
+# * Caso contrário consulte
+# * <http://www.fsfla.org/svnwiki/trad/GPLv3>
+# * ou
+# * <http://www.fsfla.org/svnwiki/trad/LGPLv3>.
+# * 
+# * @package     motorXml
+# * @name        blacklist
+# * @version     2.0
+# * @license     http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
+# * @license     http://www.gnu.org/licenses/lgpl.html GNU/LGPL v.3
+# * @copyright   2011 &copy; Eureka Solucoes
+# * @link        http://www.eurekasolucoes.com
+# * @author      João Paulo Bastos Leite <jpbl.bastos at gmail dot com> 
+# *
+# */
+
+# /**
+# * Variaveis 
+# */
+nome=/tmp/blacklist-`date +%d.%b.%Y-%H.%M`.sql          #-- Nome do black_list
+parm=$1
+eu=$(whoami)
+
+# /**
+# * Funcoes do Programa
+# */
+usage() {
+        printf "Ops, Impossivel de prosseguir falta de parametro ! \n">&2
+	printf "usage: blacklist [cnpj/cpf] \n" >&2
+} >&2
+
+# /**
+# * Corpo do programa
+# */
+
+# Verifica se foi passado parametro
+if [ $# -le 0 ]; then
+   usage
+   exit 1
+fi
+
+# verifica se  usuario e o root
+if [ "$eu" != "root" ]; then
+   printf "Ops, voce nao e root. Impossivel de prosseguir.\n"
+   exit 1
+fi
+
+# Verifica se o parametro e valido
+qtd=${#parm}
+if [ "$qtd" -lt 11 ] ; then
+   printf "OPS, Parametro invalido.Cnpj/Cpf para a lista de bloqueio do motorxml menor que 11 digitos ! \n"
+   exit 1
+fi
+
+# cria o insert
+echo "use motorxml;" > $nome
+echo "insert into black_list values('NULL','$parm');;" >> $nome
+
+# realiza o insert
+if mysql --user=motorxml --password=motor321 < $nome ; then
+   printf "O Cnpj/Cpf $parm foi inserido na lista de bloqueio do motorxml com sucesso ! \n"
+   exit 1
+else
+   printf "OPS, algo de errado aconteceu com o conexão do DB motorxml.... \n"
+   exit 0
+fi
+
+# /**
+# * Fim do programa
+# */
+

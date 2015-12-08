@@ -1,0 +1,9 @@
+#email{
+ -moz-border-radius:    10px 10px 10px 10px !important;
+  background-image:     url("./../img/assinar.png");
+  background-color:     #e4ecf3 !important;
+  background-position:  left;
+  margin-top:               10px !important;
+  margin-left:               250px;
+  width:                     400px;
+}

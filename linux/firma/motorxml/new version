@@ -1,0 +1,8 @@
+Projeto: motorxml
+Area   : melhorias para a proxima versao
+
+
+Relatada em | Por           | Melhoria
+---------------------------------------------------------------------------------------
+07-10-2011   joão paulo      validar a nfe antes da geração do txt, se nfe nao for
+                             valida na sefaz enviar o email para o administrador

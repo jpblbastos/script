@@ -1,0 +1,10 @@
+Projeto: motorxml
+Area   : bugs relatados pelo programador/analista
+
+
+Relatado em |  Por            |  Bug                                            |  Revisado
+-------------------------------------------------------------------------------------------
+09-10-2011   joao paulo         aumentar a segurança do painel do motor, pois se o usuario 
+                                entrar direto no diretorio painel-motor ele mostra a pagina
+                                criar uma seção para resolver isso
+-------------------------------------------------------------------------------------------

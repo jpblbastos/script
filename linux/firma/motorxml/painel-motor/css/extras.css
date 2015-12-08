@@ -1,0 +1,57 @@
+.jornal_img {
+	width:             680px; 
+   	margin:            0 auto; 
+	margin-top:        5px;
+}
+
+.img-aqui { 
+	background:        url('./../img/assinar.png') center no-repeat; 
+	width:             500px; 
+	height:            375px; 
+	position:          relative; 
+	top:               8px;
+	float:             center; 
+	margin-left:       110px;
+}
+
+#assinar {
+  width:               250px;
+  height:              150px;
+  position:            relative;
+  left:                180px;
+  top:                 20px;
+  /*top:                 115px;
+  left:                -85px;
+  float:               right;*/
+}
+
+#assinar p {
+  color:               #4f5153;
+ /* text-transform:      uppercase;*/
+  font-size:           1.5em;
+  font-family:         Cantarell,"Droid Sans",Verdana,sans-serif;
+  text-shadow:         1px 1px 0 rgba(255,255,255,0.8),
+		               0 0 10px rgba(83,141,219,0.8);
+}
+
+#assinar h3 {
+  color:               #4f5153;
+  text-shadow:        1px 1px 0 rgba(255,255,255,0.8),
+		              0 0 10px rgba(83,141,219,0.8);
+  margin-top:         -10px;
+}
+
+#botao {
+  margin-left:        180px;
+  margin-top:         25px;
+  width:              80px;  
+  height:             50px;    
+}
+
+#cxinput {
+   width:             253px;  
+   height:            30px;   
+   font-family:       Cantarell,"Droid Sans",Verdana,sans-serif;
+   font-size:         1.5em;
+   color:             #20425a;
+}

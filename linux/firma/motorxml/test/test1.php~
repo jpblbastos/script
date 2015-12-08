@@ -1,0 +1,61 @@
+<?php
+//include ('../libs/MotorTools.class.php');
+//include ('../libs/MotorDB.class.php');
+//include ('../includes/funcoesMotor.php');
+//include ('../config/config.php');
+/*include ('../libs/MotorMailSmtp.class.php');
+
+$send = new MotorMailSmtp();
+
+$erro="teste de erro";
+$indet="02532281000230";
+
+if (!$resp=$send->sendMail($erro, $indet)){
+   echo $resp;
+}else {
+   echo "envio ok";
+}
+
+
+/*if (!autoXMLtoTXT()) {
+   echo "OPS, algo de erro aconteceu ....\n";
+}*/
+
+
+/*teste de log
+$mess = 'este e um teste1 de log';
+echo $raizDir.$arqLog ."\n";
+my_log($mess,$raizDir.$arqLog);
+*/
+
+//monta query com a capa da nota para o painel
+/*$sql = "select chave_nf from nf where chave_nf='52111002532281000230550010000886451909183494'"; 
+echo $sql ."\n";
+
+
+//instancia classe do db
+$db = new MotorDB ();
+if (!$db->open()) {   
+    $this->errMsg='Impossivel de Prossegir, sem conexao com o DB !';
+    $this->errStatus=true;
+    return false;
+}
+/*if (! $db->query($sql)) {
+    $this->errMsg='Impossivel de Prossegir, nao foi permitido ao iserir dados na tabela nf !';
+    $this->errStatus=true;
+    return false;
+}*/	  
+
+/*$db->query($sql);
+$resp = $db->linhas();
+
+echo $resp ."\n";
+
+//update nf set chave_nf='1', numero_nf='1', numero_nfe='1', cnpj_forn='1', nome_forn='joao', data_emis='2011-10-07', valor_tot=10.10, cstatus_nf=0 where chave_nf='52111002532281000230550010000886451909183494'
+
+*/
+$vIPI=0;
+$vIPI   = 100 * number_format($vIPI, 2, '.', '');
+
+echo $vIPI ."\n";
+?>

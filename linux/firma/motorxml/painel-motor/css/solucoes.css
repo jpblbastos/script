@@ -1,0 +1,81 @@
+#logo_solucoes{
+  float:                    center;
+  margin-left:          110px;
+}
+
+#cx-linux {
+ width:            750px;
+ padding-left:   10px;
+ margin:          0px;
+ margin-top:    50px;
+ margin-left:    20px;
+}
+
+#cx-linux p{
+   margin-left:  30px;
+   color:           #55585a;
+}
+
+#cx-windows {
+ width:            750px;
+ padding-left:   10px;
+ margin:          0px;
+ margin-top:    50px;
+ margin-left:    20px;
+}
+
+#cx-windows p{
+   margin-left:  30px;
+   color:           #55585a;
+}
+
+#cx-desenvolve{
+ width:            750px;
+ padding-left:   10px;
+ margin:          0px;
+ margin-top:    50px;
+ margin-left:    20px;
+}
+
+#cx-desenvolve p{
+   margin-left:  30px;
+   color:           #55585a;
+}
+
+#cx-suporte{
+ width:            750px;
+ padding-left:   10px;
+ margin:          0px;
+ margin-top:    50px;
+ margin-left:    20px;
+}
+
+#cx-suporte p{
+   margin-left:  30px;
+   color:           #55585a;
+}
+
+#cx-virtualizacao{
+ width:            750px;
+ padding-left:   10px;
+ margin:          0px;
+ margin-top:    50px;
+ margin-left:    20px;
+}
+
+#cx-virtualizacao p{
+   margin-left:  30px;
+   color:           #55585a;
+}
+#cx-vpn{
+ width:            750px;
+ padding-left:   10px;
+ margin:          0px;
+ margin-top:    50px;
+ margin-left:    20px;
+}
+
+#cx-vpn p{
+   margin-left:  30px;
+   color:           #55585a;
+}

@@ -1,0 +1,112 @@
+#!/bin/sh
+#/**
+# * Este arquivo é parte do projeto motorxml
+# *
+# * Este programa é um software livre: você pode redistribuir e/ou modificá-lo
+# * sob os termos da Licença Pública Geral GNU como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+# * e/ou
+# * sob os termos da Licença Pública Geral Menor GNU (LGPL) como é publicada pela
+# * Fundação para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+# *
+# * Você deve ter recebido uma cópia da Licença Publica GNU e da
+# * Licença Pública Geral Menor GNU (LGPL) junto com este programa.
+# * Caso contrário consulte
+# * <http://www.fsfla.org/svnwiki/trad/GPLv3>
+# * ou
+# * <http://www.fsfla.org/svnwiki/trad/LGPLv3>.
+# * 
+# * @package      motorxml
+# * @name         removeCanceled
+# * @version      1.0
+# * @license      http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
+# * @license      http://www.gnu.org/licenses/lgpl.html GNU/LGPL v.3
+# * @copyright    2012-2013 &copy; Twoclick Criações
+# * @author       João Paulo Bastos Leite <jpbl.bastos at gmail dot com> 
+# * @date         21-Dec-2012
+# * @description  remove notas canceladas, impedindo que o validador as valide,
+# *               porém move arquivo xml para pasta de canceladas do sistema
+# * @dependencies entrada no crontab para execução de 1 em 1 
+# *               */1 * * * * root /home/motorxml/bin/removeCanceled
+# *
+# */
+
+#  // propriedades do script
+
+# /**
+# * dirEntrada
+# * diretorio de entrada dos xml
+# * @var string
+# */
+dirEntrada='/home/motorxml/importacao/entrada/'
+
+# /**
+# * dirCancel
+# * diretorio para mover as notas canceladas
+# * @var string
+# */
+dirCancel='/home/motorxml/integracao/canceladas/'
+
+# /**
+# * arqLog
+# * arqvuivo de log
+# * @var string
+# */
+arqLog='/home/motorxml/log/motorxml.log'
+
+# /**
+# * nomesArqsXml
+# * nomes dos arquivos de xml contidos no dirEntrada
+# * @var array
+# */
+nomesArqsXml=
+
+# // fim das propriedades do script
+
+
+# // funcoes do script
+
+# /**
+# * loadArqsXml
+# * Método que carrega os arquivos xml
+# * @version 1.0
+# * @package motorxml
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# * @date    21-Dec-2012
+# */
+function loadArqsXml(){
+   # faz o loop para ler os arquivos contidos no diretorio dirEntrada
+   for tag in nomesArqsXml
+   do
+      OUT=`ls -A $dirEntrada*.[Xx][Mm][Ll]`
+      # fazendo o eval_trick
+      eval ${tag}=`echo -ne \""${OUT}"\"`
+   done
+   # carregando para os array
+   nomesArqsXml=( `echo ${nomesArqsXml}` )
+} 
+
+# // fim das funcoes do script
+
+# // corpo do script
+
+# chama função de carregar arquivos xml do dirEntrada para o teste 
+loadArqsXml
+# so continua se tiver arquivos para testar
+if [ "${#nomesArqsXml[@]}" -gt 0 ] ; then
+   # chama função de carregar arquivos xml do dirEntrada para o teste 
+   loadArqsXml
+   # laço varrendo os arquivos contidos no array nomesArqsXml
+   for (( x = 0 ; x < ${#nomesArqsXml[@]} ; x++ )) 
+   do
+      # testa arquivo ${nomesArqsXml[$x]}  o retorno de grep $? indica 0 - sucesso  / 1 - falha  
+      cat ${nomesArqsXml[$x]} |grep '<xServ>CANCELAR</xServ>'  > /dev/null
+      # armazena retorno 
+      erro=$?
+      # faz condicao 
+      if [ "$erro" -eq 0 ] ; then
+         echo Motor Diz: O arquivo ${nomesArqsXml[$x]}, e uma nf-e cancelada e vamos move-lo em `date +%Y-%m-%d.%H:%M:%S` >> $arqLog
+         chown nobody.nogroup ${nomesArqsXml[$x]} && mv -f ${nomesArqsXml[$x]} $dirCancel
+      fi
+   done
+fi

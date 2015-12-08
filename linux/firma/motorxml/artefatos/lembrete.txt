@@ -1,0 +1,16 @@
+Black Point
+ -Data     : 03-10-2011
+    -Descricao: foi criada a classe MotorTools e a MotorDb
+ 
+    -Analise : MotorTools
+	     funcao __cronstruct : foi testada
+	     funcao getxml       : ela pega as info do xml e as grava no db apartir da classe MotorDB, testada
+		 
+    -Analise : MotorDB
+	     todas as funcoes ok
+		 
+		 
+    -Pendente: criar a funcao gettxt da classe MotorTools
+	       criar a funcao statusNfe da classe MotorTools
+	       criar classe que busca email da conta configurada
+	       criar painel

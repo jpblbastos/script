@@ -1,0 +1,98 @@
+#!/bin/bash
+#/**
+# * Este arquivo é parte do projeto motorxml
+# *
+# * Este programa é um software livre: você pode redistribuir e/ou modificá-lo
+# * sob os termos da Licença Pública Geral GNU como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+# * e/ou
+# * sob os termos da Licença Pública Geral Menor GNU (LGPL) como é publicada pela
+# * Fundação para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+# *
+# * Você deve ter recebido uma cópia da Licença Publica GNU e da
+# * Licença Pública Geral Menor GNU (LGPL) junto com este programa.
+# * Caso contrário consulte
+# * <http://www.fsfla.org/svnwiki/trad/GPLv3>
+# * ou
+# * <http://www.fsfla.org/svnwiki/trad/LGPLv3>.
+# * 
+# * @package     motorXml
+# * @name        servicemotor
+# * @version     2.0
+# * @license     http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
+# * @license     http://www.gnu.org/licenses/lgpl.html GNU/LGPL v.3
+# * @copyright   2011 &copy; Eureka Solucoes
+# * @link        http://www.eurekasolucoes.com
+# * @author      João Paulo Bastos Leite <jpbl.bastos at gmail dot com> 
+# *
+# */
+
+# /**
+# * Variaveis Globais
+# */
+eu=$(whoami)
+path=autoMotor.sh
+# /**
+# * Funcoes do Programa
+# */
+usage() {
+	printf "usage: servicemotor [start|stop|restart] \n" >&2
+} >&2
+
+killer() {
+       printf "Parando  o motorxml \r\n" >&2
+       for i in `ps -ef |grep -m 1 mainMotor.php |cut -c10-15`; do
+          kill -9 $i
+          echo Morto $i 
+       done
+} >&2
+
+start() {
+      printf "Iniciando o motorxml. \n" >&2
+      $path
+} >&2
+       
+
+# /**
+# * @param
+# * servicemotor [start|stop|restart]
+# */
+COMMAND="$1"
+
+
+# /**
+# * Corpo do Programa
+# */
+if [ $# -le 0 ]; then
+        printf "Por favor especifique um parametro valido.\n" >&2
+        usage
+        exit 1
+fi
+
+if [ "$eu" != "root" ]; then
+        printf "Ops, voce nao e root. Impossivel de prosseguir.\n"  >&2
+        exit 1
+fi
+
+
+case $COMMAND in 
+start)
+    start
+    exit 1
+    ;;
+stop)
+    killer
+    exit 1
+    ;;
+restart)
+    printf "Ok, Vamos reiniciar o motor-xml. \n" >&2
+    killer
+    sleep 5
+    start
+    exit 1
+    ;;
+*)
+    printf "OPS, Opcao invalida \n" >&2
+    usage
+    exit 1
+esac
