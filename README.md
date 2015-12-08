@@ -1,2 +1,2 @@
-# scripts
-Scripts especialistas 
+# script's
+Script's especialistas 
