@@ -1,0 +1,16 @@
+informações script para serviços no linux
+
+
+1. função variables:
+
+configurar os caminhos do motor / catalina / java / tomcat
+
+2. adicionado ao status os serviços do importame e posprocessador
+
+3. identificado que o "if" de startar serviços não estava respeitando o parametro "true" ou "false", corrigido forma do if
+
+4. no ubuntu tive que retirar o nome "function" para as funções funcionarem.
+
+5. recofigurado o stop (utilizava killall), para não haver risco de parar serviços do cliente, parando apenas serviços da oobj.
+
+6. 

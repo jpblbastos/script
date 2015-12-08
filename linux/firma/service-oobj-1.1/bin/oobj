@@ -1,0 +1,885 @@
+#!/bin/sh
+# /**
+# *
+# * Este arquivo é parte do projeto NFE E-Sales - Gestão de NF-e 
+# *
+# * Este programa é um software livre: você pode redistribuir e/ou modificá-lo
+# * sob os termos da Licença Pública Geral GNU (GPL)como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior
+# * e/ou 
+# * sob os termos da Licença Pública Geral Menor GNU (LGPL) como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+# *  
+# * Você deve ter recebido uma cópia da Licença Publica GNU e da 
+# * Licença Pública Geral Menor GNU (LGPL) junto com este programa.
+# * Caso contrário consulte <http://www.fsfla.org/svnwiki/trad/GPLv3> ou
+# * <http://www.fsfla.org/svnwiki/trad/LGPLv3>. 
+# *
+# * @package        esales
+# * @name           oobj
+# * @version        1.0
+# * @license        http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
+# * @copyright      2013 &copy Twoclick Criações
+# * @author         Joao Paulo Bastos L. <jpbl.bastos at gmail dot com>
+# * @author         Fabio Henrique Pires <fabiohpires at hotmail dot com>
+# * @date           06-Junho-2013
+# * @description    plugin que realiza a inicialização da aplicação NFE E-Sales
+# *                 e á deixa como um serviço do sistema linux
+# *
+# * @version        1.1
+# * @author         Joânio Trade Alves <joanio.alves at oobj dot com>
+# * @description    Implementação de melhorias para enquadrar nas regras de negócio da Oobj.
+# * @implementações * Regras para parar apenas serviços Oobj; * Configurado start e stop para serviços específicos;
+# * 			    *Definida regra para não deixar iniciar serviço já iniciado;
+# **/  
+
+#  // propriedades do script 
+
+# /**
+# * CMD
+# * variavel de decisao passada no paramentro $1
+# * @var string
+# */
+CMD="$1"
+CMD2="$2"
+
+# /**
+# * TIME
+# * Constante do Tempo
+# * @var string
+# */
+TIME=3
+
+# // fim das propriedades
+
+# // funcoes do script
+
+# /**
+# * usage
+# * Método que mostra como usar o script oobj
+# * @version 1.0
+# * @package esales
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+usage(){
+   printf " Uso:\n"
+   printf "   $0 [ startall | stopall | restartall | start | stop | restart | status ] \n\n"
+   printf " Descricao de uso das opcoes:\n"
+   printf "   startall    ->  Carrega variaveis da aplicacao e inicializa todos os serviços instalados.\n"
+   printf "   stopall     ->  Mata todos os processos oobj.\n"
+   printf "   restartall  ->  Executa funcoes stopall e startall de $0.\n\n"
+   
+   printf "   start    ->  Inicia serviço especifico. EX: start joram\n"
+   printf "   stop     ->  Mata serviço especifico.\n"
+   printf "   restart  ->  reinicia serviço especifico.\n"
+   printf "   opções:  ->  [ joram | motor | tomcat | recebe | posprocessador | extratorbd | importame | movefiles ] $0.\n\n"
+   
+   printf "   status      ->  Verifica status das aplicacoes esales.\n\n"
+}
+
+# /**
+# * variables
+# * Método que exporta as variaveis necessarias da aplicação NFE E-Sales
+# * @version 1.0
+# * @package esales
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+variables(){
+   # variaveis de indicadores para a inicializações das aplicações posteriormente
+   export start_joram=true
+   export start_motor=true
+   export start_recebe=false
+   export start_tomcat=true
+   export start_extratorbd=false
+   export start_movefiles=false
+   export start_importame=false
+   export start_posprocessador=false
+   # variaveis de ambiente especificas da instalacao (substituir com caminhos corretos)
+   export MOTOR_HOME=/home/esales/oobj-nfe/Aplicativos/motor
+   export CATALINA_HOME=/home/esales/oobj-nfe/Aplicativos/Tomcat7
+   export JAVA_HOME=/usr/java/jre1.7.0_09
+   # descomente a linha abaixo se se tratar de vers?o Bureau
+   #export TIPO_INSTALACAO=Bureau
+   # diretorio do Tomcat
+   export DIR_TOMCAT=$CATALINA_HOME/bin
+   # diretorio dos executaveis
+   export DIR_OOBJ=$MOTOR_HOME/bin
+   # diretorio java
+   export JAVA_HOME
+   export JRE_HOME="$JAVA_HOME"
+}>&2
+
+# /**
+# * startJoram
+# * Método que inicia a aplicação Joram
+# * @version 1.0
+# * @package esales
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+startJoram(){
+
+   $DIR_OOBJ/Joram.sh
+}
+
+# /**
+# * startMotor
+# * Método que inicia a aplicação Motor$TIPO_INSTALACAO
+# * @version 1.0
+# * @package esales
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+startMotor(){
+   $DIR_OOBJ/Motor.sh
+}
+
+# /**
+# * startPosProcessadorRetorno
+# * Método que inicia a aplicação PosProcessadorRetorno
+# * @version 1.0
+# * @package esales
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+startPosProcessadorRetorno(){
+ $DIR_OOBJ/Utils-PosProcessadorRetorno.sh
+}
+
+# /**
+# * startRecebe
+# * Método que inicia a aplicação Recebe
+# * @version 1.0
+# * @package esales
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+startRecebe(){
+ $DIR_OOBJ/Recebe.sh
+}
+
+# /**
+# * startMovefiles
+# * Método que inicia a aplicação Movefiles
+# * @version 1.0
+# * @package esales
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+startMovefiles(){
+$DIR_OOBJ/Movefiles.sh
+}
+
+# /**
+# * startExtratorBd
+# * Método que inicia a aplicação ExtratorBd
+# * @version 1.0
+# * @package esales
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+startExtratorBd(){
+   $DIR_OOBJ/ExtratorBd.sh
+}
+
+startImportaMe(){
+$DIR_OOBJ/ImportaMe.sh
+}
+
+
+# /**
+# * startTomCat
+# * Método que inicia a aplicação Tomcat
+# * @version 1.0
+# * @package esales
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+startTomCat(){
+   $DIR_TOMCAT/startup.sh
+}
+
+# // fim das funcoes
+
+# // corpo do programa
+
+# tomada de decisao
+case "$CMD" in
+    startall)
+        # exporta as variaveis necessarias da aplicação
+        variables
+		
+        # Executa Joram e pausa durante TIME segundos
+		if "$start_joram" ; then
+           echo -e "Servico : \033[1;32mJoram\033[0m "
+           echo -e "        + DIR OOBJ: \033[1;32m $DIR_OOBJ \033[0m"
+				#valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep Joram | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+				startJoram
+				echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+				sleep $TIME
+						   
+				else
+			    
+				echo "\033[1;31m O Joram já esta iniciado  \033[0m"	
+			
+				fi
+        fi
+
+        # Executa Motor e pausa durante TIME segundos
+        if "$start_motor" ; then
+           echo -e "Servico : \033[1;32mMotor$TIPO_INSTALACAO\033[0m "
+           echo -e "        + DIR OOBJ: \033[1;32m $DIR_OOBJ \033[0m"
+           echo -e "        + Versao Java : $JAVA_HOME/bin/java -version"
+		   
+		   		#valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep Motor | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+				startMotor
+				echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+				sleep $TIME
+						   
+				else
+			    
+				echo "\033[1;31m O Motor já esta iniciado  \033[0m"	
+			
+				fi
+           
+        fi
+		
+        # Executa PosProcessadorRetorno e pausa durante TIME segundos
+        if "$start_posprocessador" ; then
+           echo -e "Servico : \033[1;32mPos Processador Retorno\033[0m "
+           $DIR_OOBJ/Utils-PosProcessadorRetorno.sh
+
+		   		#valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep PosProcessador | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+				startPosProcessadorRetorno
+				echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+				sleep $TIME
+						   
+				else
+			    
+				echo "\033[1;31m O Posprocessador já esta iniciado  \033[0m"	
+			
+				fi		   
+		   
+        fi
+		
+        # Executa Recebe e pausa durante TIME segundos
+        if "$start_recebe" ; then
+           echo -e "Servico : \033[1;32mRecebe\033[0m "
+           echo -e "        + DIR OOBJ: \033[1;32m $DIR_OOBJ \033[0m"
+		   
+		   #valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep Recebe | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+					startRecebe
+					echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+					sleep $TIME
+						   
+				else
+			    
+				echo "\033[1;31m O Recebe já esta iniciado  \033[0m"	
+			
+				fi
+
+        fi
+		
+        # Executa Movefiles e pausa durante TIME segundos
+        if "$start_movefiles" ; then
+           echo -e "Servico : \033[1;32mMovefiles\033[0m "
+           echo -e "        + DIR OOBJ: \033[1;32m $DIR_OOBJ \033[0m"
+		   
+		   #valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep MoveFiles | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+					startMovefiles
+					echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+					sleep $TIME
+						   
+				else
+			    
+				echo "\033[1;31m O MoveFiles já esta iniciado  \033[0m"	
+			
+				fi		   
+
+        fi
+		
+        # Executa ExtratorBD e pausa durante TIME segundos
+        if "$start_extratorbd" ; then
+           echo -e "Servico : \033[1;32mExtrator BD - NF-e\033[0m "
+           echo -e "        + DIR OOBJ: \033[1;32m $DIR_OOBJ \033[0m"
+
+		   #valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep extratorbd | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+					startExtratorBd
+					echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+					sleep $TIME
+						   
+				else
+			    
+				echo "\033[1;31m O ExtratorBD já esta iniciado  \033[0m"	
+			
+				fi			   
+		   
+
+        fi 
+		
+		# Executa ImportaME
+        if "$start_importame" ; then
+           echo -e "Servico : \033[1;32mImportaME\033[0m"
+           echo -e "        + DIR OOBJ: \033[1;32m $DIR_OOBJ \033[0m"
+		   
+		   #valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep importame | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+					startImportaMe
+					echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+						   
+				else
+			    
+				echo "\033[1;31m O ImportaMe já esta iniciado  \033[0m"	
+			
+				fi			   
+
+        fi
+		
+        # Executa Tomcat
+        if "$start_tomcat" ; then
+           echo -e "Servico : \033[1;32mTomcat\033[0m"
+           echo -e "        + DIR TOMCAT: \033[1;32m $DIR_TOMCAT \033[0m"
+
+		   #valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep tomcat | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+					startTomCat
+					echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+						   
+				else
+			    
+				echo "\033[1;31m O Tomcat já esta iniciado  \033[0m"	
+			
+				fi
+		fi
+	exit 0	
+	;;
+    start)
+        # exporta as variaveis necessarias da aplicação
+        variables
+		
+		case "$CMD2" in
+		
+        # Executa Joram e pausa durante TIME segundos
+		joram)
+        if "$start_joram" ; then
+           echo -e "Servico : \033[1;32mJoram\033[0m "
+           echo -e "        + DIR OOBJ: \033[1;32m $DIR_OOBJ \033[0m"
+				#valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep Joram | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+				startJoram
+				echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+				sleep $TIME
+						   
+				else
+			    
+				echo "\033[1;31m O Joram já esta iniciado  \033[0m"	
+			
+				fi
+        fi
+		exit 0
+		;;
+		
+        # Executa Motor e pausa durante TIME segundos
+		motor)
+        if "$start_motor" ; then
+           echo -e "Servico : \033[1;32mMotor$TIPO_INSTALACAO\033[0m "
+           echo -e "        + DIR OOBJ: \033[1;32m $DIR_OOBJ \033[0m"
+           echo -e "        + Versao Java : $JAVA_HOME/bin/java -version"
+		   
+		   		#valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep Motor | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+				startMotor
+				echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+				sleep $TIME
+						   
+				else
+			    
+				echo "\033[1;31m O Motor já esta iniciado  \033[0m"	
+			
+				fi
+           
+        fi
+		exit 0
+		;;
+		
+        # Executa PosProcessadorRetorno e pausa durante TIME segundos
+		posprocessador)
+        if "$start_posprocessador" ; then
+           echo -e "Servico : \033[1;32mPos Processador Retorno\033[0m "
+           $DIR_OOBJ/Utils-PosProcessadorRetorno.sh
+
+		   		#valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep PosProcessador | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+				startPosProcessadorRetorno
+				echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+				sleep $TIME
+						   
+				else
+			    
+				echo "\033[1;31m O Posprocessador já esta iniciado  \033[0m"	
+			
+				fi		   
+		   
+        fi
+		exit 0
+		;;
+		
+        # Executa Recebe e pausa durante TIME segundos
+		recebe)
+        if "$start_recebe" ; then
+           echo -e "Servico : \033[1;32mRecebe\033[0m "
+           echo -e "        + DIR OOBJ: \033[1;32m $DIR_OOBJ \033[0m"
+		   
+		   #valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep Recebe | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+					startRecebe
+					echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+					sleep $TIME
+						   
+				else
+			    
+				echo "\033[1;31m O Recebe já esta iniciado  \033[0m"	
+			
+				fi
+
+        fi
+		exit 0
+		;;
+		
+        # Executa Movefiles e pausa durante TIME segundos
+		movefiles)
+        if "$start_movefiles" ; then
+           echo -e "Servico : \033[1;32mMovefiles\033[0m "
+           echo -e "        + DIR OOBJ: \033[1;32m $DIR_OOBJ \033[0m"
+		   
+		   #valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep MoveFiles | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+					startMovefiles
+					echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+					sleep $TIME
+						   
+				else
+			    
+				echo "\033[1;31m O MoveFiles já esta iniciado  \033[0m"	
+			
+				fi		   
+
+        fi
+		exit 0
+		;;
+		
+        # Executa ExtratorBD e pausa durante TIME segundos
+		extratorbd)
+        if "$start_extratorbd" ; then
+           echo -e "Servico : \033[1;32mExtrator BD - NF-e\033[0m "
+           echo -e "        + DIR OOBJ: \033[1;32m $DIR_OOBJ \033[0m"
+
+		   #valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep extratorbd | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+					startExtratorBd
+					echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+					sleep $TIME
+						   
+				else
+			    
+				echo "\033[1;31m O ExtratorBD já esta iniciado  \033[0m"	
+			
+				fi			   
+		   
+
+        fi 
+		exit 0
+		;;
+		
+		# Executa ImportaME
+		importame)
+        if "$start_importame" ; then
+           echo -e "Servico : \033[1;32mImportaME\033[0m"
+           echo -e "        + DIR OOBJ: \033[1;32m $DIR_OOBJ \033[0m"
+		   
+		   #valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep importame | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+					startImportaMe
+					echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+						   
+				else
+			    
+				echo "\033[1;31m O ImportaMe já esta iniciado  \033[0m"	
+			
+				fi			   
+
+        fi
+		exit 0
+		;;
+		
+        # Executa Tomcat
+		tomcat)
+        if "$start_tomcat" ; then
+           echo -e "Servico : \033[1;32mTomcat\033[0m"
+           echo -e "        + DIR TOMCAT: \033[1;32m $DIR_TOMCAT \033[0m"
+
+		   #valida se o serviço ja esta iniciado para não permitir a inicialização de duas instâncias
+				var=`ps -ef | grep tomcat | awk '{ print $15 }'`
+				if [ X"$var" = X"" ] ;
+				then
+								
+					startTomCat
+					echo -e "        + Iniciando :  \033[1;32m Feito \033[0m"
+						   
+				else
+			    
+				echo "\033[1;31m O Tomcat já esta iniciado  \033[0m"	
+			
+				fi			   
+		   
+        fi
+		exit 0
+		;;
+		
+		*)
+		esac
+		
+        exit 0
+	;;
+
+	
+    stopall)
+        # exporta as variaveis necessarias da aplicação
+        variables
+        # mata todos processos java
+           if "$start_joram" ; then
+		      a=`ps -ef | grep -m 1 Joram | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mJoram\033[0m "
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+           fi
+           if "$start_motor"  ; then
+			  a=`ps -ef | grep -m 1 Motor | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mMotor$TIPO_INSTALACAO\033[0m "
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+           fi
+           if "$start_posprocessador"  ; then
+			  a=`ps -ef | grep -m 1 PosProcessador | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mPos Processador Retorno\033[0m "
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+           fi
+           if "$start_recebe"  ; then
+			   a=`ps -ef | grep -m 1 Recebe | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mRecebe\033[0m "
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+           fi
+           if "$start_movefiles"  ; then
+		      a=`ps -ef | grep -m 1 MoveFiles | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mMovefiles\033[0m " 
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+           fi
+           if "$start_extratorbd"  ; then
+		      a=`ps -ef | grep -m 1 extratorbd | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mExtrator BD - NF-e\033[0m "
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+           fi
+           if "$start_importame"  ; then
+			  a=`ps -ef | grep -m 1 importame | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mImportaMe\033[0m "
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+           fi		   
+           if "$start_tomcat"  ; then
+		      a=`ps -ef | grep -m 1 tomcat | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mTomcat\033[0m"
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+           fi		   
+		   
+        exit 0
+	;;
+	# para serviço especifico
+    stop)
+        # exporta as variaveis necessarias da aplicação
+        variables
+		
+		case "$CMD2" in
+			joram)
+           if "$start_joram" ; then
+		      a=`ps -ef | grep -m 1 Joram | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mJoram\033[0m "
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+           fi
+		   exit 0
+		   ;;
+		   
+		   motor)
+           if "$start_motor"  ; then
+			  a=`ps -ef | grep -m 1 Motor | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mMotor$TIPO_INSTALACAO\033[0m "
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+           fi
+		   exit 0
+		   ;;
+		   
+		   posprocessador)
+           if "$start_posprocessador"  ; then
+			  a=`ps -ef | grep -m 1 PosProcessador | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mPos Processador Retorno\033[0m "
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+           fi
+		   exit 0
+		   ;;
+		   
+		   recebe)
+           if "$start_recebe"  ; then
+			   a=`ps -ef | grep -m 1 Recebe | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mRecebe\033[0m "
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+           fi
+		   exit 0
+		   ;;
+		   
+		   movefiles)
+           if "$start_movefiles"  ; then
+		      a=`ps -ef | grep -m 1 MoveFiles | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mMovefiles\033[0m " 
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+           fi
+		   exit 0
+		   ;;
+		   
+		   extratorbd)
+           if "$start_extratorbd"  ; then
+		      a=`ps -ef | grep -m 1 extratorbd | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mExtrator BD - NF-e\033[0m "
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+           fi
+		   exit 0
+		   ;;
+		   
+		   importame)
+           if "$start_importame"  ; then
+			  a=`ps -ef | grep -m 1 importame | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mImportaMe\033[0m "
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+           fi
+			exit 0
+		   ;;
+		   tomcat)
+           if "$start_tomcat"  ; then
+		      a=`ps -ef | grep -m 1 tomcat | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mTomcat\033[0m"
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+			  
+           fi		   
+		   exit 0
+		   ;;		   
+
+		*)
+		esac
+		   
+        exit 1
+	;;
+    restartall)
+        $0 stopall
+        $0 startall
+        ;;
+
+    restart)
+	    case "$CMD2" in
+			joram)
+			$0 stop joram
+			$0 start joram
+			;;
+			motor)
+			$0 stop motor
+			$0 start motor
+			;;
+			recebe)
+			$0 stop recebe
+			$0 start recebe
+			;;
+			movefiles)
+			$0 stop movefiles
+			$0 start movefiles
+			;;
+			posprocessador)
+			$0 stop posprocessador
+			$0 start posprocessador
+			;;
+			extratorbd)
+			$0 stop extratorbd
+			$0 start extratorbd
+			;;
+			importame)
+			$0 stop importame
+			$0 start importame
+			;;
+			
+			tomcat)
+			if "$start_tomcat"  ; then
+		      a=`ps -ef | grep -m 1 tomcat | awk '{ print $2 }'`
+			  `kill -9 "$a"`
+              echo -e "Servico : \033[1;32mTomcat\033[0m"
+              echo -e "        + Desligando :  \033[1;32m Feito \033[0m"
+			  
+           fi
+			$0 start tomcat
+			;;	
+			
+		*)
+		exit 1
+		esac
+		;;
+    status)
+        # exporta as variaveis necessarias da aplicação
+        variables
+        # verifica status joram
+        if [ -n "$start_joram" ] ; then
+           c=0
+           c=`ps -ef |grep java|grep Joram|wc -l`
+           echo -e "Servico : \033[1;32mJoram\033[0m "
+           if [ "$c" -ge "1" ] ; then
+              echo -e "     + Ativado:  \033[1;32m Rodando  \033[0m"
+           else
+              echo -e "     + Ativado:  \033[1;31m Inativo  \033[0m"
+           fi 
+        fi
+        # verifica status motor
+        if [ -n "$start_motor" ] ; then
+           c=0
+           c=`ps -ef |grep java|grep Motor|wc -l`
+           echo -e "Servico : \033[1;32mMotor$TIPO_INSTALACAO\033[0m"
+           if [ "$c" -ge "1" ] ; then
+              echo -e "     + Ativado:  \033[1;32m Rodando  \033[0m"
+           else
+              echo -e "     + Ativado:  \033[1;31m Inativo  \033[0m"
+           fi 
+        fi
+        # verifica status recebe
+        if [ -n "$start_recebe" ] ; then
+           c=0
+           c=`ps -ef |grep java|grep Recebe|wc -l`
+           echo -e "Servico : \033[1;32mRecebe\033[0m"
+           if [ "$c" -ge "1" ] ; then
+              echo -e "     + Ativado:  \033[1;32m Rodando  \033[0m"
+           else
+              echo -e "     + Ativado:  \033[1;31m Inativo  \033[0m"
+           fi 
+        fi
+        # verifica status movefiles
+        if [ -n "$start_movefiles" ] ; then
+           c=0
+           c=`ps -ef |grep java|grep Movefiles|wc -l`
+           echo -e "Servico : \033[1;32mMovefiles\033[0m"
+           if [ "$c" -ge "1" ] ; then
+              echo -e "     + Ativado:  \033[1;32m Rodando  \033[0m"
+           else
+              echo -e "     + Ativado:  \033[1;31m Inativo  \033[0m"
+           fi 
+        fi
+        # verifica status startPosProcessadorRetorno
+        if [ -n "$start_posprocessador" ] ; then
+           c=0
+           c=`ps -ef |grep java|grep PosProcessador|wc -l`
+           echo -e "Servico : \033[1;32mPosProcessadorRetorno\033[0m"
+           if [ "$c" -ge "1" ] ; then
+              echo -e "     + Ativado:  \033[1;32m Rodando  \033[0m"
+           else
+              echo -e "     + Ativado:  \033[1;31m Inativo  \033[0m"
+           fi 
+        fi
+        # verifica status startExtratorBd
+        if [ -n "$start_extratorbd" ] ; then
+           c=0
+           c=`ps -ef |grep java|grep extratorbd|wc -l`
+           echo -e "Servico : \033[1;32mExtratorBD\033[0m"
+           if [ "$c" -ge "1" ] ; then
+              echo -e "     + Ativado:  \033[1;32m Rodando  \033[0m"
+           else
+              echo -e "     + Ativado:  \033[1;31m Inativo  \033[0m"
+           fi 
+        fi
+        # verifica status ImportaMe
+        if [ -n "$start_importame" ] ; then
+           c=0
+           c=`ps -ef |grep java|grep importame|wc -l`
+           echo -e "Servico : \033[1;32mImportaMe\033[0m"
+           if [ "$c" -ge "1" ] ; then
+              echo -e "     + Ativado:  \033[1;32m Rodando  \033[0m"
+           else
+              echo -e "     + Ativado:  \033[1;31m Inativo  \033[0m"
+           fi 
+        fi		
+		# verifica status tomcat
+        if [ -n "$start_tomcat" ] ; then
+           c=0
+           c=`ps -ef |grep tomcat |wc -l`
+           echo -e "Servico : \033[1;32mTomcat\033[0m"
+           if [ "$c" -ge "2" ] ; then
+              echo -e "     + Ativado:  \033[1;32m Rodando  \033[0m"
+           else
+              echo -e "     + Ativado:  \033[1;31m Inativo  \033[0m"
+           fi 
+         fi
+         exit 0
+	;;
+    *)
+	usage
+	exit 1
+	;;
+esac
+# // fim do corpo
