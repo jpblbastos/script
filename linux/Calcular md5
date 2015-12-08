@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# ---------------------------------- #
+# Nome: Calcular md5                 #
+# Por : Joao Paulo                   #
+# Desc: Faz o calculo do md5         #
+# Alt : 10-02-11                     #
+# ---------------------------------- #	
+
+# Check that the user didn't select directories
+for File in "$@"
+do
+if [ -d "$File" ]; then
+zenity --error --text="'$File' é uma pasta. Não é possível calcular md5 para pastas!"
+exit ; fi ; done
+
+#Enter the checksum filename to create
+CheckName=`zenity --entry --title="Calcular md5" --entry-text "checksum.md5" --text="Entre com o nome do arquivo que guardará o cálculo md5"`
+if [ "$?" == 1 ] ; then exit ; fi
+
+# 1 Check the md5 file
+(md5sum "$@" > "$CheckName") 2>&1 | zenity --progress --title "Calcular md5" --text "Calculando: $CheckName" --pulsate --auto-close

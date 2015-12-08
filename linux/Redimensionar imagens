@@ -1,0 +1,29 @@
+#!/bin/bash
+# * @name           Redimensionar imagens
+# * @version        0.1
+# * @license        http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
+# * @author         Joao Paulo Bastos L. <jpbl.bastos at gmail dot com>
+# * @date           20-Fevereiro-2013
+# * @description    Redimensiona todas imagens de uma pasta
+# * @dependencies   convert
+# **/  
+
+tamanho=$(zenity --list				\
+	--height 210				\
+	--width 300				\
+	--title "Redimensionar imagens"		\
+	--text "Resoluções disponíveis"		\
+	--radiolist				\
+	--hide-column 2				\
+	--column "Seleção"			\
+	--column ""				\
+	--column "Resolução"			\
+		FALSE 640x480 "640x480"		\
+		FALSE 1024x768 "1024x768"	\
+		FALSE 1280x1024 "1280x1024"	\
+		FALSE 1600x1200 "1600x1200")
+
+for imagem in "$@"
+do
+	/usr/bin/convert -scale $tamanho "$imagem" "$tamanho-$imagem"
+done
