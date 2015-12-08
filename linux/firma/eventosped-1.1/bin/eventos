@@ -1,0 +1,958 @@
+# /**
+# *
+# * Este arquivo é parte do projeto evento de orcamentos - sistema de eventos dos orcamentos da G. A. Silva
+# *
+# * Este programa é um software livre: você pode redistribuir e/ou modificá-lo
+# * sob os termos da Licença Pública Geral GNU (GPL)como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior
+# * e/ou 
+# * sob os termos da Licença Pública Geral Menor GNU (LGPL) como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+# *  
+# * Você deve ter recebido uma cópia da Licença Publica GNU e da 
+# * Licença Pública Geral Menor GNU (LGPL) junto com este programa.
+# * Caso contrário consulte <http://www.fsfla.org/svnwiki/trad/GPLv3> ou
+# * <http://www.fsfla.org/svnwiki/trad/LGPLv3>. 
+# *
+# * @package        eventosped
+# * @name           eventos
+# * @version        1.1
+# * @license        http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
+# * @copyright      2011 &copy Twoclick Criações
+# * @author         Joao Paulo Bastos L. <jpbl.bastos at gmail dot com>
+# * @date           28-Ago-2012
+# * @description    incluir eventos/mescla orcamentos 
+# * ---------------------------------------------------------------------------------------------------- *
+# * @author         Joao Paulo Bastos L. <jpbl.bastos at gmail dot com>
+# * @change         buscar pelo numero da nf-e no diretorio de logs
+# * @date           05-Junho-2013
+# *
+# **/   
+
+#  // propriedades do script
+
+# /**
+# * DIRPED
+# * diretorio de orcamentos para o rastreio
+# * @var string
+# */
+DIRPED="/usr/gasilva/logmens/vendas/"
+
+# /**
+# * DIRPEDTEMP
+# * diretorio de orcamentos temporario
+# * @var string
+# */
+DIRPEDTEMP="/tmp/ped/"
+
+# /**
+# * ARQKEY
+# * arquivo contendo as key's de seguranca dos conferentes
+# * @var string
+# */
+ARQKEY="/opt/eventosped/conf/keys"
+
+# /**
+# * PRGCONSULTA
+# * aplicativo de consulta de pedidos existentes
+# * @var string
+# */
+PRGCONSULTA="/opt/eventosped/bin/rastreioped"
+
+# /**
+# * tpEcoar
+# * tipo de echo(linux ou unix), quando linix usar -e e quando for unix deixar em branco
+# * @var string
+# */
+tpEcoar=
+
+# /**
+# * resp
+# * captura resposta do usuario em interacoes
+# * @var string
+# */
+resp=
+
+# /**
+# * digita
+# * captura a digitacao do complemento dos eventos
+# * @var string
+# */
+digita=
+
+# /**
+# * item
+# * captura o codigo do item 
+# * @var string
+# */
+item=
+
+# /**
+# * motorista
+# * captura o nome do motorista
+# * @var string
+# */
+motorista=
+
+# /**
+# * obs
+# * captura observacoes em geral
+# * @var string
+# */
+obs=
+
+# /**
+# * retornar
+# * variavel responsavel pelo loop principal onde (1 - true / 0 - false)
+# * @var string
+# */
+retornar=0
+
+# /**
+# * numOrca
+# * numero do orcamento
+# * @var string
+# */
+numOrca=
+
+# /**
+# * numOrcaNew
+# * numero do orcamento de destino na funcao mesclar
+# * @var string
+# */
+numOrcaNew=
+
+# /**
+# * autenticacao
+# * recebe o nome do usuario capturado no arquivo de keys
+# * @var string
+# */
+autenticacao=
+
+# /**
+# * nomeArq
+# * nome completo do arquivo de registro informado
+# * @var string
+# */
+nomeArq=
+
+# /**
+# * nomeArqNew
+# * nome completo do arquivo de destino na funcao mesclar
+# * @var string
+# */
+nomeArqNew=
+
+# // fim das propriedades do script
+
+
+# // funcoes do script
+
+# /**
+# * displayTelaEntrada
+# * Método que mostra a tela de entrada
+# * @version 1.0
+# * @package eventosped
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+displayTelaEntrada(){
+   # zera variavel resposta
+   resp=
+   # variavel boleana issoNF
+   issoNF=0
+   # monta tela
+   tput clear
+   tput cup 1 1
+   echo $tpEcoar  "\033[00;37mG. A. SILVA & CIA LTDA\033[01;37 "
+   tput cup 2 1
+   echo $tpEcoar  "\033[00;37mEventos dos Orcamentos\033[01;37 "
+   tput cup 3 1
+   echo $tpEcoar  "\033[00;37m______________________________________________________________________\033[01;37"
+   tput rev
+   tput cup 5 25
+   echo $tpEcoar  "\033[00;30;47mNumero Orcamento: \033[01;37"
+   tput sgr0 rev
+   tput cup 21 1
+   echo $tpEcoar  "\033[00;37m_____________________________________________________Opcoes: S -> Sair\033[01;37"
+   tput cup 23 1
+   echo $tpEcoar  "\033[00;37mResposta:\033[01;37 "
+   tput rev
+   tput cup 5 43
+   read resp
+   tput sgr0 rev
+   # validacoes com a resposta lida em resp
+   # verifica se retorno foi acionado
+   if [ "$resp" = "s" ] || [ "$resp" = "S" ] ; then
+      exit 0
+   else
+      # verifica se foi acionado o modo de nf-e
+      if [ "$resp" = "" ] ; then
+         tput cup 5 25
+         echo $tpEcoar  "                                          "
+         tput cup 5 25
+         echo $tpEcoar  "\033[00;30;47mNumero NF-e: \033[01;37"
+         tput cup 5 38
+         read resp
+         tput sgr0 rev
+         issoNF=1
+         # trata saida
+         if [ "$resp" = "s" ] || [ "$resp" = "S" ] ; then
+            exit 0
+         fi
+      fi
+      # verificar se digitacao so contem numeros
+      erro=`echo "$resp" |egrep '^[0-9]' > /dev/null`
+      if [ "$?" -eq 1 ] ; then
+         tput cup 23 12
+         echo $tpEcoar  "\033[00;37mOPS, foram digitadas letras, e invalido $resp !\033[01;37"
+         return 1
+      fi
+      # verificar tamanho da variavel de resp
+      erro=${#resp}
+      if [ "$erro" -ne 6 ] ; then
+         tput cup 23 12
+         echo $tpEcoar  "\033[00;37mOPS, numero do orcamento ou nf-e invalido $resp !\033[01;37"
+         return 1
+      fi
+      # verificar se arquivo existe
+      if [ "$issoNF" -eq 1 ] ; then
+         nomeArq=$DIRPED$resp.nf
+      else
+         nomeArq=$DIRPED$resp.log
+      fi
+      if [ ! -e $nomeArq ] ; then
+         tput cup 23 12
+         echo $tpEcoar  "\033[00;37mOPS, Orcamento ou NF-e $resp nao encontrado !\033[01;37"
+         return 1
+      fi
+      # se nao tiver erros numOrca recebe resp
+      numOrca=${resp}   
+   fi
+} 
+
+# /**
+# * displayOpcoes
+# * Método que mostra as opcoes para manipulacao do orcamento
+# * @version 1.0
+# * @package eventosped
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+displayOpcoes(){
+   # variavel booleana
+   error=1
+   # faz o laco
+   while [ "$error" -eq 1 ] ;do 
+      # zera variavel resposta
+      resp=
+      # limpa area de resposta
+      tput cup 23 12
+      echo "                                                                          "
+      # print tela
+      tput cup 7 15
+      echo $tpEcoar  "\033[00;37mOPCAO    FUNCAO\033[01;37"
+      tput cup 8 15
+      echo $tpEcoar  "\033[00;30;47m__________________________________________\033[01;37" 
+      tput cup 9 15
+      echo $tpEcoar  "\033[00;37m1        Incluir Evento.\033[01;37"
+      tput cup 10 15
+      echo $tpEcoar  "\033[00;37m2        Mesclar.\033[01;37"
+      tput cup 11 15
+      echo $tpEcoar  "\033[00;37m3        Consultar Eventos.\033[01;37"
+      tput cup 12 15
+      echo $tpEcoar  "\033[00;37m0        Sair do Pedido/NF.\033[01;37"
+      tput cup 21 1
+      echo $tpEcoar  "\033[00;37m______________________________________________________________________\033[01;37"
+      tput cup 14 15
+      echo $tpEcoar  "\033[00;37mQual sua Opcao: \033[01;37"
+      tput cup 14 31
+      read resp
+      # valida opcao
+      if [ "$resp" -gt 3 ] ; then
+         tput cup 23 12
+         echo $tpEcoar  "\033[00;37mOPS, Opcao Invalida!\033[01;37"
+         sleep 2 > /dev/null
+      else
+         error=0
+      fi
+  done
+}
+
+# /**
+# * incluirEvento
+# * Método que inclui evento no log do pedido 
+# * @version 1.0
+# * @package eventosped
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+incluirEvento(){
+   # monta tela
+   tput clear
+   tput cup 1 1
+   echo $tpEcoar  "\033[00;37mG. A. SILVA & CIA LTDA\033[01;37 "
+   tput cup 2 1
+   echo $tpEcoar  "\033[00;37mInclusao de Eventos no Orcamento\033[01;37 "
+   tput cup 3 1
+   echo $tpEcoar  "\033[00;37m______________________________________________________________________\033[01;37"  
+   tput rev
+   tput cup 5 25
+   echo $tpEcoar  "\033[00;30;47mNumero Orcamento: \033[01;37"
+   tput cup 5 43
+   echo $tpEcoar  "\033[00;30;47m$numOrca\033[01;37"
+   tput sgr0 rev
+   tput cup 21 1
+   echo $tpEcoar  "\033[00;37mResposta:\033[01;37 "
+   # variavel booleana
+   error=1
+   # faz o laco enquanto error 1
+   while [ "$error" -eq 1 ] ;do 
+      # zera variavel resposta
+      resp=
+      # limpa area de resposta
+      tput cup 23 12
+      echo "                                                                          "
+      # print tela
+      tput cup 7 1
+      echo $tpEcoar  "\033[00;37mOPCAO    DESCRICAO EVENTO\033[01;37"
+      tput cup 8 1
+      echo $tpEcoar  "\033[00;30;47m______________________________________________________________________\033[01;37" 
+      tput cup 9 1
+      echo $tpEcoar  "\033[00;37m1        Pedido aguardando separador.\033[01;37"
+      tput cup 10 1
+      echo $tpEcoar  "\033[00;37m2        Pedido com separador.\033[01;37"
+      tput cup 11 1
+      echo $tpEcoar  "\033[00;37m3        Mercadoria em outra loja (Aguardando).\033[01;37"
+      tput cup 12 1
+      echo $tpEcoar  "\033[00;37m4        Faltando mercadoria.\033[01;37"
+      tput cup 13 1
+      echo $tpEcoar  "\033[00;37m5        Pedido com conferente.\033[01;37"
+      tput cup 14 1
+      echo $tpEcoar  "\033[00;37m6        Pedido/Nota Fiscal com supervisor de expedicao.\033[01;37"
+      tput cup 15 1
+      echo $tpEcoar  "\033[00;37m7        Pedido/Nota Fiscal em transito.\033[01;37"
+      tput cup 16 1
+      echo $tpEcoar  "\033[00;37m8        Digitar Observacao.\033[01;37"
+      tput cup 17 1
+      echo $tpEcoar  "\033[00;37m0        Sair.\033[01;37"
+      tput cup 20 1
+      echo $tpEcoar  "\033[00;37m______________________________________________________________________\033[01;37"
+      tput cup 19 15
+      echo $tpEcoar  "\033[00;37mEscolha um evento: \033[01;37"
+      tput cup 19 34
+      read resp
+      # valida opcao
+      if [ "$resp" -gt 8 ] ; then
+         tput cup 21 12
+         echo $tpEcoar  "\033[00;37mOPS, Opcao Invalida!\033[01;37"
+         sleep 2 > /dev/null
+      else
+         error=0
+      fi
+   done
+   # limpa area de resposta para tratar evento
+   tput cup 21 1
+   echo "                                                           "
+   tput cup 22 1
+   echo "                                                           "  
+   # validar e realizar a inclusao do evento no seu log
+   digita=
+   autenticacao=
+   error=1
+   case "$resp" in
+      1)
+         while [ "$error" -eq 1 ] ;do 
+            # zera variavel
+            digita=
+            erro=
+            # limpa area de resposta para tratar evento
+            tput cup 21 1
+            echo "                                                           "
+            tput cup 22 1
+            echo "                                                           "  
+            tput cup 21 1
+            echo $tpEcoar  "\033[00;37mDigite seu nome: \033[01;37"
+            tput cup 21 18
+            read digita
+            # valida digitacao
+            erro=${#digita}
+            if [ "$erro" -gt 0 ] ; then
+               echo "33Pedido aguardando separador em `date '+%d/%m/%y as %H:%M'`.Responsavel: $digita" >> $nomeArq
+               tput cup 22 15
+               echo $tpEcoar "\033[00;37mEba, evento gravado com sucesso!\033[01;37"
+               sleep 3 > /dev/null
+               error=0
+            else
+               tput cup 22 10
+               echo $tpEcoar"\033[00;37mOPS, voce nao digitou seu nome, isto e invalido !\033[01;37"
+               sleep 3 > /dev/null
+            fi
+         done
+	;;
+      2)
+         while [ "$error" -eq 1 ] ;do 
+            # zera variavel
+            autenticacao=
+            erro=
+            # limpa area de resposta para tratar evento
+            tput cup 21 1
+            echo "                                                                 "
+            tput cup 22 1
+            echo "                                                                 "  
+            tput cup 21 1
+            echo $tpEcoar  "\033[00;37mDigite sua Autenticacao: \033[01;37"
+            tput cup 21 26
+            echo $tpEcoar  "\033[00;30m\033[00;30"
+            tput cup 21 26
+            read digita
+            tput cup 21 26
+            echo $tpEcoar  "\e[m"
+            # valida digitacao
+            erro=${#digita}
+            if [ "$erro" -eq 4 ] ; then
+               # valida autenticacao
+               autenticacao=`grep $digita $ARQKEY|cut -c6-25`
+               erro=${#autenticacao}
+               if [ "$erro" -gt 0 ] ; then
+                  echo "32Pedido com separador em `date '+%d/%m/%y as %H:%M'`.Nome:  $autenticacao" >> $nomeArq
+                  tput cup 22 15
+                  echo $tpEcoar  "\033[00;37mEba, evento gravado com sucesso!\033[01;37"
+                  sleep 3 > /dev/null
+                  error=0
+               else 
+                  tput cup 22 10
+                  echo $tpEcoar  "\033[00;37mOPS, sua autenticacao e invalida ou nao foi localizada!\033[01;37"
+                  sleep 3 > /dev/null
+               fi
+            else
+               tput cup 22 10
+               echo $tpEcoar  "\033[00;37mOPS, voce nao digitou sua autenticacao ou e invalida !\033[01;37"
+               sleep 3 > /dev/null
+            fi
+         done	 
+	;;
+      3)
+          while [ "$error" -eq 1 ] ;do 
+            # zera variavel
+            autenticacao=
+            erro=
+            item=
+            # limpa area de resposta para tratar evento
+            tput cup 21 1
+            echo "                                                                 "
+            tput cup 22 1
+            echo "                                                                 "  
+            tput cup 21 1
+            echo $tpEcoar  "\033[00;37mCodigo da Mercadoria...: \033[01;37"
+            tput cup 21 26
+            read item
+            # valida digitacao
+            erro=${#item}
+            if [ "$erro" -gt 0 ] ; then
+               tput cup 22 1
+               echo $tpEcoar  "\033[00;37mDigite sua Autenticacao: \033[01;37"
+               tput cup 22 26
+               echo $tpEcoar  "\033[00;30m\033[00;30"
+               tput cup 22 26
+               read digita
+               tput cup 22 26
+               echo $tpEcoar  "\e[m"
+               # valida digitacao
+               erro=${#digita}
+               if [ "$erro" -eq 4 ] ; then
+                  # valida autenticacao
+                  autenticacao=`grep $digita $ARQKEY|cut -c6-25`
+                  erro=${#autenticacao}
+                  if [ "$erro" -gt 0 ] ; then
+                     echo "33Item $item em outra loja (Aguardando) em `date '+%d/%m/%y as %H:%M'`.Nome: $autenticacao" >> $nomeArq
+                     tput cup 22 1
+                     echo "                                                                 "  
+                     tput cup 22 15
+                     echo $tpEcoar  "\033[00;37mEba, evento gravado com sucesso!\033[01;37"
+                     sleep 3 > /dev/null
+                     error=0
+                  else 
+                     tput cup 22 1
+                     echo "                                                                 "  
+                     tput cup 22 10
+                     echo $tpEcoar  "\033[00;37mOPS, sua autenticacao e invalida ou nao foi localizada!\033[01;37"
+                     sleep 3 > /dev/null
+                  fi
+               else
+                  tput cup 22 1
+                  echo "                                                                 "  
+                  tput cup 22 10
+                  echo $tpEcoar  "\033[00;37mOPS, voce nao digitou sua autenticacao ou e invalida !\033[01;37"
+                  sleep 3 > /dev/null
+               fi
+            else
+               tput cup 22 10
+               echo $tpEcoar  "\033[00;37mOPS, codigo da mercadoria invalido !\033[01;37"
+               sleep 3 > /dev/null
+            fi
+          done	 
+        ;;
+      4)
+          while [ "$error" -eq 1 ] ;do 
+            # zera variavel
+            autenticacao=
+            erro=
+            item=
+            # limpa area de resposta para tratar evento
+            tput cup 21 1
+            echo "                                                                 "
+            tput cup 22 1
+            echo "                                                                 "  
+            tput cup 21 1
+            echo $tpEcoar  "\033[00;37mCodigo da Mercadoria...: \033[01;37"
+            tput cup 21 26
+            read item
+            # valida digitacao
+            erro=${#item}
+            if [ "$erro" -gt 0 ] ; then
+               tput cup 22 1
+               echo $tpEcoar  "\033[00;37mDigite sua Autenticacao: \033[01;37"
+               tput cup 22 26
+               echo $tpEcoar  "\033[00;30m\033[00;30"
+               tput cup 22 26
+               read digita
+               tput cup 22 26
+               echo $tpEcoar  "\e[m"
+               # valida digitacao
+               erro=${#digita}
+               if [ "$erro" -eq 4 ] ; then
+                  # valida autenticacao
+                  autenticacao=`grep $digita $ARQKEY|cut -c6-25`
+                  erro=${#autenticacao}
+                  if [ "$erro" -gt 0 ] ; then
+                     echo "31Faltando item $item em `date '+%d/%m/%y as %H:%M'`.Nome: $autenticacao" >> $nomeArq
+                     tput cup 22 1
+                     echo "                                                                 "  
+                     tput cup 22 15
+                     echo $tpEcoar  "\033[00;37mEba, evento gravado com sucesso!\033[01;37"
+                     sleep 3 > /dev/null
+                     error=0
+                  else 
+                     tput cup 22 1
+                     echo "                                                                 "  
+                     tput cup 22 10
+                     echo $tpEcoar  "\033[00;37mOPS, sua autenticacao e invalida ou nao foi localizada!\033[01;37"
+                     sleep 3 > /dev/null
+                  fi
+               else
+                  tput cup 22 1
+                  echo "                                                                 "  
+                  tput cup 22 10
+                  echo $tpEcoar  "\033[00;37mOPS, voce nao digitou sua autenticacao ou e invalida !\033[01;37"
+                  sleep 3 > /dev/null
+               fi
+            else
+               tput cup 22 10
+               echo $tpEcoar  "\033[00;37mOPS, codigo da mercadoria invalido !\033[01;37"
+               sleep 3 > /dev/null
+            fi
+          done	 
+        ;; 
+      5)
+         while [ "$error" -eq 1 ] ;do 
+            # zera variavel
+            autenticacao=
+            erro=
+            # limpa area de resposta para tratar evento
+            tput cup 21 1
+            echo "                                                                 "
+            tput cup 22 1
+            echo "                                                                 "  
+            tput cup 21 1
+            echo $tpEcoar  "\033[00;37mDigite sua Autenticacao: \033[01;37"
+            tput cup 21 26
+            echo $tpEcoar  "\033[00;30m\033[00;30"
+            tput cup 21 26
+            read digita
+            tput cup 21 26
+            echo $tpEcoar  "\e[m"
+            # valida digitacao
+            erro=${#digita}
+            if [ "$erro" -eq 4 ] ; then
+               # valida autenticacao
+               autenticacao=`grep $digita $ARQKEY|cut -c6-25`
+               erro=${#autenticacao}
+               if [ "$erro" -gt 0 ] ; then
+                  echo "32Pedido com conferente em `date '+%d/%m/%y as %H:%M'`.Nome:  $autenticacao" >> $nomeArq
+                  tput cup 22 15
+                  echo $tpEcoar  "\033[00;37mEba, evento gravado com sucesso!\033[01;37"
+                  sleep 3 > /dev/null
+                  error=0
+               else 
+                  tput cup 22 10
+                  echo $tpEcoar  "\033[00;37mOPS, sua autenticacao e invalida ou nao foi localizada!\033[01;37"
+                  sleep 3 > /dev/null
+               fi
+            else
+               tput cup 22 10
+               echo $tpEcoar  "\033[00;37mOPS, voce nao digitou sua autenticacao ou e invalida !\033[01;37"
+               sleep 3 > /dev/null
+            fi
+         done	 
+	;;
+      6)
+         while [ "$error" -eq 1 ] ;do 
+            # zera variavel
+            autenticacao=
+            erro=
+            # limpa area de resposta para tratar evento
+            tput cup 21 1
+            echo "                                                                 "
+            tput cup 22 1
+            echo "                                                                 "  
+            tput cup 21 1
+            echo $tpEcoar  "\033[00;37mDigite sua Autenticacao: \033[01;37"
+            tput cup 21 26
+            echo $tpEcoar  "\033[00;30m\033[00;30"
+            tput cup 21 26
+            read digita
+            tput cup 21 26
+            echo $tpEcoar  "\e[m"
+            # valida digitacao
+            erro=${#digita}
+            if [ "$erro" -eq 4 ] ; then
+               # valida autenticacao
+               autenticacao=`grep $digita $ARQKEY|cut -c6-25`
+               erro=${#autenticacao}
+               if [ "$erro" -gt 0 ] ; then
+                  echo "32Pedido/NF com supervisor de expedicao em `date '+%d/%m/%y as %H:%M'`.Nome:  $autenticacao" >> $nomeArq
+                  tput cup 22 15
+                  echo $tpEcoar  "\033[00;37mEba, evento gravado com sucesso!\033[01;37"
+                  sleep 3 > /dev/null
+                  error=0
+               else 
+                  tput cup 22 10
+                  echo $tpEcoar  "\033[00;37mOPS, sua autenticacao e invalida ou nao foi localizada!\033[01;37"
+                  sleep 3 > /dev/null
+               fi
+            else
+               tput cup 22 10
+               echo $tpEcoar  "\033[00;37mOPS, voce nao digitou sua autenticacao ou e invalida !\033[01;37"
+               sleep 3 > /dev/null
+            fi
+         done	 
+	;;
+      7)
+          while [ "$error" -eq 1 ] ;do 
+            # zera variavel
+            autenticacao=
+            erro=
+            motorista=
+            # limpa area de resposta para tratar evento
+            tput cup 21 1
+            echo "                                                                 "
+            tput cup 22 1
+            echo "                                                                 "  
+            tput cup 21 1
+            echo $tpEcoar  "\033[00;37mNome do Motorista......: \033[01;37"
+            tput cup 21 26
+            read motorista
+            # valida digitacao
+            erro=${#motorista}
+            if [ "$erro" -gt 0 ] ; then
+               tput cup 22 1
+               echo $tpEcoar  "\033[00;37mDigite sua Autenticacao: \033[01;37"
+               tput cup 22 26
+               echo $tpEcoar  "\033[00;30m\033[00;30"
+               tput cup 22 26
+               read digita
+               tput cup 22 26
+               echo $tpEcoar  "\e[m"
+               # valida digitacao
+               erro=${#digita}
+               if [ "$erro" -eq 4 ] ; then
+                  # valida autenticacao
+                  autenticacao=`grep $digita $ARQKEY|cut -c6-25`
+                  erro=${#autenticacao}
+                  if [ "$erro" -gt 0 ] ; then
+                     echo "32NF em transito em `date '+%d/%m/%y as %H:%M'`. Motorista: $motorista.Resp: $autenticacao" >> $nomeArq
+                     tput cup 22 1
+                     echo "                                                                 "  
+                     tput cup 22 15
+                     echo $tpEcoar  "\033[00;37mEba, evento gravado com sucesso!\033[01;37"
+                     sleep 3 > /dev/null
+                     error=0
+                  else 
+                     tput cup 22 1
+                     echo "                                                                 "  
+                     tput cup 22 10
+                     echo $tpEcoar  "\033[00;37mOPS, sua autenticacao e invalida ou nao foi localizada!\033[01;37"
+                     sleep 3 > /dev/null
+                  fi
+               else
+                  tput cup 22 1
+                  echo "                                                                 "  
+                  tput cup 22 10
+                  echo $tpEcoar  "\033[00;37mOPS, voce nao digitou sua autenticacao ou e invalida !\033[01;37"
+                  sleep 3 > /dev/null
+               fi
+            else
+               tput cup 22 10
+               echo $tpEcoar  "\033[00;37mOPS, nome do motorista nao foi digitado!\033[01;37"
+               sleep 3 > /dev/null
+            fi
+          done	 
+        ;; 
+      8)
+          while [ "$error" -eq 1 ] ;do 
+            # zera variavel
+            autenticacao=
+            erro=
+            obs=
+            # limpa area de resposta para tratar evento
+            tput cup 21 1
+            echo "                                                                 "
+            tput cup 22 1
+            echo "                                                                 "  
+            tput cup 21 1
+            echo $tpEcoar  "\033[00;37mSua Observacao.........:\033[01;37"
+            tput cup 21 26
+            read obs
+            # valida digitacao
+            erro=${#obs}
+            if [ "$erro" -gt 0 ] ; then
+               tput cup 22 1 
+               echo $tpEcoar  "\033[00;37mDigite sua Autenticacao: \033[01;37"
+               tput cup 22 26
+               echo $tpEcoar  "\033[00;30m\033[00;30"
+               tput cup 22 26
+               read digita
+               tput cup 22 26
+               echo $tpEcoar  "\e[m"
+               # valida digitacao
+               erro=${#digita}
+               if [ "$erro" -eq 4 ] ; then
+                  # valida autenticacao
+                  autenticacao=`grep $digita $ARQKEY|cut -c6-25`
+                  erro=${#autenticacao}
+                  if [ "$erro" -gt 0 ] ; then
+                     echo "33Obs: $obs em `date '+%d/%m/%y as %H:%M'`.Nome: $autenticacao" >> $nomeArq
+                     tput cup 22 1
+                     echo "                                                                 "  
+                     tput cup 22 15
+                     echo $tpEcoar  "\033[00;37mEba, evento gravado com sucesso!\033[01;37"
+                     sleep 3 > /dev/null
+                     error=0
+                  else 
+                     tput cup 22 1
+                     echo "                                                                 "  
+                     tput cup 22 10
+                     echo $tpEcoar  "\033[00;37mOPS, sua autenticacao e invalida ou nao foi localizada!\033[01;37"
+                     sleep 3 > /dev/null
+                  fi
+               else
+                  tput cup 22 1
+                  echo "                                                                 "  
+                  tput cup 22 10
+                  echo $tpEcoar  "\033[00;37mOPS, voce nao digitou sua autenticacao ou e invalida !\033[01;37"
+                  sleep 3 > /dev/null
+               fi
+            else
+               tput cup 22 10
+               echo $tpEcoar  "\033[00;37mOPS, observacao invalida!\033[01;37"
+               sleep 3 > /dev/null
+            fi
+          done	 
+        ;; 
+   esac
+}
+
+# /**
+# * mesclar
+# * Método que mescla pedidos
+# * @version 1.0
+# * @package eventosped
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+mesclar(){
+   # zera variavel
+   resp=
+   numOrcaNew=
+   nomeArqNew=
+   error=1
+   flag=0
+   while [ "$error" -eq 1 ] ; do
+      # zera variavel
+      flag=0
+      # limpa area de resposta
+      tput cup 1 23
+      echo "                                                         "                                                                              
+      # monta tela
+      tput clear
+      tput cup 1 1
+      echo $tpEcoar  "\033[00;37mG. A. SILVA & CIA LTDA\033[01;37 "
+      tput cup 2 1
+      echo $tpEcoar  "\033[00;37mMesclar pedidos\033[01;37 "
+      tput cup 3 1
+      echo $tpEcoar  "\033[00;37m______________________________________________________________________\033[01;37" 
+      tput cup 5 15
+      echo $tpEcoar  "\033[00;37m ______                          ______\033[01;37" 
+      tput cup 6 15
+      echo $tpEcoar  "\033[00;37m|      |      Mesclar com ?     |      |\033[01;37" 
+      tput cup 7 15
+      echo $tpEcoar  "\033[00;37m| PED  | ====================>  | PED  |\033[01;37" 
+      tput cup 8 15
+      echo $tpEcoar  "\033[00;37m| orig |                        | dest |\033[01;37" 
+      tput cup 9 15
+      echo $tpEcoar  "\033[00;37m|______|                        |______|\033[01;37"
+      tput cup 11 16
+      echo $tpEcoar  "\033[00;37m$numOrca\033[01;37" 
+      tput cup 21 1
+      echo $tpEcoar  "\033[00;37m_____________________________________________________Opcoes: S -> Sair\033[01;37"
+      tput cup 23 1
+      echo $tpEcoar  "\033[00;37mResposta:\033[01;37 "
+      tput rev
+      tput cup 11 48
+      read resp
+      tput sgr0 rev
+      # validacoes com a resposta lida em resp
+      # verifica se retorno foi acionado
+      if [ "$resp" != "s" ] && [ "$resp" != "S" ] ; then
+         if [ "$flag" -eq 0 ] ; then
+            # verificar se digitacao so contem numeros
+            erro=`echo "$resp" |egrep '^[0-9]' > /dev/null`
+            if [ "$?" -eq 1 ] ; then
+               tput cup 23 12
+               echo $tpEcoar  "\033[00;37mOPS, foram digitadas letras, e invalido $resp !\033[01;37"
+               flag=1
+               sleep 3 > /dev/null
+            fi
+         fi
+         if [ "$flag" -eq 0 ] ; then
+            # verificar tamanho da variavel de resp
+            erro=${#resp}
+            if [ "$erro" -ne 6 ] ; then
+               tput cup 23 12
+               echo $tpEcoar  "\033[00;37mOPS, numero do orcamento invalido $resp !\033[01;37"
+               flag=1
+               sleep 3 > /dev/null
+            fi
+         fi
+         if [ "$flag" -eq 0 ] ; then
+            # verificar se arquivo existe
+            nomeArqNew=$DIRPED$resp.log
+            if [ ! -e $nomeArqNew ] ; then
+              tput cup 23 12
+              echo $tpEcoar  "\033[00;37mOPS, Orcamento $resp nao encontrado !\033[01;37" 
+              flag=1
+              sleep 3 > /dev/null
+            fi
+         fi
+         # se nao tiver erros numOrcaNew recebe resp
+         if [ "$flag" -eq 0 ] ; then
+            numOrcaNew=${resp} 
+            # zera variavel
+            resp=  
+            erro=1
+            while [ "$erro" -eq 1 ] ; do
+               tput cup 23 12
+               echo "                     "
+               tput cup 15 3
+               echo $tpEcoar  "\033[00;37mConfirma a uniao do pedido $numOrca com $numOrcaNew (S - sim / N - nao) ? \033[01;37" 
+               tput cup 15 70 
+               read resp
+               if [ "$resp" != "s" ] && [ "$resp" != "S" ] && [ "$resp" != "n" ] && [ "$resp" != "N" ] ; then
+                  tput cup 23 12
+                  echo $tpEcoar  "\033[00;37mResposta invalida!\033[01;37" 
+                  sleep 3 > /dev/null
+               else
+                  erro=0
+               fi
+            done
+            # trata resp
+            if [ "$resp" = "s" ] || [ "$resp" = "S" ] ; then
+               tput cup 23 12
+               echo "                                           "
+               # realizar a mesclagem
+               # zera variavel
+               flag=0
+               # faz bkp do arquivo de destino 
+               if [ "$flag" -eq 0 ] ; then
+                  if ! cp -f $nomeArqNew $DIRPEDTEMP > /dev/null ; then
+                     flag=1
+                     tput cup 23 12
+                     echo $tpEcoar  "\033[00;37mImpossivel realizar mesclagem ( 01 )!\033[01;37" 
+                     sleep 3 > /dev/null
+                  fi
+               fi
+               # joga conteudo de origem em destino
+               if [ "$flag" -eq 0 ] ; then
+                  if ! cat $nomeArq > $nomeArqNew ; then
+                     flag=1
+                     tput cup 23 12
+                     echo $tpEcoar  "\033[00;37mImpossivel realizar mesclagem ( 02 )!\033[01;37" 
+                     sleep 3 > /dev/null
+                  else
+                     echo "33Uniao de pedidos $numOrca com $numOrcaNew  em `date '+%d/%m/%y as %H:%M'`" >> $nomeArqNew
+                  fi
+               fi
+               # joga conteudo destino para seu arquivo inicial
+               if [ "$flag" -eq 0 ] ; then
+                  if ! sed -e '1d' $DIRPEDTEMP$numOrcaNew.log >> $nomeArqNew ; then
+                     flag=1
+                     tput cup 23 12
+                     echo $tpEcoar  "\033[00;37mImpossivel realizar mesclagem ( 03 )\033[01;37" 
+                     sleep 3 > /dev/null
+                  fi
+               fi
+               # se a mesclagem foi um sucesso
+               if [ "$flag" -eq 0 ] ; then
+                  tput cup 23 12
+                  echo "                                           "
+                  tput cup 23 12
+                  echo $tpEcoar  "\033[00;37mUniao de pedidos realizada com sucesso!\033[01;37" 
+                  sleep 3 > /dev/null
+                  error=0
+                  rm -f $DIRPEDTEMP$numOrcaNew.log > /dev/null
+               fi   
+            elif [ "$resp" = "n" ] || [ "$resp" = "N" ] ; then
+               error=0
+            fi
+         fi
+      elif [ "$resp" = "s" ] || [ "$resp" = "S" ] ; then
+         error=0
+      fi
+   done
+} 
+
+# /**
+# * consultar
+# * Método que consulta pedido ja existente
+# * @version 1.0
+# * @package eventosped
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+consultar(){
+   $PRGCONSULTA $nomeArq
+}
+
+# // fim funcoes do script
+
+# // corpo do script
+
+while [ "$retornar" -eq 0 ]; do
+   # chama tela de entrada
+   displayTelaEntrada
+   # verifica return
+   if [ "$?" != 1 ] ; then
+      displayOpcoes
+      case "$resp" in
+      1)
+         incluirEvento                   # chamada da funcao inclusao de eventos
+	;;
+      2)
+	 mesclar                         # chamada da funcao de mesclar pedido
+	;;
+      3)
+         consultar                       # chamada da funcao de consulta
+        ;;
+      esac
+   else
+      sleep 3 > /dev/null
+   fi
+done
+exit 0
+# // fim corpo do script

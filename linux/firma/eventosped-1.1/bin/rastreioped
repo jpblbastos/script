@@ -1,0 +1,282 @@
+# /**
+# *
+# * Este arquivo é parte do projeto evento de orcamentos - sistema de eventos dos orcamentos da G. A. Silva
+# *
+# * Este programa é um software livre: você pode redistribuir e/ou modificá-lo
+# * sob os termos da Licença Pública Geral GNU (GPL)como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior
+# * e/ou 
+# * sob os termos da Licença Pública Geral Menor GNU (LGPL) como é publicada pela Fundação
+# * para o Software Livre, na versão 3 da licença, ou qualquer versão posterior.
+# *  
+# * Você deve ter recebido uma cópia da Licença Publica GNU e da 
+# * Licença Pública Geral Menor GNU (LGPL) junto com este programa.
+# * Caso contrário consulte <http://www.fsfla.org/svnwiki/trad/GPLv3> ou
+# * <http://www.fsfla.org/svnwiki/trad/LGPLv3>. 
+# *
+# * @package        eventosped
+# * @name           rastreioped
+# * @version        1.1
+# * @license        http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
+# * @copyright      2011 &copy Twoclick Criações
+# * @author         Joao Paulo Bastos L. <jpbl.bastos at gmail dot com>
+# * @date           28-Ago-2012
+# * @description    mostra na tela os eventos de um orcamento informado 
+# * ---------------------------------------------------------------------------------------------------- *
+# * @author         Joao Paulo Bastos L. <jpbl.bastos at gmail dot com>
+# * @change         buscar pelo numero da nf-e no diretorio de logs
+# * @date           05-Junho-2013
+# *
+# **/   
+
+#  // propriedades do script
+
+# /**
+# * DIRPED
+# * diretorios de orcamentos para o rastreio
+# * @var string
+# */
+DIRPED="/usr/gasilva/logmens/vendas/"
+
+# /**
+# * resp
+# * captura resposta do usuario
+# * @var string
+# */
+resp=
+
+# /**
+# * retornar
+# * variavel responsavel pelo loop principal onde (1 - true / 0 - false)
+# * @var string
+# */
+retornar=0
+
+# /**
+# * nomeArq
+# * nome completo do arquivo de registro informado
+# * @var string
+# */
+nomeArq=
+
+# /**
+# * tpEcoar
+# * tipo de echo(linux ou unix), quando linix usar -e e quando for unix deixar em branco
+# * @var string
+# */
+tpEcoar=
+
+# // fim das propriedades do script
+
+
+# // funcoes do script
+
+# /**
+# * displayTelaEntrada
+# * Método que mostra a tela de entrada
+# * @version 1.0
+# * @package eventosped
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+displayTelaEntrada(){
+   # variavel boleana issoNF
+   issoNF=0
+   # monta tela
+   tput clear
+   tput cup 1 1
+   echo $tpEcoar "\033[00;37mG. A. SILVA & CIA LTDA\033[01;37 "
+   tput cup 2 1
+   echo $tpEcoar "\033[00;37mConsulta Eventos dos Orcamentos\033[01;37 "
+   tput cup 3 1
+   echo $tpEcoar "\033[00;37m______________________________________________________________________\033[01;37"
+   tput cup 10 15
+   echo $tpEcoar "\033[00;37mNumero Orcamento: \033[01;37"
+   tput cup 21 1
+   echo $tpEcoar "\033[00;37m_____________________________________________________Opcoes: S -> Sair\033[01;37"
+   tput cup 23 1
+   echo $tpEcoar "\033[00;37mResposta:\033[01;37 "
+   tput rev
+   tput cup 10 33
+   read resp
+   tput sgr0 rev
+   # validacoes com a resposta lida em resp
+   # verifica se retorno foi acionado
+   if [ "$resp" = "s" ] || [ "$resp" = "S" ] ; then
+      exit 0
+   else
+      # verifica se foi acionado o modo de nf-e
+      if [ "$resp" = "" ] ; then
+         tput cup 10 1
+         echo $tpEcoar  "                                          "
+         tput cup 10 15
+         echo $tpEcoar "\033[00;37mNumero NF-e: \033[01;37"
+         tput rev
+         tput cup 10 28
+         read resp
+         tput sgr0 rev
+         issoNF=1
+         # trata saida
+         if [ "$resp" = "s" ] || [ "$resp" = "S" ] ; then
+            exit 0
+         fi
+      fi
+      # verificar se digitacao so contem numeros
+      erro=`echo "$resp" |egrep '^[0-9]' > /dev/null`
+      if [ "$?" -eq 1 ] ; then
+         tput cup 23 12
+         echo $tpEcoar "\033[00;37mOPS, foram digitadas letras, e invalido $resp !\033[01;37"
+         return 1
+      fi
+      # verificar tamanho da variavel de resp
+      erro=${#resp}
+      if [ "$erro" -ne 6 ] ; then
+         tput cup 23 12
+         echo $tpEcoar "\033[00;37mOPS, numero do orcamento invalido $resp !\033[01;37"
+         return 1
+      fi
+      # verificar se arquivo existe
+      if [ "$issoNF" -eq 1 ] ; then
+         nomeArq=$DIRPED$resp.nf
+      else
+         nomeArq=$DIRPED$resp.log
+      fi
+      if [ ! -e $nomeArq ] ; then
+         tput cup 23 12
+         echo $tpEcoar "\033[00;37mOPS, Orcamento $resp nao encontrado !\033[01;37"
+         return 1
+      fi   
+   fi
+} 
+
+# /**
+# * displayHeader
+# * Método que mostra o cabecalho do log do orcamento
+# * @version 1.0
+# * @package eventosped
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+displayHeader(){
+   tput clear
+   tput cup 1 1
+   LN=`sed -n 1,1p $nomeArq`
+   echo $tpEcoar "\033[04;37mCLIENTE: $LN\033[01;37"                                                
+   tput cup 3 1 
+   echo $tpEcoar "\033[00;30;47m__________________________REGISTRO DE EVENTOS________________________________\033[01;37"
+   tput cup 23 1
+   echo $tpEcoar "\033[00;37m_____________________________________________________________________________\033[01;37"
+}
+
+# /**
+# * displayBoby
+# * Método que mostra o corpo do log do orcamento
+# * @version 1.0
+# * @package eventosped
+# * @author  joao paulo bastos <jpbl.bastos at gmail dot com>
+# */
+displayBoby(){
+   n=`more $nomeArq |wc -l`   # numero de linhas no arquivo   
+   p=0                        # interacao do while                                                                                               
+   i=2                        # define a linha para o sed      
+   v=1                        # contagem de voltas
+   l=4                        # linha para dar o echo                                                                                                                                                                                   
+   while [ "$p" -le "$n" ] ; do
+      if [ "$p" -ge "$n" ] ; then
+         tput cup 22 5
+         echo $tpEcoar "\033[01;37mOpcoes Recua -> R  / Sair -> S : \033[01;37"
+         tput cup 22 38
+         read resp
+         if [ "$resp" = "R" ] || [ "$resp" = "R" ] ; then
+            displayHeader
+            i=2
+            p=0
+            l=4
+         elif [ "$resp" = "S" ] || [ "$resp" = "s" ] ; then 
+            return 
+         else
+            displayHeader
+            i=2
+            p=0
+            l=4
+         fi
+      fi
+      if [ "$p" -eq 17 ] ; then
+         tput cup 22 5
+         echo $tpEcoar "\033[01;37mOpcoes Recua -> R / Avanca -> A / Sair -> S : \033[01;37"
+         tput cup 22 51
+         read resp
+         if [ "$resp" = "R" ] || [ "$resp" = "R" ] ; then
+            displayHeader
+            i=2
+            p=0
+            l=4
+         elif [ "$resp" = "A" ] || [ "$resp" = "a" ] ; then 
+            displayHeader
+            i=19
+            p=0
+            l=4
+         elif [ "$resp" = "S" ] || [ "$resp" = "s" ] ; then 
+            return 
+         else
+            displayHeader
+            i=2
+            p=0
+            l=4
+         fi
+      fi
+      # pega a linha 
+      LN=`sed -n ${i},${i}p $nomeArq`
+      # pega a cor do texto para ecoar
+      cor=`echo "$LN"|cut -c1-2`
+      # retira o codigo da cor da linha
+      LN=`echo "$LN"|cut -c3-100`
+      # escrevendo
+      tput cup $l 1
+      erro=${#cor}
+      if [ "$erro" -gt 0 ] ; then
+         if [ "$cor" -eq 32 ] ; then
+            echo $tpEcoar "\033[01;32m$LN\033[01;37"
+         elif [ "$cor" -eq 31 ] ; then
+            echo $tpEcoar "\033[01;31m$LN\033[01;37"
+         elif [ "$cor" -eq 33 ] ; then
+            echo $tpEcoar "\033[01;33m$LN\033[01;37"
+         else
+            echo $tpEcoar "\033[01;30m$LN\033[01;37"
+         fi
+      fi
+      i=$((i + 1))           # define a linha para o sed
+      p=$((p + 1))           # define a volta
+      l=$((l + 1))           # define a linha para tput
+   done  
+}
+
+
+# // fim funcoes do script
+
+# // corpo do script
+
+while [ "$retornar" -eq 0 ]; do
+   # verifica se ha parametros de buscas automaticas
+   if [ $# -eq 1 ]; then
+      # se ha parametros de busca nomeArq o recebe
+      nomeArq=$1
+      # chama  header do log do orcamento
+      displayHeader 
+      # chama body do log do orcamento
+      displayBoby
+      retornar=1
+   else
+      # chama tela de entrada
+      displayTelaEntrada
+      # verifica return
+      if [ "$?" != 1 ] ; then
+         # chama  header do log do orcamento
+         displayHeader 
+         # chama body do log do orcamento
+         displayBoby
+      else
+         sleep 3 > /dev/null
+      fi
+   fi
+done
+exit 0
+# // fim corpo do script
